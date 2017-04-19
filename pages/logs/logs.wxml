@@ -1,0 +1,8 @@
+<!--logs.wxml-->
+<view class="container log-list">
+  <button bindtap="clearLogs"> Clear Logs </button>
+  <block wx:for="{{logs}}" wx:for-item="log" wx:key="*this">
+    <text class="log-item">【{{index + 1}}】 {{log}}</text>
+  </block>
+  <button bindtap="changeName"> 改变内容 </button>
+</view>
