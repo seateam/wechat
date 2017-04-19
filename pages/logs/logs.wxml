@@ -1,8 +1,9 @@
 <!--logs.wxml-->
-<view class="container log-list">
+<view class="box log-list">
   <button bindtap="clearLogs"> Clear Logs </button>
-  <block wx:for="{{logs}}" wx:for-item="log" wx:key="*this">
-    <text class="log-item">【{{index + 1}}】 {{log}}</text>
-  </block>
+  <!-- index 下标， item 元素， wx:key="*this" 套路（自动排序）  -->
+  <view wx:for="{{logs}}" wx:key="*this">
+    {{item}}
+  </view>
   <button bindtap="changeName"> 改变内容 </button>
 </view>

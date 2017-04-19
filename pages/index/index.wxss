@@ -2,19 +2,21 @@
 view {
   text-align: center;
 }
-
 button {
   width: 80%;
   border-radius: 4px;
   border: 1px solid #037DD8;
   background-color: #037DD8;
   color: white;
-  pointer-events: none;
   margin: 8px auto;
 }
 
 button:active {
   background-color: #000;
+}
+
+.event-hide {
+  pointer-events: none;
 }
 
 .red {

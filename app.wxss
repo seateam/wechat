@@ -1,10 +1,10 @@
-/**app.wxss**/
-.container {
-  height: 100%;
+
+.box {
+  font-family: SF UI Text,Hiragino Sans GB,Roboto,Segoe UI,Microsoft Yahei,sans-serif;
   display: flex;
+  height: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 200rpx 0;
   box-sizing: border-box;
-} 
+}
