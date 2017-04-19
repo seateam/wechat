@@ -1,10 +1,43 @@
-
 .box {
+  box-sizing: border-box;
   font-family: SF UI Text,Hiragino Sans GB,Roboto,Segoe UI,Microsoft Yahei,sans-serif;
   display: flex;
   height: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  box-sizing: border-box;
+}
+/* 按钮样式 */
+.btn {
+  margin: 8px auto;
+  width: 80%;
+  vertical-align: middle;
+  border-radius: 4px;
+  border: 1px solid transparent;
+}
+.btn-white {
+  color: #8590A6;
+  background-color: #FFF;
+  border-color: #9DA3A6;
+}
+.btn-white:hover {
+  background-color: #F5F6F9;
+}
+.btn-blue {
+  color: #FFF;
+  background-color: #037DD8;
+  border-color: #0771C1;
+}
+.btn-blue:hover {
+  background-color: #0771C1;
+  border-color: #0363AC;
+}
+.btn-red {
+  color: #FFF;
+  background-color: #D9534F;
+  border-color: #D43F3A;
+}
+.btn-red:hover {
+  background-color: #C9302C;
+  border-color: #AC2925;
 }

@@ -1,5 +1,5 @@
 //logs.js
-var util = require('../../utils/util.js')
+var c = require('../../ku/bigsea.js')
 Page({
   data: {
     logs: []
@@ -8,7 +8,7 @@ Page({
     var logs = wx.getStorageSync('logs') || []
     var arr = []
     for (var i of logs) {
-      var e = util.formatTime(new Date(i))
+      var e = c.formatTime(new Date(i))
       arr.push(e)
     }
     this.setData({
