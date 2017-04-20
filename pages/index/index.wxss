@@ -1,7 +1,7 @@
-/**index.wxss**/
-
-.event-hide {
-  pointer-events: none;
+.swiper {
+  margin: 0 auto;
+  width: 320px;
+  height: 430px;
 }
 
 .userinfo {
@@ -9,7 +9,6 @@
   flex-direction: column;
   align-items: center;
 }
-
 .head {
   background-size: cover;
   width: 256rpx;
@@ -17,11 +16,6 @@
   margin: 20rpx;
   border-radius: 50%;
 }
-
 .userinfo-nickname {
   color: #aaa;
-}
-
-.usermotto {
-  margin-top: 40px;
 }

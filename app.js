@@ -2,8 +2,8 @@
 var options = {
   // onLaunch 全局登陆触发一次
   onLaunch: function () {
-    this.logs()
     this.login()
+    this.logs()
   },
   logs: function() {
     var arr = wx.getStorageSync('logs') || []
@@ -11,13 +11,13 @@ var options = {
     wx.setStorageSync('logs', arr)
   },
   login:function(){
-    var obj = this
+    var that = this
     wx.login({
       success: function() {
         wx.getUserInfo({
           withCredentials: false,
           success: function (res) {
-            obj.Data.userInfo = res.userInfo
+            that.Data.userInfo = res.userInfo
           }
         })
       }
