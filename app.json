@@ -1,12 +1,32 @@
 {
-  "pages":[
+    "pages":[
     "pages/index/index",
     "pages/logs/logs"
-  ],
-  "window":{
+    ],
+    "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#333",
     "navigationBarTitleText": "小程序",
     "navigationBarTextStyle":"white"
-  }
+    },
+    "tabBar": {
+        "backgroundColor": "#222",
+        "color": "#666",
+        "selectedColor": "#aaa",
+        "list": [{
+            "pagePath": "pages/index/index",
+            "iconPath": "ku/img/icecream-04.png",
+            "selectedIconPath": "ku/img/icecream-04.png",
+            "text": "首页"
+        }, {
+            "pagePath": "pages/logs/logs",
+            "iconPath": "ku/img/icecream-12.png",
+            "selectedIconPath": "ku/img/icecream-12.png",
+            "text": "日志"
+        }]
+    },
+    "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+    }
 }

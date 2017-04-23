@@ -15,7 +15,7 @@ Page({
       logs: arr
     })
   },
-  changeName: function(e) {
+  changeName: function() {
     // sent data change to view
     this.setData({
       logs: ['吃饭','睡觉']

@@ -7,10 +7,18 @@
   </block>
 </swiper>
 <view class="box">
-  <!-- 用户 -->
-  <view  bindtap="bindViewTap" class="userinfo">
-    <image class="head" src="{{userInfo.avatarUrl}}"></image>
-    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-  </view>
+    <button bindtap="changeName" class="btn btn-blue"> Click me </button>
+    <view> Hello {{name}}</view>
+    <button bindtap="nextPage" class="btn btn-red"> Next Page </button>
 
+    <!-- 用户 -->
+    <view  bindtap="bindViewTap" class="userinfo">
+      <image class="head" src="{{userInfo.avatarUrl}}"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </view>
+
+    <!-- 欢迎语 -->
+    <view class="usermotto">
+      <text class="user-motto">{{motto}}</text>
+    </view>
 </view>

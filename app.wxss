@@ -29,7 +29,7 @@ page {
   background-color: #FFF;
   border-color: #9DA3A6;
 }
-.btn-white:hover {
+.btn-white:active {
   background-color: #F5F6F9;
 }
 .btn-blue {
@@ -37,7 +37,7 @@ page {
   background-color: #037DD8;
   border-color: #0771C1;
 }
-.btn-blue:hover {
+.btn-blue:active {
   background-color: #0771C1;
   border-color: #0363AC;
 }
@@ -46,7 +46,7 @@ page {
   background-color: #D9534F;
   border-color: #D43F3A;
 }
-.btn-red:hover {
+.btn-red:active {
   background-color: #C9302C;
   border-color: #AC2925;
 }
