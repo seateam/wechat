@@ -1,6 +1,6 @@
 //logs.js
 var c = require('../../ku/bigsea.js')
-Page({
+var options = {
   data: {
     logs: []
   },
@@ -23,8 +23,10 @@ Page({
   },
   clearLogs: function() {
     wx.removeStorageSync('logs')
+    // delete localStorage.logs
     this.setData({
       logs: []
     })
   }
-})
+}
+Page(options)

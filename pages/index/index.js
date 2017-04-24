@@ -16,9 +16,28 @@ Page({
     name: 'Hasaki'
     },
     onLoad: function () {
-        this.setData({
-            userInfo: app.Data.userInfo
+        var that = this
+        wx.login({
+          success: function () {
+            wx.getUserInfo({
+              success: function (res) {
+                  console.log(res.userInfo)
+                that.setData({
+                  userInfo: res.userInfo
+                })
+              }
+            })
+          }
         })
+        // var that = this
+        // //调用应用实例的方法获取全局数据
+        // var func = function(userInfo){
+        //   //更新数据
+        //   that.setData({
+        //     userInfo:userInfo
+        //   })
+        // }
+        // app.login(func)
     },
     changeName: function() {
         this.setData({

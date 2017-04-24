@@ -23,6 +23,11 @@
             "iconPath": "ku/img/icecream-12.png",
             "selectedIconPath": "ku/img/icecream-12.png",
             "text": "日志"
+        }, {
+            "pagePath": "pages/logs/logs",
+            "iconPath": "ku/img/icecream-12.png",
+            "selectedIconPath": "ku/img/icecream-12.png",
+            "text": "日志"
         }]
     },
     "networkTimeout": {

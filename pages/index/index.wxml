@@ -6,13 +6,16 @@
     </swiper-item>
   </block>
 </swiper>
+
+
+
 <view class="box">
     <button bindtap="changeName" class="btn btn-blue"> Click me </button>
     <view> Hello {{name}}</view>
     <button bindtap="nextPage" class="btn btn-red"> Next Page </button>
 
     <!-- 用户 -->
-    <view  bindtap="bindViewTap" class="userinfo">
+    <view class="userinfo">
       <image class="head" src="{{userInfo.avatarUrl}}"></image>
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </view>
