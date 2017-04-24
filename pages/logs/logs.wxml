@@ -3,7 +3,7 @@
   <button bindtap="clearLogs" class="btn btn-white"> Clear Logs </button>
 
   <!-- index 下标， item 元素， wx:key="*this" 套路（自动排序）  -->
-  <view wx:for="{{logs}}" wx:key="*this">
+  <view wx:for="{{logs}}" wx:key="unique">
     {{item}}
   </view>
 
