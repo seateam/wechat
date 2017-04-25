@@ -36,7 +36,7 @@ Page({
     },
     nextPage: function() {
         wx.switchTab({
-            url: '../logs/logs'
+            url: '../logs/log'
         })
         // wx.navigateTo({
         //     url: '../logs/logs'

@@ -1,8 +1,9 @@
 {
     "pages":[
     "pages/index/index",
-    "pages/logs/logs",
-    "pages/map/map"
+    "pages/logs/log",
+    "pages/map/map",
+    "pages/map_search/search"
     ],
     "window":{
     "backgroundTextStyle":"light",
@@ -25,7 +26,7 @@
             "selectedIconPath": "ku/img/icecream-12.png",
             "text": "地图"
         }, {
-            "pagePath": "pages/logs/logs",
+            "pagePath": "pages/logs/log",
             "iconPath": "ku/img/icecream-12.png",
             "selectedIconPath": "ku/img/icecream-12.png",
             "text": "日志"
