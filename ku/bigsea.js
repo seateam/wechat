@@ -105,7 +105,7 @@ Sea.Cookie = (name, value, day) => {
         document.cookie = name + "=" + encodeURIComponent(value) + str
     }
 }
-// ( date )
+// ( 1921 < date < 2020 )
 Sea.Lunar = function(date) {
     // 获取时间
     var obj = new Object
@@ -120,6 +120,7 @@ Sea.Lunar = function(date) {
     if (yy < 100) {
         yy = "19" + yy
     }
+    var cYear, cMonth, cDay, TheDate
     // 农历参数
     var CalendarData = [0xA4B, 0x5164B, 0x6A5, 0x6D4, 0x415B5, 0x2B6, 0x957, 0x2092F, 0x497, 0x60C96, 0xD4A, 0xEA5, 0x50DA9, 0x5AD, 0x2B6, 0x3126E, 0x92E, 0x7192D, 0xC95, 0xD4A, 0x61B4A, 0xB55, 0x56A, 0x4155B, 0x25D, 0x92D, 0x2192B, 0xA95, 0x71695, 0x6CA, 0xB55, 0x50AB5, 0x4DA, 0xA5B, 0x30A57, 0x52B, 0x8152A, 0xE95, 0x6AA, 0x615AA, 0xAB5, 0x4B6, 0x414AE, 0xA57, 0x526, 0x31D26, 0xD95, 0x70B55, 0x56A, 0x96D, 0x5095D, 0x4AD, 0xA4D, 0x41A4D, 0xD25, 0x81AA5, 0xB54, 0xB6A, 0x612DA, 0x95B, 0x49B, 0x41497, 0xA4B, 0xA164B, 0x6A5, 0x6D4, 0x615B4, 0xAB6, 0x957, 0x5092F, 0x497, 0x64B, 0x30D4A, 0xEA5, 0x80D65, 0x5AC, 0xAB6, 0x5126D, 0x92E, 0xC96, 0x41A95, 0xD4A, 0xDA5, 0x20B55, 0x56A, 0x7155B, 0x25D, 0x92D, 0x5192B, 0xA95, 0xB4A, 0x416AA, 0xAD5, 0x90AB5, 0x4BA, 0xA5B, 0x60A57, 0x52B, 0xA93, 0x40E95]
     var madd = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]
@@ -128,26 +129,16 @@ Sea.Lunar = function(date) {
     var numString = "一二三四五六七八九十"
     var monString = "正二三四五六七八九十冬腊"
     var weekString = "日一二三四五六"
-    var keString = "初二三三"
+    var keString = ['','初刻','二刻','三刻']
     var sx = "鼠牛虎兔龙蛇马羊猴鸡狗猪"
-    var cYear, cMonth, cDay, TheDate
-    // 十二时辰
-	obj.Time = D.getTime()
-    obj.Shi = dzString[Math.floor(hh / 2)]
-    obj.Ke = keString[Math.floor(min / 15)] + '刻'
-    if ((hh / 2) % 1 === 0) {
-        obj.Shi += "时"
-    } else {
-        obj.Shi += "正"
-    }
+    var sTermInfo = [0, 21208, 42467, 63836, 85337, 107014, 128867, 150921, 173149, 195551, 218072, 240693, 263343, 285989, 308563, 331033, 353350, 375494, 397447, 419210, 440795, 462224, 483532, 504758]
+    var solarTerm = ["小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "立秋", "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪", "冬至"]
     // 节气
     var GetSolarTerm = function(solarYear, solarMonth, solarDay) {
-        var yy = solarYear,
-            mm = solarMonth,
-            dd = solarDay
-        var sTermInfo = [0, 21208, 42467, 63836, 85337, 107014, 128867, 150921, 173149, 195551, 218072, 240693, 263343, 285989, 308563, 331033, 353350, 375494, 397447, 419210, 440795, 462224, 483532, 504758]
-        var solarTerm = ["小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "立秋", "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪", "冬至"]
-        mm = mm - 1;
+        var yy = solarYear
+        var mm = solarMonth
+        var dd = solarDay
+        var mm = mm - 1;
         var tmp1 = new Date((31556925974.7 * (yy - 1900) + sTermInfo[mm * 2 + 1] * 60000) + Date.UTC(1900, 0, 6, 2, 5));
         var tmp2 = tmp1.getUTCDate();
         var result = "";
@@ -155,11 +146,22 @@ Sea.Lunar = function(date) {
             result = solarTerm[mm * 2 + 1];
         tmp1 = new Date((31556925974.7 * (yy - 1900) + sTermInfo[mm * 2] * 60000) + Date.UTC(1900, 0, 6, 2, 5));
         tmp2 = tmp1.getUTCDate();
-        if (tmp2 == dd)
+        if (tmp2 == dd) {
             result = solarTerm[mm * 2];
+        }
         obj.SolarTerm = result
-    }(yy,mm,dd)
-    // 年-月-日
+    }
+    // 十二时辰
+    var Get12Time = function() {
+        obj.Shi = dzString[Math.floor(hh / 2)]
+        if ((hh / 2) % 1 === 0) {
+            obj.Shi += "时"
+        } else {
+            obj.Shi += "正"
+        }
+        obj.Ke = keString[Math.floor(min / 15)]
+    }
+    // 农历
     var GetBit = function(m, n) {
         return (m >> n) & 1;
     }
@@ -201,6 +203,7 @@ Sea.Lunar = function(date) {
         }
     }
     var toString = function() {
+        obj.Time = D.getTime()
         // 天干 地支
         obj.Year = tgString.charAt((cYear - 4) % 10) + dzString.charAt((cYear - 4) % 12)
         // 生肖
@@ -238,13 +241,18 @@ Sea.Lunar = function(date) {
     var GetLunarDay = function(solarYear, solarMonth, solarDay) {
         //solarYear = solarYear<1900?(1900+solarYear):solarYear;
         if (solarYear < 1921 || solarYear > 2020) {
-            return "";
+            obj.Str = '年份超出(1921-2020)'
         } else {
             solarMonth = (parseInt(solarMonth) > 0) ? (solarMonth - 1) : 11;
             e2c(solarYear, solarMonth, solarDay);
             toString()
+            GetSolarTerm(yy, mm, dd)
         }
-    }(yy, mm, dd)
+    }
+    var init = function() {
+        Get12Time()
+        GetLunarDay(yy, mm, dd)
+    }()
     return obj
 }
 // 前端

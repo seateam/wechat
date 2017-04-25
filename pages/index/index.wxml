@@ -7,8 +7,6 @@
   </block>
 </swiper>
 
-
-
 <view class="box">
     <button bindtap="changeName" class="btn btn-blue"> Click me </button>
     <view> Hello {{name}}</view>

@@ -11,7 +11,7 @@ Page({
     autoplay: true,
     interval: 3000,
     duration: 1000,
-    userInfo: {},
+    userInfo: null,
     name: 'Hasaki'
     },
     onLoad: function () {

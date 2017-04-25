@@ -1,4 +1,3 @@
-//logs.js
 var c = require('../../ku/bigsea.js')
 var options = {
   data: {
