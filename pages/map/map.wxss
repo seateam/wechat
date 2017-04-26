@@ -1,9 +1,17 @@
-.map_container{
+.map_close {
   position: absolute;
-  top: 0;
-  bottom: 80px;
-  left: 0;
   right: 0;
+  bottom: 0;
+  height: 55px;
+  padding: 0 15px;
+  z-index: 1;
+}
+.map_container{
+    position: absolute;
+    top: 0;
+    bottom: 80px;
+    left: 0;
+    right: 0;
 }
 .map{
   width: 100%;

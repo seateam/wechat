@@ -10,7 +10,8 @@
 <view class="box">
     <button bindtap="changeName" class="btn btn-blue"> Click me </button>
     <view> Hello {{name}}</view>
-    <button bindtap="nextPage" class="btn btn-red"> Next Page </button>
+    <button bindtap="TakePhoto" class="btn btn-red"> Take a Photo </button>
+    <button bindtap="toMap" class="btn btn-red"> to Map </button>
 
     <!-- 用户 -->
     <view class="userinfo">

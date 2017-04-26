@@ -2,7 +2,8 @@ var amapFile = require('../../ku/amap-wx.js');
 var config = require('../../ku/config.js');
 var marker = '../../ku/img/icecream-07.png'
 var marker_checked = '../../ku/img/icecream-18.png'
-var marker_data = [];
+
+var markersData = [];
 Page({
     data: {
         markers: [],
@@ -14,8 +15,8 @@ Page({
     makertap: function(e) {
         var id = e.markerId;
         var that = this;
-        that.showMarkerInfo(marker_data, id);
-        that.changeMarkerColor(marker_data, id);
+        that.showMarkerInfo(markersData, id);
+        that.changeMarkerColor(markersData, id);
     },
     onLoad: function(e) {
         var that = this;
@@ -27,10 +28,10 @@ Page({
             iconPathSelected: marker_checked,
             iconPath: marker,
             success: function(data) {
-                marker_data = data.markers;
+                markersData = data.markers;
                 var poisData = data.poisData;
                 var markers_new = [];
-                marker_data.forEach(function(item, index) {
+                markersData.forEach(function(item, index) {
                     markers_new.push({
                         id: item.id,
                         latitude: item.latitude,
@@ -39,9 +40,8 @@ Page({
                         width: item.width,
                         height: item.height
                     })
-
                 })
-                if (marker_data.length > 0) {
+                if (markersData.length > 0) {
                     that.setData({
                         markers: markers_new
                     });
@@ -49,12 +49,12 @@ Page({
                         city: poisData[0].cityname || ''
                     });
                     that.setData({
-                        latitude: marker_data[0].latitude
+                        latitude: markersData[0].latitude
                     });
                     that.setData({
-                        longitude: marker_data[0].longitude
+                        longitude: markersData[0].longitude
                     });
-                    that.showMarkerInfo(marker_data, 0);
+                    that.showMarkerInfo(markersData, 0);
                 } else {
                     wx.getLocation({
                         type: 'gcj02',
@@ -102,7 +102,7 @@ Page({
     },
     bindInput: function(e) {
         var that = this;
-        var url = '../inputtips/input';
+        var url = '../map_search/search';
         if (e.target.dataset.latitude && e.target.dataset.longitude && e.target.dataset.city) {
             var dataset = e.target.dataset;
             url = url + '?lonlat=' + dataset.longitude + ',' + dataset.latitude + '&city=' + dataset.city;
@@ -141,6 +141,13 @@ Page({
         that.setData({
             markers: markers
         });
+    },
+    mapClose: function() {
+        wx.switchTab({
+            url: '../map_search/search'
+        })
+        // wx.navigateBack({
+        //     delta: getCurrentPages().length
+        // })
     }
-
 })

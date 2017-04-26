@@ -21,19 +21,19 @@
             "selectedIconPath": "ku/img/icecream-04.png",
             "text": "首页"
         }, {
-            "pagePath": "pages/map/map",
-            "iconPath": "ku/img/icecream-12.png",
-            "selectedIconPath": "ku/img/icecream-12.png",
-            "text": "地图"
-        }, {
             "pagePath": "pages/logs/log",
             "iconPath": "ku/img/icecream-12.png",
             "selectedIconPath": "ku/img/icecream-12.png",
             "text": "日志"
+        }, {
+            "pagePath": "pages/map_search/search",
+            "iconPath": "ku/img/icecream-12.png",
+            "selectedIconPath": "ku/img/icecream-12.png",
+            "text": "搜索"
         }]
     },
     "networkTimeout": {
-        "request": 10000,
-        "downloadFile": 10000
+        "request": 6000,
+        "downloadFile": 6000
     }
 }
