@@ -1,3 +1,7 @@
+/* heihlight css */
+@import "ku/css/atom-one-light.min.css"
+/* main css */
+/* galbol */
 image {
   width: 100%;
   height: 100%;
@@ -5,13 +9,6 @@ image {
 page {
   background-color: white;
 }
-
-.fa-lg {
-    font-size: 1.33333333em;
-    line-height: 0.75em;
-    vertical-align: -15%;
-}
-
 .box {
   box-sizing: border-box;
   font-family: SF UI Text,Hiragino Sans GB,Roboto,Segoe UI,Microsoft Yahei,sans-serif;
@@ -21,9 +18,16 @@ page {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  /*text-align: center;*/
+  text-align: center;
 }
-/* 按钮样式 */
+/* icon*/
+.fa-lg {
+    font-size: 1.33333333em;
+    line-height: 0.75em;
+    vertical-align: -15%;
+}
+
+/* button */
 .btn {
   margin: 8px auto;
   width: 80%;

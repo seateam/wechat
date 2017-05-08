@@ -1,5 +1,5 @@
-var amapFile = require('../../ku/amap-wx.js');
-var config = require('../../ku/config.js');
+var amapFile = require('../../ku/js/amap-wx.js');
+var config = require('../../ku/js/config.js');
 var lonlat;
 var city;
 Page({

@@ -1,9 +1,9 @@
-var amapFile = require('../../ku/amap-wx.js');
-var config = require('../../ku/config.js');
-var marker = '../../ku/img/icecream-07.png'
-var marker_checked = '../../ku/img/icecream-18.png'
+const amapFile = require('../../ku/js/amap-wx.js')
+const config = require('../../ku/js/config.js')
+const marker = '../../ku/img/icecream-07.png'
+const marker_checked = '../../ku/img/icecream-18.png'
 
-var markersData = [];
+let markersData = [];
 Page({
     data: {
         markers: [],
@@ -13,24 +13,24 @@ Page({
         city: ''
     },
     makertap: function(e) {
-        var id = e.markerId;
-        var that = this;
+        let id = e.markerId;
+        let that = this;
         that.showMarkerInfo(markersData, id);
         that.changeMarkerColor(markersData, id);
     },
     onLoad: function(e) {
-        var that = this;
-        var key = config.key;
-        var myAmapFun = new amapFile.AMapWX({
+        let that = this;
+        let key = config.key;
+        let myAmapFun = new amapFile.AMapWX({
             key: key
         });
-        var params = {
+        let params = {
             iconPathSelected: marker_checked,
             iconPath: marker,
             success: function(data) {
                 markersData = data.markers;
-                var poisData = data.poisData;
-                var markers_new = [];
+                let poisData = data.poisData;
+                let markers_new = [];
                 markersData.forEach(function(item, index) {
                     markers_new.push({
                         id: item.id,
@@ -101,10 +101,10 @@ Page({
         myAmapFun.getPoiAround(params)
     },
     bindInput: function(e) {
-        var that = this;
-        var url = '../map_search/search';
+        let that = this;
+        let url = '../map_search/search';
         if (e.target.dataset.latitude && e.target.dataset.longitude && e.target.dataset.city) {
-            var dataset = e.target.dataset;
+            let dataset = e.target.dataset;
             url = url + '?lonlat=' + dataset.longitude + ',' + dataset.latitude + '&city=' + dataset.city;
         }
         wx.redirectTo({
@@ -112,7 +112,7 @@ Page({
         })
     },
     showMarkerInfo: function(data, i) {
-        var that = this;
+        let that = this;
         that.setData({
             textData: {
                 name: data[i].name,
@@ -121,9 +121,9 @@ Page({
         });
     },
     changeMarkerColor: function(data, i) {
-        var that = this;
-        var markers = [];
-        for (var j = 0; j < data.length; j++) {
+        let that = this;
+        let markers = [];
+        for (let j = 0; j < data.length; j++) {
             if (j == i) {
                 data[j].iconPath = marker_checked;
             } else {

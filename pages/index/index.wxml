@@ -1,26 +1,9 @@
-<!-- 轮播图 -->
-<swiper class="swiper" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-  <block wx:for="{{imgUrls}}" wx:key="*this">
-    <swiper-item>
-      <image class="swiper-image" mode="aspectFill" src="{{item}}"></image>
-    </swiper-item>
-  </block>
-</swiper>
-
-<view class="box">
-    <button bindtap="changeName" class="btn btn-blue"> Click me </button>
-    <view> Hello {{name}}</view>
-    <button bindtap="TakePhoto" class="btn btn-red"> Take a Photo </button>
-    <button bindtap="toMap" class="btn btn-red"> to Map </button>
-
+<view class="box tan">
     <!-- 用户 -->
     <view class="userinfo">
-      <image class="head" src="{{userInfo.avatarUrl}}"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </view>
-
-    <!-- 欢迎语 -->
-    <view class="usermotto">
-      <text class="user-motto">{{motto}}</text>
+      <image src="{{userInfo.avatarUrl}}"></image>
+      <!-- 欢迎语 -->
+      <view>书</view>
+      <view>信</view>
     </view>
 </view>
