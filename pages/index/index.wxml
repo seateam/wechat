@@ -1,9 +1,9 @@
-<view class="box tan">
+<view class="tan">
     <!-- 用户 -->
-    <view class="userinfo">
-      <image bindtap="clickHead" src="{{userInfo.avatarUrl}}"></image>
-      <!-- 欢迎语 -->
-      <view>书</view>
-      <view>信</view>
+    <view bindtap="clickHead" class="userinfo">
+        <image src="../../ku/img/logo.png"></image>
+        <!-- 欢迎语 -->
+        <view>书</view>
+        <view>信</view>
     </view>
 </view>

@@ -11,6 +11,9 @@ Page({
         lonlat = e.lonlat;
         city = e.city;
     },
+    onPullDownRefresh: function() {
+        wx.stopPullDownRefresh()
+    },
     bindInput: function(e) {
         var that = this;
         var keywords = e.detail.value;

@@ -1,11 +1,10 @@
-<view class="map_container">
-  <map bindmarkertap="makertap" class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}"
-       scale="14" show-location="true" markers="{{markers}}"></map>
-</view>
-<view class="map_text">
-  <text class="h1">{{textData.name}}</text>
-  <text>{{textData.desc}}</text>
-</view>
-<view class="map_close" bindtap="mapClose">
-     <icon class="fa-lg" type="clear" size="20"/>
+<view class="box">
+    <view class="map_container">
+      <map class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}"
+           scale="14" show-location="true" bindmarkertap="makertap" markers="{{markers}}" bindcontroltap="controltap" controls="{{controls}}"></map>
+    </view>
+    <view class="map_text">
+      <text class="h1">{{textData.name}}</text>
+      <text>{{textData.desc}}</text>
+    </view>
 </view>

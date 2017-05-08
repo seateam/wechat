@@ -6,15 +6,17 @@
     "pages/map_search/search"
     ],
     "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#333",
+    "enablePullDownRefresh": true,
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#434343",
     "navigationBarTitleText": "书信",
     "navigationBarTextStyle":"white"
     },
     "tabBar": {
-        "backgroundColor": "#222",
-        "color": "#666",
-        "selectedColor": "#aaa",
+        "borderStyle": "black",
+        "backgroundColor": "black",
+        "color": "#CCC",
+        "selectedColor": "#F5F5F5",
         "list": [{
             "pagePath": "pages/index/index",
             "iconPath": "ku/img/icecream-04.png",

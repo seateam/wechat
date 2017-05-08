@@ -2,21 +2,25 @@ const amapFile = require('../../ku/js/amap-wx.js')
 const config = require('../../ku/js/config.js')
 const marker = '../../ku/img/icecream-07.png'
 const marker_checked = '../../ku/img/icecream-18.png'
-
-let markersData = [];
+let markersData = []
 Page({
     data: {
         markers: [],
         latitude: '',
         longitude: '',
         textData: {},
-        city: ''
-    },
-    makertap: function(e) {
-        let id = e.markerId;
-        let that = this;
-        that.showMarkerInfo(markersData, id);
-        that.changeMarkerColor(markersData, id);
+        city: '',
+        controls: [{
+            id: 0,
+            iconPath: '../../ku/img/clear.png',
+            position: {
+                left: 330,
+                top: 15,
+                width: 30,
+                height: 30
+            },
+            clickable: true
+        }]
     },
     onLoad: function(e) {
         let that = this;
@@ -100,6 +104,22 @@ Page({
         }
         myAmapFun.getPoiAround(params)
     },
+    onPullDownRefresh: function() {
+        wx.stopPullDownRefresh()
+    },
+    makertap: function(e) {
+        let id = e.markerId;
+        let that = this;
+        that.showMarkerInfo(markersData, id);
+        that.changeMarkerColor(markersData, id);
+    },
+    controltap: function(e) {
+        if (e.controlId === 0) {
+            wx.switchTab({
+                url: '../map_search/search'
+            })
+        }
+    },
     bindInput: function(e) {
         let that = this;
         let url = '../map_search/search';
@@ -142,12 +162,4 @@ Page({
             markers: markers
         });
     },
-    mapClose: function() {
-        wx.switchTab({
-            url: '../map_search/search'
-        })
-        // wx.navigateBack({
-        //     delta: getCurrentPages().length
-        // })
-    }
 })

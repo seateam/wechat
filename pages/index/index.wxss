@@ -4,7 +4,6 @@
   height: 256rpx;
   margin: 20rpx;
   border-radius: 50%;
-  border: 1rpx solid #aaa;
 }
 
 .tan {
@@ -13,6 +12,7 @@
     left: 0px;                      /* 左部     */
     width: 100%;
     height: 100%;
+    text-align: center;
 }
 .userinfo {
     position:relative;

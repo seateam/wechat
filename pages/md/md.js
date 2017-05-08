@@ -4,6 +4,9 @@ var options = {
   },
   onLoad: function () {
 
+  },
+  onPullDownRefresh: function() {
+      wx.stopPullDownRefresh()
   }
 }
 Page(options)

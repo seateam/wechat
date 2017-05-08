@@ -9,16 +9,28 @@ const login = function(that) {
                     that.setData({
                         userInfo: res.userInfo
                     })
-                }
+                },
+                fail: () => {}
             })
-        }
+        },
+        fail: () => {}
     })
 }
 Page({
     data: {
-        userInfo: {}
+        userInfo: null
     },
     onLoad: function () {
-        login(this)
+        if (this.data.userInfo === null) {
+            login(this)
+        }
+    },
+    onPullDownRefresh: function() {
+        wx.stopPullDownRefresh()
+    },
+    clickHead: function() {
+        wx.switchTab({
+            url: "../md/md"
+        })
     }
 })
