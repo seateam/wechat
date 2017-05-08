@@ -1,14 +1,14 @@
 {
     "pages":[
     "pages/index/index",
-    "pages/logs/log",
+    "pages/md/md",
     "pages/map/map",
     "pages/map_search/search"
     ],
     "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#333",
-    "navigationBarTitleText": "小程序",
+    "navigationBarTitleText": "书信",
     "navigationBarTextStyle":"white"
     },
     "tabBar": {
@@ -21,10 +21,10 @@
             "selectedIconPath": "ku/img/icecream-04.png",
             "text": "首页"
         }, {
-            "pagePath": "pages/logs/log",
-            "iconPath": "ku/img/icecream-12.png",
-            "selectedIconPath": "ku/img/icecream-12.png",
-            "text": "日志"
+            "pagePath": "pages/md/md",
+            "iconPath": "ku/img/icecream-19.png",
+            "selectedIconPath": "ku/img/icecream-19.png",
+            "text": "写信"
         }, {
             "pagePath": "pages/map_search/search",
             "iconPath": "ku/img/icecream-12.png",

@@ -1,7 +1,7 @@
 <view class="box tan">
     <!-- 用户 -->
     <view class="userinfo">
-      <image src="{{userInfo.avatarUrl}}"></image>
+      <image bindtap="clickHead" src="{{userInfo.avatarUrl}}"></image>
       <!-- 欢迎语 -->
       <view>书</view>
       <view>信</view>

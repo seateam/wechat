@@ -7,5 +7,5 @@
   <text>{{textData.desc}}</text>
 </view>
 <view class="map_close" bindtap="mapClose">
-     <icon class="fa-lg" type="search" size="30"/>
+     <icon class="fa-lg" type="clear" size="20"/>
 </view>

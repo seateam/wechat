@@ -1,8 +1,0 @@
-.log-item {
-    margin: 10rpx;
-    color: #666;
-}
-.log-item:hover {
-    color: white;
-    background-color: #333;
-}
