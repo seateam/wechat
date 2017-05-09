@@ -1,9 +1,7 @@
 {
     "pages":[
-    "pages/index/index",
-    "pages/md/md",
-    "pages/map/map",
-    "pages/map_search/search"
+        "pages/index/index",
+        "pages/md/md"
     ],
     "window":{
     "enablePullDownRefresh": true,
@@ -27,11 +25,6 @@
             "iconPath": "ku/img/icecream-19.png",
             "selectedIconPath": "ku/img/icecream-19.png",
             "text": "写信"
-        }, {
-            "pagePath": "pages/map_search/search",
-            "iconPath": "ku/img/icecream-12.png",
-            "selectedIconPath": "ku/img/icecream-12.png",
-            "text": "搜索"
         }]
     },
     "networkTimeout": {
