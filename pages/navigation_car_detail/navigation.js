@@ -2,6 +2,9 @@ const amapFile = require('../../ku/js/amap-wx.js')
 const config = require('../../ku/js/config.js')
 
 Page({
+    onPullDownRefresh: function() {
+        wx.stopPullDownRefresh()
+    },
   data: {
     steps: {}
   },

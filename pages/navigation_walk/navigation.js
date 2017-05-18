@@ -4,6 +4,9 @@ const marker = '../../ku/img/icecream-07.png'
 const marker_checked = '../../ku/img/icecream-18.png'
 
 Page({
+    onPullDownRefresh: function() {
+        wx.stopPullDownRefresh()
+    },
   data: {
     markers: [{
       iconPath: marker,
