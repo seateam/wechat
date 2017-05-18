@@ -1,7 +1,10 @@
 {
     "pages":[
-        "pages/index/index",
-        "pages/md/md"
+    "pages/index/index",
+    "pages/md/md",
+    "pages/map/map",
+    "pages/map_route/route",
+    "pages/map_search/search"
     ],
     "window":{
     "enablePullDownRefresh": true,
@@ -21,10 +24,15 @@
             "selectedIconPath": "ku/img/icecream-04.png",
             "text": "首页"
         }, {
-            "pagePath": "pages/md/md",
+            "pagePath": "pages/map_route/route",
             "iconPath": "ku/img/icecream-19.png",
             "selectedIconPath": "ku/img/icecream-19.png",
             "text": "写信"
+        }, {
+            "pagePath": "pages/map_search/search",
+            "iconPath": "ku/img/icecream-12.png",
+            "selectedIconPath": "ku/img/icecream-12.png",
+            "text": "搜索"
         }]
     },
     "networkTimeout": {

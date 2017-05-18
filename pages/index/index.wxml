@@ -1,6 +1,6 @@
 <view class="tan">
     <!-- 用户 -->
-    <view class="tanCenter" bindtap="clickHead">
+    <view bindtap="clickHead" class="userinfo">
         <image src="../../ku/img/logo.png"></image>
         <!-- 欢迎语 -->
         <view>书</view>

@@ -1,7 +1,21 @@
-image {
+.userinfo image {
   background-size: cover;
   width: 256rpx;
   height: 256rpx;
   margin: 20rpx;
   border-radius: 50%;
+}
+
+.tan {
+    position: fixed;                /* 定位     */
+    top: 0px;                       /* 顶部     */
+    left: 0px;                      /* 左部     */
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+.userinfo {
+    position:relative;
+    top: 50%;
+    transform: translateY(-61.8%);  /* Y轴距离  */
 }

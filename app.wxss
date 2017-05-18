@@ -1,4 +1,8 @@
 /* galbol */
+button {
+    position: static;
+    display: inline-block;
+}
 image {
   width: 100%;
   height: 100%;
@@ -6,23 +10,19 @@ image {
 page {
   background-color: rgb(67,67,67);
   color: #ccc;
+  box-sizing: border-box;
   font-family: SF UI Text,Hiragino Sans GB,Roboto,Segoe UI,Microsoft Yahei,sans-serif;
 
-  text-align: center;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100%;
+  display: flex;
   height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
 
   letter-spacing: .01em;
   margin: 0 auto;
   font-size: 1.06em;
-}
-.tan {
-    position:relative;
-    top: 50%;
-    transform: translateY(-61.8%);  /* Y轴距离  */
 }
 .box {
     text-align: left;
@@ -39,4 +39,30 @@ page {
     cursor: pointer;
     vertical-align: middle;
     border: 1px solid transparent;
+}
+.btn-white {
+  color: #8590A6;
+  background-color: #FFF;
+  border-color: #9DA3A6;
+}
+.btn-white:active {
+  background-color: #F5F6F9;
+}
+.btn-blue {
+  color: #FFF;
+  background-color: #037DD8;
+  border-color: #0771C1;
+}
+.btn-blue:active {
+  background-color: #0771C1;
+  border-color: #0363AC;
+}
+.btn-red {
+  color: #FFF;
+  background-color: #D9534F;
+  border-color: #D43F3A;
+}
+.btn-red:active {
+  background-color: #C9302C;
+  border-color: #AC2925;
 }
