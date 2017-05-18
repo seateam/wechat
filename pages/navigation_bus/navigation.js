@@ -2,7 +2,7 @@ const amapFile = require('../../ku/js/amap-wx.js')
 const config = require('../../ku/js/config.js')
 const marker = '../../ku/img/icecream-07.png'
 const marker_checked = '../../ku/img/icecream-18.png'
-let markersData = []
+
 Page({
   data: {
     markers: [{
@@ -22,57 +22,42 @@ Page({
     }],
     distance: '',
     cost: '',
+    transits: [],
     polyline: []
   },
   onLoad: function() {
     var that = this;
     var key = config.key;
     var myAmapFun = new amapFile.AMapWX({key: key});
-    myAmapFun.getDrivingRoute({
+    myAmapFun.getTransitRoute({
       origin: '116.481028,39.989643',
       destination: '116.434446,39.90816',
+      city: '北京',
       success: function(data){
-          console.log(data);
-        var points = [];
-        if(data.paths && data.paths[0] && data.paths[0].steps){
-          var steps = data.paths[0].steps;
-          for(var i = 0; i < steps.length; i++){
-            var poLen = steps[i].polyline.split(';');
-            for(var j = 0;j < poLen.length; j++){
-              points.push({
-                longitude: parseFloat(poLen[j].split(',')[0]),
-                latitude: parseFloat(poLen[j].split(',')[1])
-              })
+        if(data && data.transits){
+          var transits = data.transits;
+          for(var i = 0; i < transits.length; i++){
+            var segments = transits[i].segments;
+            transits[i].transport = [];
+            for(var j = 0; j < segments.length; j++){
+              if(segments[j].bus && segments[j].bus.buslines && segments[j].bus.buslines[0] && segments[j].bus.buslines[0].name){
+                var name = segments[j].bus.buslines[0].name
+                if(j!==0){
+                  name = '--' + name;
+                }
+                transits[i].transport.push(name);
+              }
             }
           }
         }
         that.setData({
-          polyline: [{
-            points: points,
-            color: "#0091ff",
-            width: 6
-          }]
+          transits: transits
         });
-        if(data.paths[0] && data.paths[0].distance){
-          that.setData({
-            distance: data.paths[0].distance + '米'
-          });
-        }
-        if(data.taxi_cost){
-          that.setData({
-            cost: '打车约' + parseInt(data.taxi_cost) + '元'
-          });
-        }
 
       },
       fail: function(info){
-          console.log(info);
+
       }
-    })
-  },
-  goDetail: function(){
-    wx.navigateTo({
-      url: '../navigation_car_detail/navigation'
     })
   },
   goToCar: function (e) {
