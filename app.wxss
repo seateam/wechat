@@ -1,6 +1,6 @@
 /* galbol */
 button {
-    position: static;
+    /*position: static;*/
     display: inline-block;
 }
 image {

@@ -1,7 +1,6 @@
 {
     "pages": [
         "pages/index/index",
-        "pages/md/md",
         "pages/map/map",
         "pages/map_route/route",
         "pages/map_search/search"
@@ -27,7 +26,7 @@
             "pagePath": "pages/map_route/route",
             "iconPath": "ku/img/icecream-19.png",
             "selectedIconPath": "ku/img/icecream-19.png",
-            "text": "写信"
+            "text": "路径规划"
         }, {
             "pagePath": "pages/map_search/search",
             "iconPath": "ku/img/icecream-12.png",
