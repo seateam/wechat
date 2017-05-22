@@ -57,7 +57,8 @@ Page({
                     polyline: [{
                         points: points,
                         color: "#0091ff",
-                        width: 7
+                        width: 7,
+                        dottedLine: true
                     }]
                 });
                 if (data.paths[0] && data.paths[0].distance) {

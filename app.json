@@ -1,6 +1,7 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/swiper/swiper",
         "pages/map/map",
         "pages/map_route/route",
         "pages/map_search/search"
@@ -32,6 +33,11 @@
             "iconPath": "ku/img/icecream-12.png",
             "selectedIconPath": "ku/img/icecream-12.png",
             "text": "搜索"
+        }, {
+            "pagePath": "pages/swiper/swiper",
+            "iconPath": "ku/img/icecream-12.png",
+            "selectedIconPath": "ku/img/icecream-12.png",
+            "text": "滑动"
         }]
     },
     "networkTimeout": {

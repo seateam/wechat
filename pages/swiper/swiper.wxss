@@ -1,0 +1,9 @@
+swiper {
+    height: 800rpx;
+}
+.box {
+    text-align: center;
+}
+image {
+    pointer-events: none;
+}
