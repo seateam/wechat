@@ -5,5 +5,7 @@
         <!-- 欢迎语 -->
         <view>书</view>
         <view>信</view>
+        <!-- 罗盘 -->
+        <view>当前方向 : {{compass}}</view>
     </view>
 </view>

@@ -1,24 +1,17 @@
 {
-    "pages":[
-    "pages/index/index",
-    "pages/md/md",
-    "pages/map/map",
-    "pages/map_route/route",
-    "pages/map_search/search",
-    "pages/navigation_car/navigation",
-    "pages/navigation_bus/navigation",
-    "pages/navigation_walk/navigation",
-    "pages/navigation_ride/navigation",
-    "pages/navigation_car_detail/navigation",
-    "pages/navigation_walk_detail/navigation",
-    "pages/navigation_ride_detail/navigation"
+    "pages": [
+        "pages/index/index",
+        "pages/md/md",
+        "pages/map/map",
+        "pages/map_route/route",
+        "pages/map_search/search"
     ],
-    "window":{
-    "enablePullDownRefresh": true,
-    "backgroundTextStyle": "dark",
-    "navigationBarBackgroundColor": "#434343",
-    "navigationBarTitleText": "书信",
-    "navigationBarTextStyle":"white"
+    "window": {
+        "enablePullDownRefresh": true,
+        "backgroundTextStyle": "dark",
+        "navigationBarBackgroundColor": "#434343",
+        "navigationBarTitleText": "书信",
+        "navigationBarTextStyle": "white"
     },
     "tabBar": {
         "borderStyle": "black",
