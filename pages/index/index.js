@@ -1,4 +1,4 @@
-const log = require('../../ku/js/log.js')
+const log = console.log.bind(console)
 const app = getApp()
 
 Page({
@@ -27,5 +27,18 @@ Page({
     },
     onPullDownRefresh: function() {
         wx.stopPullDownRefresh()
+    },
+    path: function() {
+        let that = this
+        wx.chooseLocation({
+            success: function(end) {
+                wx.getLocation({
+                    type: 'wgs84',
+                    success: function(now) {
+                        log(now, end)
+                    }
+                })
+            }
+        })
     }
 })

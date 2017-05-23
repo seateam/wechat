@@ -7,5 +7,6 @@
         <view>信</view>
         <!-- 罗盘 -->
         <view>当前方向 : {{compass}}</view>
+        <button bindtap="path">路径规划</button>
     </view>
 </view>

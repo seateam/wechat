@@ -1,4 +1,4 @@
-const log = require('../../ku/js/log.js')
+const log = console.log.bind(console)
 const amapFile = require('../../ku/js/amap-wx.js')
 const config = require('../../ku/js/config.js')
 const db = {
@@ -34,6 +34,12 @@ Page({
         var key = config.key;
         var myAmapFun = new amapFile.AMapWX({
             key: key
+        })
+        myAmapFun.getRegeo({
+            location: '116.481028,39.989643',
+            success: function(data) {
+                log(data)
+            }
         })
         myAmapFun.getDrivingRoute({
             origin: '116.481028,39.989643',

@@ -3,11 +3,12 @@ var options = {
     // onLaunch 全局登陆触发一次
     db: {
         userInfo: null,
+        // 方向
         compass: null
     },
     onLaunch: function () {
         // 开启罗盘
-        wx.startCompass()
+        // wx.startCompass()
     },
     login: function(that) {
         wx.login({

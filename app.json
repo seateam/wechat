@@ -2,9 +2,7 @@
     "pages": [
         "pages/index/index",
         "pages/swiper/swiper",
-        "pages/map/map",
-        "pages/map_route/route",
-        "pages/map_search/search"
+        "pages/map_route/route"
     ],
     "window": {
         "enablePullDownRefresh": true,
@@ -28,11 +26,6 @@
             "iconPath": "ku/img/icecream-19.png",
             "selectedIconPath": "ku/img/icecream-19.png",
             "text": "路径规划"
-        }, {
-            "pagePath": "pages/map_search/search",
-            "iconPath": "ku/img/icecream-12.png",
-            "selectedIconPath": "ku/img/icecream-12.png",
-            "text": "搜索"
         }, {
             "pagePath": "pages/swiper/swiper",
             "iconPath": "ku/img/icecream-12.png",
