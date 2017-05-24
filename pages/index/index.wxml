@@ -1,13 +1,17 @@
 <!-- <view class="tan"> -->
     <!-- 用户 -->
     <view class="userinfo">
-        <image src="../../ku/img/logo.png"></image>
+        <image src="../../ku/img/logo.png" mode="aspectFill" />
         <!-- 欢迎语 -->
-        <view>书</view>
-        <view>信</view>
+        <!-- <view>书</view> -->
+        <!-- <view>信</view> -->
         <!-- 罗盘 -->
         <view>当前方向 : {{compass}}</view>
-        <button bindtap="path">路径规划</button>
+        <view>街景 : {{jiejing}}</view>
     </view>
-    <image src="{{src}}"></image>
+    <!-- 街景 -->
+    <view class="jiejing">
+        <image src="{{src}}" mode="aspectFill" />
+        <button bindtap="jiejing">街景</button>
+    </view>
 <!-- </view> -->

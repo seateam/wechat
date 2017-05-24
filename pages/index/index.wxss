@@ -1,7 +1,12 @@
 .userinfo image {
-  background-size: cover;
-  width: 256rpx;
-  height: 256rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+    background-size: cover;
+    width: 256rpx;
+    height: 256rpx;
+    margin: 20rpx;
+    border-radius: 50%;
+}
+.jiejing image {
+    border-radius: 5px;
+    width: 90%;
+    height: 500rpx;
 }
