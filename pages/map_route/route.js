@@ -35,12 +35,32 @@ Page({
         var myAmapFun = new amapFile.AMapWX({
             key: key
         })
-        myAmapFun.getRegeo({
-            location: '116.481028,39.989643',
-            success: function(data) {
-                log(data)
+        // myAmapFun.getRegeo({
+        //     location: '116.481028,39.989643',
+        //     success: function(data) {
+        //         log(data)
+        //     }
+        // })
+        this.path()
+    },
+    deLocation: function() {
+        wx.request({
+            url: `https://restapi.amap.com/v3/assistant/coordinate/convert?`,
+            data: {
+                key: '043d1bcd92f7602cd9825bd8f6fd5be7',
+                locations: '116.481499,39.990475|116.481499,39.990375',
+                coordsys: 'mapbar'
+            },
+            method: "GET",
+            header: {
+                "Content-Type": "application/json",
+            },
+            success: function(res) {
+                console.log(res)
             }
         })
+    },
+    show: function(start, end) {
         myAmapFun.getDrivingRoute({
             origin: '116.481028,39.989643',
             destination: '116.434446,39.90816',
@@ -67,15 +87,30 @@ Page({
                         dottedLine: true
                     }]
                 });
-                if (data.paths[0] && data.paths[0].distance) {
-                    log(data.paths[0].distance + '米')
-                }
-                if (data.taxi_cost) {
-                    log('打车约' + Number(data.taxi_cost).toFixed(2)  + '元')
-                }
+                // if (data.paths[0] && data.paths[0].distance) {
+                //     log(data.paths[0].distance + '米')
+                // }
+                // if (data.taxi_cost) {
+                //     log('打车约' + Number(data.taxi_cost).toFixed(2)  + '元')
+                // }
             },
             fail: function(info) {
                 console.log(info);
+            }
+        })
+    },
+    path: function() {
+        let that = this
+        wx.chooseLocation({
+            success: function(end) {
+                wx.getLocation({
+                    type: 'wgs84',
+                    success: function(now) {
+                        now = [now.latitude,now.longitude].join(',')
+                        end = [end.latitude, end.longitude].join(',')
+                        that.show(now, end)
+                    }
+                })
             }
         })
     }
