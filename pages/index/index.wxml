@@ -1,4 +1,4 @@
-<view class="tan">
+<!-- <view class="tan"> -->
     <!-- 用户 -->
     <view class="userinfo">
         <image src="../../ku/img/logo.png"></image>
@@ -9,4 +9,5 @@
         <view>当前方向 : {{compass}}</view>
         <button bindtap="path">路径规划</button>
     </view>
-</view>
+    <image src="{{src}}"></image>
+<!-- </view> -->
