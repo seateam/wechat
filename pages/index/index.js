@@ -8,7 +8,8 @@ Page({
         compass: null,
         heading: null,
         src: null,
-        jiejing: null
+        jiejing: null,
+        // imgUrl: 'https://bigc.cc/tools/open/home.png'
     },
     onLoad: function () {
         // 登陆
@@ -29,6 +30,15 @@ Page({
                 })
             }
         })
+    },
+    touchstart: function(e) {
+        log(123,e.changedTouches)
+    },
+    touchmove: function(e) {
+        log(123,e)
+    },
+    touchend: function(e) {
+        log(123,e.changedTouches)
     },
     onPullDownRefresh: function() {
         wx.stopPullDownRefresh()

@@ -11,28 +11,6 @@
         "navigationBarTitleText": "书信",
         "navigationBarTextStyle": "white"
     },
-    "tabBar": {
-        "borderStyle": "black",
-        "backgroundColor": "black",
-        "color": "#CCC",
-        "selectedColor": "#F5F5F5",
-        "list": [{
-            "pagePath": "pages/index/index",
-            "iconPath": "ku/img/icecream-04.png",
-            "selectedIconPath": "ku/img/icecream-04.png",
-            "text": "首页"
-        }, {
-            "pagePath": "pages/map_route/route",
-            "iconPath": "ku/img/icecream-19.png",
-            "selectedIconPath": "ku/img/icecream-19.png",
-            "text": "路径规划"
-        }, {
-            "pagePath": "pages/swiper/swiper",
-            "iconPath": "ku/img/icecream-12.png",
-            "selectedIconPath": "ku/img/icecream-12.png",
-            "text": "滑动"
-        }]
-    },
     "networkTimeout": {
         "request": 6000,
         "downloadFile": 6000

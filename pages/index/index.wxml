@@ -1,17 +1,19 @@
 <!-- <view class="tan"> -->
     <!-- 用户 -->
-    <view class="userinfo">
+    <!-- <view class="userinfo">
         <image src="../../ku/img/logo.png" mode="aspectFill" />
-        <!-- 欢迎语 -->
-        <!-- <view>书</view> -->
-        <!-- <view>信</view> -->
-        <!-- 罗盘 -->
+        <view>书</view>
+        <view>信</view>
         <view>当前方向 : {{compass}}</view>
         <view>街景 : {{jiejing}}</view>
-    </view>
+    </view> -->
     <!-- 街景 -->
-    <view class="jiejing">
+    <!-- <view class="jiejing">
         <image src="{{src}}" mode="aspectFill" />
         <button bindtap="jiejing">街景</button>
-    </view>
+    </view> -->
 <!-- </view> -->
+<view class='dudu' style="background-image: url({{imgUrl}});"
+    catchtouchstart="touchstart" catchtouchmove="touchmove" catchtouchend="touchend">
+    <view>daxiao</view>
+</view>

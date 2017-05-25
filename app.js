@@ -1,5 +1,6 @@
 //app.js
-var options = {
+const log = console.log.bind(console)
+App({
     // onLaunch 全局登陆触发一次
     db: {
         userInfo: null,
@@ -48,6 +49,4 @@ var options = {
             return null
         }
     }
-}
-
-App(options)
+})

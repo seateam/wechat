@@ -10,3 +10,11 @@
     width: 90%;
     height: 500rpx;
 }
+.dudu {
+    width: 750rpx;
+    height: 1206rpx;
+    /*width:  calc(750rpx - 40rpx * 2);
+    height: calc(1206rpx - 40rpx * 2);
+    margin: 40rpx;*/
+    /*border-radius: 10rpx;*/
+}
