@@ -9,7 +9,6 @@ Page({
         heading: null,
         src: null,
         jiejing: null,
-        // imgUrl: 'https://bigc.cc/tools/open/home.png'
     },
     onLoad: function () {
         // 登陆
@@ -31,15 +30,6 @@ Page({
             }
         })
     },
-    touchstart: function(e) {
-        log(123,e.changedTouches)
-    },
-    touchmove: function(e) {
-        log(123,e)
-    },
-    touchend: function(e) {
-        log(123,e.changedTouches)
-    },
     onPullDownRefresh: function() {
         wx.stopPullDownRefresh()
     },
@@ -48,7 +38,7 @@ Page({
         let db = {
             // location: '30.686345,104.165497',
             // 半径 米
-            radius: '20',
+            radius: '200',
             // 正北：heading=0，正东：heading=90, 正南：heading=180，正西：heading=270
             heading: parseInt(that.data.heading) || '0'
         }

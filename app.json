@@ -1,8 +1,9 @@
 {
     "pages": [
-        "pages/index/index",
-        "pages/swiper/swiper",
-        "pages/map_route/route"
+        "pages/index/e",
+        "pages/jiejing/e",
+        "pages/swiper/e",
+        "pages/map_route/e"
     ],
     "window": {
         "enablePullDownRefresh": true,

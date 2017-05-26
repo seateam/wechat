@@ -1,0 +1,13 @@
+<!-- 用户 -->
+<view class="userinfo">
+    <image src="../../ku/img/logo.png" mode="aspectFill" />
+    <view>书</view>
+    <view>信</view>
+    <view>当前方向 : {{compass}}</view>
+    <view>街景 : {{jiejing}}</view>
+</view>
+<!-- 街景 -->
+<view class="jiejing">
+    <image src="{{src}}" mode="aspectFill" />
+    <button bindtap="jiejing">街景</button>
+</view>
