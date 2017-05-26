@@ -1,3 +1,6 @@
-<view class="map_box">
-  <map id="navi_map" longitude="116.451028" latitude="39.949643" scale="12" markers="{{markers}}" polyline="{{polyline}}"></map>
+<map id="navi_map" latitude="30.572269" longitude="104.066541" scale="12" markers="{{markers}}" polyline="{{polyline}}"></map>
+
+<view class="map_text" bindtap="path">
+</view>
+<view class="map_marks" bindtap="marks">
 </view>
