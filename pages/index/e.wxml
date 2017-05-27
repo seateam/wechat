@@ -1,0 +1,16 @@
+<view class="location">
+
+</view>
+<view class="card">
+    <swiper indicator-dots="{{indicatorDots}}" bindtap="bindtap"
+        circular="true" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="bindChange">
+        <block wx:for="{{imgUrls}}" wx:key="key">
+            <swiper-item data-id="{{index}}">
+                <image src="{{item.img}}" mode="aspectFill" />
+            </swiper-item>
+        </block>
+    </swiper>
+</view>
+<view class="bottom">
+
+</view>

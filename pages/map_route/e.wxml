@@ -4,3 +4,7 @@
 </view>
 <view class="map_marks" bindtap="marks">
 </view>
+
+<view class="white">
+
+</view>

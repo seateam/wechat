@@ -1,0 +1,22 @@
+swiper {
+    height: 100%;
+    /*padding: 0 70rpx;*/
+}
+image {
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+}
+
+.location {
+    height: 100rpx;
+    background-color: red;
+}
+.card {
+    height: 872rpx;
+    background-color: pink;
+}
+.bottom {
+    height: 234rpx;
+    background-color: yellow;
+}

@@ -1,16 +1,16 @@
 {
     "pages": [
-        "pages/map_route/e",
         "pages/index/e",
+        "pages/map_route/e",
         "pages/jiejing/e",
         "pages/swiper/e"
     ],
     "window": {
         "enablePullDownRefresh": true,
-        "backgroundTextStyle": "dark",
-        "navigationBarBackgroundColor": "#434343",
-        "navigationBarTitleText": "书信",
-        "navigationBarTextStyle": "white"
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#FFF",
+        "navigationBarTitleText": "都哪儿",
+        "navigationBarTextStyle": "black"
     },
     "networkTimeout": {
         "request": 6000,
