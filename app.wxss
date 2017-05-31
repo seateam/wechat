@@ -6,17 +6,17 @@ button {
 }
 
 page {
-    background: rgb(242, 242, 242) url('https://bigc.cc/md/ku/bg.png');
+    font-size: 16px;
     color: #343434;
+
+    margin: 0 auto;
+    text-align: center;
+    letter-spacing: .01rem;
+    background: rgb(242, 242, 242) url('https://bigc.cc/md/ku/bg.png');
     font-family: SF UI Text, Hiragino Sans GB, Roboto, Segoe UI, Microsoft Yahei, sans-serif;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-
-    letter-spacing: .01em;
-    margin: 0 auto;
-    font-size: 1.06em;
-    text-align: center;
 }
 
 .tan {
@@ -39,8 +39,8 @@ page {
 /* icon*/
 
 .fa-lg {
-    font-size: 1.33333333em;
-    line-height: 0.75em;
+    font-size: 1.33333333rem;
+    line-height: 0.75rem;
     vertical-align: -15%;
 }
 /* button */

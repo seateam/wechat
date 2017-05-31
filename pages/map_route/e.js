@@ -7,8 +7,8 @@ const db = {
         id: 0,
         latitude:  null,
         longitude: null,
-        width: 23,
-        height: 33
+        width: 24,
+        height: 34
     }, {
         iconPath: '../../ku/img/icecream-18.png',
         id: 1,

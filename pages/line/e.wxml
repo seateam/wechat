@@ -1,0 +1,9 @@
+<canvas canvas-id="myCanvas" class="line"
+    bindtap="ctxClick"
+    bindtouchstart="start"
+    bindtouchmove="move"
+    bindtouchend="end"/>
+
+<view hidden="{{hidden}}">
+  Coordinates: ({{x}}, {{y}})
+</view>

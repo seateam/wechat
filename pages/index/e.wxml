@@ -2,8 +2,8 @@
 
 </view>
 <view class="card">
-    <swiper indicator-dots="{{indicatorDots}}" bindtap="bindtap"
-        circular="true" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="bindChange">
+    <swiper indicator-dots="{{indicatorDots}}" bindtap="cardClick" bindchange="cardChange"
+        circular="true" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" >
         <block wx:for="{{imgUrls}}" wx:key="key">
             <swiper-item data-id="{{index}}">
                 <image src="{{item.img}}" mode="aspectFill" />

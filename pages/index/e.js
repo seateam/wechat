@@ -48,4 +48,10 @@ Page({
     onPullDownRefresh: function() {
         wx.stopPullDownRefresh()
     },
+    cardClick: function(e) {
+        let that = this
+    },
+    cardChange: function(e) {
+        let that = this
+    }
 })

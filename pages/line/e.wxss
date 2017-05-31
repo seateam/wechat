@@ -1,0 +1,8 @@
+.line {
+    width: 650rpx;
+    height: 320rpx;
+    border: 2rpx solid #666;
+    /*background: pink url('http://www.sogou.com/index/images/logo_440x140.v.1.png');*/
+    margin: 50rpx auto;
+    border-radius: 8rpx;
+}
