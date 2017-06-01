@@ -10,7 +10,7 @@
         "enablePullDownRefresh": false,
         "backgroundTextStyle": "light",
         "navigationBarBackgroundColor": "#FFF",
-        "navigationBarTitleText": "都哪儿",
+        "navigationBarTitleText": "豁然交通",
         "navigationBarTextStyle": "black"
     },
     "networkTimeout": {
