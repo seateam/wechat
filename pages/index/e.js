@@ -1,57 +1,49 @@
+var order = ['red', 'yellow', 'blue', 'green', 'red']
 const log = console.log.bind(console)
-const app = getApp()
+let start = 0
 Page({
     data: {
-        imgUrls: [{
-                img: 'http://i3.mifile.cn/a4/xmad_14950995035103_fhWtH.jpg',
-                text: '平衡车'
-            },
-            {
-                img: 'http://i3.mifile.cn/a4/xmad_1493109150882_opGFm.jpg',
-                text: '眼镜'
-            },
-            {
-                img: 'http://i3.mifile.cn/a4/xmad_14950996440442_FrUIx.jpg',
-                text: '路由'
-            }
-        ],
-        indicatorDots: true,
-        autoplay: false,
-        interval: 4000,
-        duration: 800,
-        // 用户
-        userInfo: null,
-        // 罗盘
-        compass: null,
-        heading: null
+        order: ['red', 'yellow', 'blue', 'green', 'red'],
+        toView: 'red',
+        scrollTop: 100,
+        start: 0
     },
-    onLoad: function () {
-        // 登陆
-        if (app.db.userInfo === null) {
-            app.login(this)
+    left: function(e) {
+        // console.log(e)
+    },
+    right: function(e) {
+        // console.log(e)
+    },
+    start: function(e) {
+        start = e.changedTouches["0"].clientX
+    },
+    end: function(e) {
+        let that = this
+        let end = e.changedTouches["0"].clientX
+        let sum = end - start
+        let move = function(shift) {
+            for (var i = 0; i < order.length; ++i) {
+                if (order[i] === that.data.toView) {
+                    log('左滑',order[i + shift])
+                    that.setData({
+                        toView: order[i + shift]
+                    })
+                    break
+                }
+            }
         }
-        // 方向
-        let that = this
-        wx.onCompassChange(function (res) {
-            let du = res.direction.toFixed(2)
-            // 全局变量 compass
-            app.db.compass = app.direction(du)
-            let str = app.db.compass
-            if (str !== that.data.compass) {
-                that.setData({
-                    compass: str,
-                    heading: parseInt(du)
-                })
+        if (Math.abs(sum) > 20) {
+            if (sum > 0) {
+                // 左滑
+                move(-1)
+            } else {
+                move(1)
             }
+        }
+    },
+    tapMove: function(e) {
+        this.setData({
+            scrollTop: this.data.scrollTop + 10
         })
-    },
-    onPullDownRefresh: function() {
-        wx.stopPullDownRefresh()
-    },
-    cardClick: function(e) {
-        let that = this
-    },
-    cardChange: function(e) {
-        let that = this
     }
 })

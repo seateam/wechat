@@ -1,16 +1,34 @@
 <view class="location">
 
 </view>
+
 <view class="card">
-    <swiper indicator-dots="{{indicatorDots}}" bindtap="cardClick" bindchange="cardChange"
-        circular="true" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" >
-        <block wx:for="{{imgUrls}}" wx:key="key">
-            <swiper-item data-id="{{index}}">
-                <image src="{{item.img}}" mode="aspectFill" />
-            </swiper-item>
+    <scroll-view scroll-x
+    scroll-into-view="{{toView}}"
+    bindtouchstart="start"
+    bindtouchend="end"
+    bindscrolltoupper="left"
+    bindscrolltolower="right"
+    scroll-with-animation >
+        <block wx:for="{{order}}" wx:key="key">
+          <view id="{{item}}" style="background: {{item}}"> {{index}}: {{item}}</view>
         </block>
-    </swiper>
+    </scroll-view>
 </view>
+
 <view class="bottom">
 
 </view>
+
+
+<!-- <swiper bindtap="cardClick" bindchange="cardChange"
+current="1"
+circular="true"
+duration="800"
+circular="true" >
+    <block wx:for="{{imgUrls}}" wx:key="key">
+        <swiper-item data-id="{{index}}">
+            <view class="img" style="background: {{color}} url('{{item.img}}')" />
+        </swiper-item>
+    </block>
+</swiper> -->
