@@ -1,5 +1,9 @@
 const log = console.log.bind(console)
+const config = require('../../ku/js/config.js')
 const app = getApp()
+const deitude = function(itude) {
+    return itude.split(',').reverse().join(',')
+}
 Page({
     data: {
       x: 0,
@@ -7,7 +11,58 @@ Page({
       hidden: true
     },
     onLoad: function () {
-
+        let now = deitude("104.06951,30.537107")
+        let end = deitude("104.118492,30.745042")
+        wx.request({
+            url: config.url + '/traffic/route',
+            data: {
+                // 出发点
+                origin: deitude(now),
+                // 目的地
+                destination: deitude(end)
+            },
+            method: "GET",
+            header: {
+                "Content-Type": "application/json",
+            },
+            success: function(res) {
+                let steps = res.data.info.trafficData.steps
+                let meters = function(i1, i2) {
+                    let meter = 0
+                    let step = steps.slice(0, i1)
+                    let tmcs = steps[i1].tmcs.slice(0, i2)
+                    // 大路段
+                    for (let i of step) {
+                        meter += Number(i.distance)
+                    }
+                    // 子路段
+                    for (let i of tmcs) {
+                        meter += Number(i.distance)
+                    }
+                    return meter
+                }
+                let arr = []
+                // 相对位置
+                for (let i of res.data.points) {
+                    let dot = [i.lon,i.lat].join(',')
+                    steps.forEach((step, i1) => {
+                        step.tmcs.forEach((e, i2) => {
+                            if (e.polyline.includes(dot)) {
+                                log(dot, e.polyline)
+                                let meter = meters(i1, i2)
+                                // 总长
+                                let Meters = Number(res.data.info.trafficData.distance)
+                                arr.push( meter / Meters)
+                            }
+                        })
+                    })
+                }
+                // log(arr)
+            },
+            fail: function(err) {
+                console.log('err',err);
+            }
+        })
     },
     onPullDownRefresh: function() {
         const ctx = wx.createCanvasContext('myCanvas')
@@ -66,20 +121,21 @@ Page({
             {x: 27,y: 92},
             {x: 60,y: 52},
             {x: 110,y: 52}
-        ], 100)
+        ], 33)
         let arr2 = CreateBezierPoints([
             {x: 110,y: 52},
             {x: 160,y: 52},
             {x: 187,y: 91},
             {x: 225,y: 91}
-        ], 100)
+        ], 33)
         let arr3 = CreateBezierPoints([
             {x: 225,y: 91},
             {x: 269,y: 91},
             {x: 290,y: 70},
             {x: 306,y: 44}
-        ], 100)
+        ], 33)
         let arr = arr1.concat(arr2, arr3)
+        arr.push({x: 306,y: 44})
         log(arr)
         drawBezierPoints(arr)
         // 停止刷新

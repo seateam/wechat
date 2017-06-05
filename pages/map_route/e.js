@@ -45,6 +45,7 @@ Page({
         let testBubble = function() {
             let now = deitude("104.06951,30.537107")
             let end = deitude("104.118492,30.745042")
+            // 起点
             let arr = db.markers
             arr[0].latitude = Number(now.split(',')[0])
             arr[0].longitude = Number(now.split(',')[1])
@@ -54,7 +55,7 @@ Page({
                 markers: arr
             })
             wx.request({
-                url: 'http://192.168.1.126:1337/traffic/route',
+                url: config.url + '/traffic/route',
                 data: {
                     // 出发点
                     origin: deitude(now),
@@ -67,6 +68,35 @@ Page({
                 },
                 success: function(res) {
                     let dot = res.data.points
+                    var points = [];
+                    // 路线
+                    var steps = res.data.info.trafficData.steps
+                    for (var i = 0; i < steps.length; i++) {
+                        var poLen = steps[i].polyline.split(';');
+                        for (var j = 0; j < poLen.length; j++) {
+                            points.push({
+                                longitude: parseFloat(poLen[j].split(',')[0]),
+                                latitude: parseFloat(poLen[j].split(',')[1])
+                            })
+                        }
+                    }
+                    // 长度
+                    let rice = res.data.info.trafficData.distance
+                    log(rice + '米')
+                    if (rice < 350000) {
+                        that.setData({
+                            polyline: [{
+                                points: points,
+                                color: "#0091ff",
+                                width: 7,
+                                dottedLine: true
+                            }]
+                        })
+                        that.marks()
+                    } else {
+                        log('超过350km')
+                    }
+
                     let arr = db.markers
                     for (let i of dot) {
                         arr.push({
@@ -86,7 +116,6 @@ Page({
                     console.log('err',err);
                 }
             })
-            that.show(that, now, end)
         }
         testBubble()
     },
@@ -167,19 +196,17 @@ Page({
                 wx.getLocation({
                     type: 'wgs84',
                     success: function(now) {
-                        let arr = db.markers
-                        arr[0].latitude = now.latitude
-                        arr[0].longitude = now.longitude
-                        arr[1].latitude = end.latitude
-                        arr[1].longitude = end.longitude
-
-                        that.setData({
-                            markers: arr
-                        })
-
                         now = [now.latitude,now.longitude].join(',')
                         end = [end.latitude, end.longitude].join(',')
-                        log(now, end)
+                        // 设置起点终点气泡
+                        let arr = db.markers
+                        arr[0].latitude = Number(now.split(',')[0])
+                        arr[0].longitude = Number(now.split(',')[1])
+                        arr[1].latitude = Number(end.split(',')[0])
+                        arr[1].longitude = Number(end.split(',')[1])
+                        that.setData({
+                            markers: arr.slice(0,2)
+                        })
                         that.show(that, now, end)
                     }
                 })
