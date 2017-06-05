@@ -1,6 +1,10 @@
 const log = console.log.bind(console)
 const amapFile = require('../../ku/js/amap-wx.js')
 const config = require('../../ku/js/config.js')
+// 反转坐标
+const deitude = function(itude) {
+    return itude.split(',').reverse().join(',')
+}
 const db = {
     markers: [{
         iconPath: '../../ku/img/icecream-07.png',
@@ -18,15 +22,11 @@ const db = {
         height: 34
     }]
 }
-
-let markersData = []
 Page({
     onPullDownRefresh: function() {
         wx.stopPullDownRefresh()
     },
     data: {
-        // now 30.572269,104.066541
-        // end 30.70775,104.08171
         markers: [],
         polyline: [],
         myAmapFun: null
@@ -36,18 +36,59 @@ Page({
       this.mapCtx = wx.createMapContext('navi_map')
     },
     onLoad: function() {
-        var that = this;
-        var key = config.key;
+        let that = this;
+        let key = config.key;
         this.myAmapFun = new amapFile.AMapWX({
             key: key
         })
-        // myAmapFun.getRegeo({
-        //     location: '116.481028,39.989643',
-        //     success: function(data) {
-        //         log(data)
-        //     }
-        // })
-        // this.show(myAmapFun)
+        // 气泡测试
+        let testBubble = function() {
+            let now = deitude("104.06951,30.537107")
+            let end = deitude("104.118492,30.745042")
+            let arr = db.markers
+            arr[0].latitude = Number(now.split(',')[0])
+            arr[0].longitude = Number(now.split(',')[1])
+            arr[1].latitude = Number(end.split(',')[0])
+            arr[1].longitude = Number(end.split(',')[1])
+            that.setData({
+                markers: arr
+            })
+            wx.request({
+                url: 'http://192.168.1.126:1337/traffic/route',
+                data: {
+                    // 出发点
+                    origin: deitude(now),
+                    // 目的地
+                    destination: deitude(end)
+                },
+                method: "GET",
+                header: {
+                    "Content-Type": "application/json",
+                },
+                success: function(res) {
+                    let dot = res.data.points
+                    let arr = db.markers
+                    for (let i of dot) {
+                        arr.push({
+                            iconPath: '../../ku/img/icecream-18.png',
+                            id: 1,
+                            latitude: i.lat,
+                            longitude: i.lon,
+                            width: 24,
+                            height: 34
+                        })
+                    }
+                    that.setData({
+                        markers: arr
+                    })
+                },
+                fail: function(err) {
+                    console.log('err',err);
+                }
+            })
+            that.show(that, now, end)
+        }
+        testBubble()
     },
     // 解析地址
     deLocation: function() {
@@ -68,10 +109,6 @@ Page({
         })
     },
     show: function(that, start, end) {
-        // 反转坐标
-        let deitude = function(itude) {
-            return itude.split(',').reverse().join(',')
-        }
         that.myAmapFun.getDrivingRoute({
             origin: deitude(start),
             destination: deitude(end),
@@ -142,6 +179,7 @@ Page({
 
                         now = [now.latitude,now.longitude].join(',')
                         end = [end.latitude, end.longitude].join(',')
+                        log(now, end)
                         that.show(that, now, end)
                     }
                 })

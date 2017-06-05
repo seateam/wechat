@@ -1,52 +1,25 @@
-
 <view class="tan">
-    <!-- <view class="center"> -->
-        <view class="location">
+    <view class="location">
 
-        </view>
+    </view>
 
-        <view class="card">
-            <!-- <scroll-view
-            scroll-x
-            scroll-into-view="{{toView}}"
-            bindtouchstart="start"
-            bindtouchend="end"
-            bindscrolltoupper="left"
-            bindscrolltolower="right"
-            catchscroll="move"
-            scroll-with-animation >
-
-            </scroll-view> -->
-            <view class="we-container {{directionClass}}">
-              <view class="we-wrapper"
-                bindtouchstart="touchstart"
-                bindtouchmove="touchmove"
-                bindtouchend="touchend"
-                animation="{{animationData}}">
-                <block wx:for="{{order}}" wx:key="key">
-                  <view class="we-slide">
-                      <view class="test1">
-                      </view>
-                  </view>
-                </block>
+    <view class="card">
+        <view class="we-container {{directionClass}}">
+          <view class="we-wrapper"
+            bindtouchstart="touchstart"
+            bindtouchmove="touchmove"
+            bindtouchend="touchend"
+            animation="{{animationData}}">
+            <block wx:for="{{order}}" wx:key="key">
+              <view class="we-slide">
+                  {{index}} : {{item}}
               </view>
-            </view>
+            </block>
+          </view>
         </view>
+    </view>
 
-        <view class="bottom">
+    <view class="bottom">
 
-        </view>
-    <!-- </view> -->
+    </view>
 </view>
-
-<!-- <swiper bindtap="cardClick" bindchange="cardChange"
-current="1"
-circular="true"
-duration="800"
-circular="true" >
-    <block wx:for="{{imgUrls}}" wx:key="key">
-        <swiper-item data-id="{{index}}">
-            <view class="img" style="background: {{color}} url('{{item.img}}')" />
-        </swiper-item>
-    </block>
-</swiper> -->

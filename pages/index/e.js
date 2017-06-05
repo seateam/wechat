@@ -6,12 +6,11 @@ Page({
     },
     onLoad() {
         const device = wx.getSystemInfoSync()
-        console.log(device.windowWidth);
         new weSwiper({
             animationViewName: 'animationData',
-            slideLength: 6,
-            initialSlide: 0,
-            width: 660 * device.windowWidth / 750,
+            slideLength: this.data.order.length,
+            initialSlide: 1,
+            width: 658 * device.windowWidth / 750,
             // height: 500 * device.windowWidth / 750,
             /**
              * swiper初始化后执行

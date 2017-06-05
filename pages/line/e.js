@@ -7,6 +7,7 @@ Page({
       hidden: true
     },
     onLoad: function () {
+
     },
     onPullDownRefresh: function() {
         const ctx = wx.createCanvasContext('myCanvas')
