@@ -12,7 +12,8 @@ page {
     margin: 0 auto;
     text-align: center;
     letter-spacing: .01rem;
-    background: rgb(242, 242, 242) url('https://bigc.cc/md/ku/bg.png');
+    /*background: rgb(242, 242, 242) url('https://bigc.cc/md/ku/bg.png');*/
+    background-color: white;
     font-family: SF UI Text, Hiragino Sans GB, Roboto, Segoe UI, Microsoft Yahei, sans-serif;
     flex-direction: column;
     align-items: center;

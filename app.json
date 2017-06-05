@@ -7,7 +7,7 @@
         "pages/swiper/e"
     ],
     "window": {
-        "enablePullDownRefresh": true,
+        "enablePullDownRefresh": false,
         "backgroundTextStyle": "light",
         "navigationBarBackgroundColor": "#FFF",
         "navigationBarTitleText": "豁然交通",
