@@ -22,6 +22,17 @@ const db = {
         height: 34
     }]
 }
+let mapCtx = null
+const mapButton = {
+    1: function() {
+        mapCtx.moveToLocation()
+    },
+    2: function() {
+        wx.redirectTo({
+          url: '../../pages/index/e'
+        })
+    }
+}
 Page({
     onPullDownRefresh: function() {
         wx.stopPullDownRefresh()
@@ -29,11 +40,43 @@ Page({
     data: {
         markers: [],
         polyline: [],
+        controls: [{
+            // id: 1,
+            iconPath: '../../ku/img/bottom.png',
+            // clickable: true,
+            position: {
+                left: 0,
+                top: 603 - 100,
+                width: 375,
+                height: 100
+                }
+            }, {
+                id: 1,
+                iconPath: '../../ku/img/sea.png',
+                clickable: true,
+                position: {
+                    left: 10,
+                    top: 603 - 50 - 10,
+                    width: 50,
+                    height: 50
+                }
+            }, {
+                id: 2,
+                iconPath: '../../ku/img/mountain.png',
+                clickable: true,
+                position: {
+                    left:375 / 2 - 25,
+                    top: 603 - 50 - 10,
+                    width: 50,
+                    height: 50
+                }
+            }
+        ],
         myAmapFun: null
     },
     onReady: function (e) {
       // 使用 wx.createMapContext 获取 map 上下文
-      this.mapCtx = wx.createMapContext('navi_map')
+      mapCtx = wx.createMapContext('navi_map')
     },
     onLoad: function() {
         let that = this;
@@ -88,11 +131,12 @@ Page({
                             polyline: [{
                                 points: points,
                                 color: "#0091ff",
-                                width: 7,
-                                dottedLine: true
+                                width: 6,
+                                arrowLine: true,
+                                // dottedLine: true
                             }]
                         })
-                        that.marks()
+                        that.bindMarks()
                     } else {
                         log('超过350km')
                     }
@@ -178,7 +222,7 @@ Page({
                             dottedLine: true
                         }]
                     })
-                    that.marks()
+                    that.bindMarks()
                 } else {
                     log('超过350km')
                 }
@@ -189,7 +233,7 @@ Page({
             }
         })
     },
-    path: function() {
+    bindPath: function() {
         let that = this
         wx.chooseLocation({
             success: function(end) {
@@ -212,14 +256,17 @@ Page({
                 })
             },
             fail: function(err) {
-                log(err)
+                log('用户取消选择',err)
             }
         })
     },
-    marks: function() {
-        this.mapCtx.includePoints({
+    bindMarks: function() {
+        mapCtx.includePoints({
           padding: [40, 20, 20, 20],
           points: this.data.markers
         })
+    },
+    bindControls: function(e) {
+        mapButton[e.controlId]()
     }
 })

@@ -1,9 +1,16 @@
-<map id="navi_map" latitude="30.572269" longitude="104.066541" scale="12" markers="{{markers}}" polyline="{{polyline}}"></map>
-<view class="tan">
-    <view class="box">
-        <view class="map_text" bindtap="path">
-        </view>
-        <view class="map_marks" bindtap="marks">
-        </view>
-    </view>
-</view>
+<!--
+scale 缩放级别 5 - 18
+controls 按钮
+markers 标记
+polyline 路线
+ -->
+<map id="navi_map"
+    latitude="30.572269"
+    longitude="104.066541"
+    scale="12"
+    markers="{{markers}}"
+    polyline="{{polyline}}"
+    controls="{{controls}}"
+    bindcontroltap="bindControls"
+    show-location
+    />

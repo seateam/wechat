@@ -1,6 +1,9 @@
 const log = console.log.bind(console)
 const config = require('../../ku/js/config.js')
 const app = getApp()
+const deitude = function(itude) {
+    return itude.split(',').reverse().join(',')
+}
 const getBezier = function() {
     // 新算法
     // anchorpoints：贝塞尔基点
@@ -61,9 +64,6 @@ const getBezier = function() {
     ], 100)
     let arr = arr1.concat(arr2, arr3)
     return arr
-}
-const deitude = function(itude) {
-    return itude.split(',').reverse().join(',')
 }
 const getRatio = function(res) {
     let steps = res.data.info.trafficData.steps
