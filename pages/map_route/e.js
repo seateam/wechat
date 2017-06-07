@@ -5,7 +5,10 @@ const config = require('../../ku/js/config.js')
 const deitude = function(itude) {
     return itude.split(',').reverse().join(',')
 }
-const db = {
+// 默认参数
+let db = {
+    myAmapFun: null, // 高德API实例
+    mapCtx: null,    // 地图实例
     markers: [{
         iconPath: '../../ku/img/icecream-07.png',
         id: 0,
@@ -20,27 +23,8 @@ const db = {
         longitude: null,
         width: 24,
         height: 34
-    }]
-}
-let mapCtx = null
-const mapButton = {
-    1: function() {
-        mapCtx.moveToLocation()
-    },
-    2: function() {
-        wx.redirectTo({
-          url: '../../pages/index/e'
-        })
-    }
-}
-Page({
-    onPullDownRefresh: function() {
-        wx.stopPullDownRefresh()
-    },
-    data: {
-        markers: [],
-        polyline: [],
-        controls: [{
+    }],
+    controls: [{
             // id: 1,
             iconPath: '../../ku/img/bottom.png',
             // clickable: true,
@@ -49,45 +33,63 @@ Page({
                 top: 603 - 100,
                 width: 375,
                 height: 100
-                }
-            }, {
-                id: 1,
-                iconPath: '../../ku/img/sea.png',
-                clickable: true,
-                position: {
-                    left: 10,
-                    top: 603 - 50 - 10,
-                    width: 50,
-                    height: 50
-                }
-            }, {
-                id: 2,
-                iconPath: '../../ku/img/mountain.png',
-                clickable: true,
-                position: {
-                    left:375 / 2 - 25,
-                    top: 603 - 50 - 10,
-                    width: 50,
-                    height: 50
-                }
             }
-        ],
-        myAmapFun: null
+        }, {
+            id: 1,
+            iconPath: '../../ku/img/sea.png',
+            clickable: true,
+            position: {
+                left: 10,
+                top: 603 - 50 - 10,
+                width: 50,
+                height: 50
+            }
+        }, {
+            id: 2,
+            iconPath: '../../ku/img/mountain.png',
+            clickable: true,
+            position: {
+                left:375 / 2 - 25,
+                top: 603 - 50 - 10,
+                width: 50,
+                height: 50
+            }
+        }]
+}
+// 地图按钮事件
+const mapButton = {
+    1: function() {
+        db.mapCtx.moveToLocation()
     },
-    onReady: function (e) {
-      // 使用 wx.createMapContext 获取 map 上下文
-      mapCtx = wx.createMapContext('navi_map')
+    2: function(that) {
+        // wx.redirectTo({
+        //   url: '../../pages/index/e'
+        // })
+        db.mapCtx.includePoints({
+          padding: [40, 20, 20, 20],
+          points: that.data.markers
+        })
+    }
+}
+// 用户位置
+const userLocation = wx.getStorageSync('userLocation')
+Page({
+    onPullDownRefresh: function() {
+        wx.stopPullDownRefresh()
+    },
+    data: {
+        markers: [],
+        polyline: [],
+        controls: db.controls
     },
     onLoad: function() {
         let that = this;
         let key = config.key;
-        this.myAmapFun = new amapFile.AMapWX({
+        db.myAmapFun = new amapFile.AMapWX({
             key: key
         })
         // 气泡测试
-        let testBubble = function() {
-            let now = deitude("104.06951,30.537107")
-            let end = deitude("104.118492,30.745042")
+        let testBubble = function(now, end) {
             // 起点
             let arr = db.markers
             arr[0].latitude = Number(now.split(',')[0])
@@ -98,19 +100,30 @@ Page({
                 markers: arr
             })
             wx.request({
-                url: config.url + '/traffic/route',
+                url: config.url + '/traffic/situation',
                 data: {
                     // 出发点
                     origin: deitude(now),
                     // 目的地
-                    destination: deitude(end)
+                    destination: deitude(end),
+                    // 我的位置
+                    mypoints: deitude(now),
+                    // 躲避拥堵
+                    isGetRouts: true,
+                    // 记录起点
+                    // isStart: false
                 },
                 method: "GET",
                 header: {
                     "Content-Type": "application/json",
+                    "ucloudtech_3rd_key": "test"
                 },
                 success: function(res) {
-                    let dot = res.data.points
+                    if (res.data.code == 201) {
+                        log('堵死了')
+                        return null
+                    }
+                    let dot = res.data.around
                     var points = [];
                     // 路线
                     var steps = res.data.info.trafficData.steps
@@ -161,7 +174,14 @@ Page({
                 }
             })
         }
-        testBubble()
+        let now = userLocation.now
+        let end = deitude("104.118492,30.745042")
+        testBubble(now, end)
+
+    },
+    onReady: function () {
+        // 使用 wx.createMapContext 获取 map 上下文
+        db.mapCtx = wx.createMapContext('navi_map')
     },
     // 解析地址
     deLocation: function() {
@@ -182,7 +202,7 @@ Page({
         })
     },
     show: function(that, start, end) {
-        that.myAmapFun.getDrivingRoute({
+        db.myAmapFun.getDrivingRoute({
             origin: deitude(start),
             destination: deitude(end),
             // city: '成都',
@@ -261,12 +281,13 @@ Page({
         })
     },
     bindMarks: function() {
-        mapCtx.includePoints({
+        db.mapCtx.includePoints({
           padding: [40, 20, 20, 20],
           points: this.data.markers
         })
     },
     bindControls: function(e) {
-        mapButton[e.controlId]()
+        let that = this
+        mapButton[e.controlId](that)
     }
 })

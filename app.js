@@ -1,32 +1,46 @@
 //app.js
 const log = console.log.bind(console)
+const getUserInfo = function() {
+    let that = this
+    wx.login({
+        success: function () {
+            wx.getUserInfo({
+                withCredentials: false,
+                success: function (res) {
+                    wx.setStorageSync('userInfo', res.userInfo)
+                },
+                fail: (err) => {log(err)}
+            })
+        },
+        fail: (err) => {log(err)}
+    })
+}
+const getLocation = function() {
+    wx.getLocation({
+        success: function(res) {
+            res.now = [res.latitude, res.longitude].join(',')
+            wx.setStorageSync('userLocation', res)
+        },
+        cancel: function(res) {
+            console.log(res);
+        },
+        fail: (err) => {
+            log(err)
+        }
+    })
+}
 App({
     // onLaunch 全局登陆触发一次
-    db: {
-        userInfo: null,
-        // 方向
-        compass: null
-    },
     onLaunch: function () {
+        getUserInfo()
         // 开启罗盘
         // wx.startCompass()
     },
-    login: function(that) {
-        wx.login({
-            success: function () {
-                wx.getUserInfo({
-                    withCredentials: false,
-                    success: function (res) {
-                        that.setData({
-                            userInfo: res.userInfo
-                        })
-                    },
-                    fail: () => {}
-                })
-            },
-            fail: () => {}
-        })
+    // 小程序启动 或 后台进入前台展示
+    onShow: function() {
+        getLocation()
     },
+    // 暂时不用
     direction: function(du) {
         // 360 / 8 = 45
         if (du >= 338 || du < 23) {

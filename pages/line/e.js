@@ -128,7 +128,7 @@ Page({
         let now = deitude("104.06951,30.537107")
         let end = deitude("104.118492,30.745042")
         wx.request({
-            url: config.url + '/traffic/route',
+            url: config.test + '/traffic/situation',
             data: {
                 // 出发点
                 origin: deitude(now),
@@ -140,6 +140,7 @@ Page({
                 "Content-Type": "application/json",
             },
             success: function(res) {
+                log(res)
                 // 取比例
                 let ratioArr = getRatio(res)
                 // 坐标点

@@ -1,6 +1,6 @@
 <view class="tan">
     <view class="location">
-
+        <text>益州大道中段</text>
     </view>
 
     <view class="card">
@@ -11,15 +11,17 @@
             bindtouchend="touchend"
             animation="{{animationData}}">
             <block wx:for="{{order}}" wx:key="key">
-              <view class="we-slide">
-                  {{index}} : {{item}}
-              </view>
+                <view class="we-slide">
+                      {{index}} : {{item}}
+                </view>
             </block>
           </view>
         </view>
     </view>
 
     <view class="bottom">
-
+        <view class="report">
+            上报
+        </view>
     </view>
 </view>

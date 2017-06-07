@@ -1,17 +1,38 @@
 .location {
-    height: 98rpx;
-    /*background-color: red;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 52rpx;
+    background-color: rgba(0,0,0,0.02);
+}
+.location text {
+    font-size: 24rpx;
 }
 .card {
-    height: 920rpx;
+    margin-top: 60rpx;
+    height: 874rpx;
     /*background-color: pink;*/
 }
 .bottom {
-    height: 188rpx;
-    /*background-color: yellow;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 220rpx;
+}
+.report {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 116rpx;
+    height: 116rpx;
+    background-color: pink;
+    border-radius: 50%;
 }
 
 @import "../../ku/we_swiper/dist/weSwiper.wxss";
+.we-container {
+    overflow: inherit;
+}
 .we-wrapper{
   width: 100%;
   height: 100%;
@@ -21,15 +42,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 610rpx;
+  width: 542rpx;
   height: 100%;
-  margin: 0 25rpx;
+  margin: 0 32rpx;
   box-sizing: border-box;
-  background-color: transparent;
-  border-radius: 40rpx;
-  border: 1px solid pink;
+  /*background-color: pink;*/
+  border-radius: 10rpx;
+  box-shadow: 0 8rpx 16rpx 0 rgba(0,0,0,0.4);
 }
 
 .we-slide:nth-child(1) {
-    margin-left: 70rpx;
+    margin-left: 104rpx;
 }

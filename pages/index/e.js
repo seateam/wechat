@@ -10,7 +10,7 @@ Page({
             animationViewName: 'animationData',
             slideLength: this.data.order.length,
             initialSlide: 1,
-            width: 658 * device.windowWidth / 750,
+            width: 606 * device.windowWidth / 750,
             // height: 500 * device.windowWidth / 750,
             /**
              * swiper初始化后执行
