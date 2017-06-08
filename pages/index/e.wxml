@@ -1,6 +1,7 @@
 <view class="tan">
     <view class="location">
-        <text>益州大道中段</text>
+        <image src="../../ku/img/iocnLocation.png" />
+        <text> {{township}} </text>
     </view>
 
     <view class="card">
@@ -20,8 +21,6 @@
     </view>
 
     <view class="bottom">
-        <view class="report">
-            上报
-        </view>
+        <image class="report" src="../../ku/img/iconShangbao.png" />
     </view>
 </view>

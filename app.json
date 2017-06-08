@@ -8,7 +8,7 @@
     ],
     "window": {
         "enablePullDownRefresh": true,
-        "backgroundTextStyle": "light",
+        "backgroundTextStyle": "dark",
         "navigationBarBackgroundColor": "#FFF",
         "navigationBarTitleText": "豁然交通",
         "navigationBarTextStyle": "black"

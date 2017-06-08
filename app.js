@@ -1,5 +1,7 @@
 //app.js
 const log = console.log.bind(console)
+const amapFile = require('ku/js/amap-wx.js')
+const config = require('ku/js/config.js')
 const getUserInfo = function() {
     let that = this
     wx.login({
@@ -18,8 +20,27 @@ const getUserInfo = function() {
 const getLocation = function() {
     wx.getLocation({
         success: function(res) {
-            res.now = [res.latitude, res.longitude].join(',')
-            wx.setStorageSync('userLocation', res)
+            let location = res
+            location.now = [res.latitude, res.longitude].join(',')
+            let dot = [res.longitude ,res.latitude].join(',')
+            wx.request({
+                url: 'https://restapi.amap.com/v3/geocode/regeo?parameters',
+                data: {
+                    key: config.web,
+                    location: dot,
+                },
+                method: "GET",
+                header: {
+                    "Content-Type": "application/json",
+                },
+                success: function(res) {
+                    location.data = res.data
+                    wx.setStorageSync('userLocation', location)
+                },
+                fial: function(err) {
+                    wx.setStorageSync('userLocation', location)
+                }
+            })
         },
         cancel: function(res) {
             console.log(res);

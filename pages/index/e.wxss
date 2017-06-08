@@ -1,9 +1,17 @@
+.tan {
+    background: rgb(242, 242, 242) url('https://bigc.cc/md/ku/bg.png');
+}
 .location {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 52rpx;
     background-color: rgba(0,0,0,0.02);
+}
+.location image {
+    width: 20rpx;
+    height: 27rpx;
+    margin-right: 4rpx;
 }
 .location text {
     font-size: 24rpx;
@@ -19,16 +27,12 @@
     align-items: center;
     height: 220rpx;
 }
-.report {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.bottom image {
     width: 116rpx;
     height: 116rpx;
-    background-color: pink;
-    border-radius: 50%;
 }
 
+/* 卡片样式 */
 @import "../../ku/we_swiper/dist/weSwiper.wxss";
 .we-container {
     overflow: inherit;
@@ -46,11 +50,10 @@
   height: 100%;
   margin: 0 32rpx;
   box-sizing: border-box;
-  /*background-color: pink;*/
+  background-color: #FFF;
   border-radius: 10rpx;
   box-shadow: 0 8rpx 16rpx 0 rgba(0,0,0,0.4);
 }
-
 .we-slide:nth-child(1) {
     margin-left: 104rpx;
 }

@@ -1,17 +1,25 @@
+const log = console.log.bind(console)
+const config = require('../../ku/js/config.js')
 import weSwiper from '../../ku/we_swiper/src/main'
-
 Page({
     data: {
-        order: ['red', 'red', 'left', 'left', 'go', 'commany']
+        order: ['red', 'red', 'left', 'left', 'go', 'commany'],
+        township: '定位中…'
+    },
+    onPullDownRefresh: function() {
+        wx.stopPullDownRefresh()
     },
     onLoad() {
+        let location = wx.getStorageSync('userLocation')
+        this.setData({
+            township: location.data.regeocode.addressComponent.township
+        })
         const device = wx.getSystemInfoSync()
         new weSwiper({
             animationViewName: 'animationData',
             slideLength: this.data.order.length,
             initialSlide: 1,
             width: 606 * device.windowWidth / 750,
-            // height: 500 * device.windowWidth / 750,
             /**
              * swiper初始化后执行
              */
