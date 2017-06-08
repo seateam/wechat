@@ -1,11 +1,14 @@
 .tan {
     background: rgb(242, 242, 242) url('https://bigc.cc/md/ku/bg.png');
 }
+/* 地址 */
 .location {
     display: flex;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
     height: 52rpx;
+    padding: 10rpx 0 8rpx 0;
     background-color: rgba(0,0,0,0.02);
 }
 .location image {
@@ -16,11 +19,26 @@
 .location text {
     font-size: 24rpx;
 }
+
+/* 卡片 */
 .card {
     margin-top: 60rpx;
     height: 874rpx;
     /*background-color: pink;*/
 }
+.card .bg {
+    width: 542rpx;
+    height: 542rpx;
+}
+.card .refresh {
+    position: absolute;
+    top: 40rpx;
+    right: 40rpx;
+    width: 60rpx;
+    height: 60rpx;
+}
+
+/* 上报 */
 .bottom {
     display: flex;
     justify-content: center;
@@ -43,16 +61,16 @@
   box-sizing: border-box;
 }
 .we-slide{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 542rpx;
-  height: 100%;
-  margin: 0 32rpx;
-  box-sizing: border-box;
-  background-color: #FFF;
-  border-radius: 10rpx;
-  box-shadow: 0 8rpx 16rpx 0 rgba(0,0,0,0.4);
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    width: 542rpx;
+    height: 100%;
+    margin: 0 32rpx;
+    box-sizing: border-box;
+    background-color: #FFF;
+    border-radius: 10rpx;
+    box-shadow: 0 8rpx 16rpx 0 rgba(0,0,0,0.4);
 }
 .we-slide:nth-child(1) {
     margin-left: 104rpx;

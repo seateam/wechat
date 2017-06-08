@@ -1,6 +1,9 @@
 const log = console.log.bind(console)
 const config = require('../../ku/js/config.js')
+const app = getApp()
 import weSwiper from '../../ku/we_swiper/src/main'
+let userInfo = null
+let location = null
 Page({
     data: {
         order: ['red', 'red', 'left', 'left', 'go', 'commany'],
@@ -10,14 +13,31 @@ Page({
         wx.stopPullDownRefresh()
     },
     onLoad() {
-        let location = wx.getStorageSync('userLocation')
+        let that = this
+        that.getUser()
+        if (userInfo && location) {
+            that.init()
+        } else {
+            app.getLocation(function() {
+                app.getUserInfo(function() {
+                    that.getUser()
+                    that.init()
+                })
+            })
+        }
+    },
+    getUser() {
+        userInfo = wx.getStorageSync('userInfo')
+        location = wx.getStorageSync('userLocation')
+    },
+    init() {
         this.setData({
             township: location.data.regeocode.addressComponent.township
         })
         const device = wx.getSystemInfoSync()
         new weSwiper({
             animationViewName: 'animationData',
-            slideLength: this.data.order.length,
+            slideLength: this.data.order.length + 2,
             initialSlide: 1,
             width: 606 * device.windowWidth / 750,
             /**

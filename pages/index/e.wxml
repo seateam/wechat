@@ -11,11 +11,24 @@
             bindtouchmove="touchmove"
             bindtouchend="touchend"
             animation="{{animationData}}">
+            <view class="we-slide">
+                +
+            </view>
             <block wx:for="{{order}}" wx:key="key">
                 <view class="we-slide">
-                      {{index}} : {{item}}
+                    <image class="bg" src="https://bigc.cc/tools/open/bg01.png" />
+                    <image class="refresh" src="../../ku/img/iconRefresh.png" />
+                    <view class="title">
+                        
+                    </view>
+                    <view class="more">
+
+                    </view>
                 </view>
             </block>
+            <view class="we-slide">
+                +
+            </view>
           </view>
         </view>
     </view>
