@@ -14,7 +14,7 @@
 .location image {
     width: 20rpx;
     height: 27rpx;
-    margin-right: 4rpx;
+    margin: 4rpx 12rpx 4rpx 0;
 }
 .location text {
     font-size: 24rpx;
@@ -37,7 +37,41 @@
     width: 60rpx;
     height: 60rpx;
 }
-
+.card .title {
+    display: flex;
+    align-items: center;
+    height: 60rpx;
+    width: 100%;
+    margin: 36rpx 0 64rpx 40rpx;
+}
+.title image {
+    width: 60rpx;
+    height: 60rpx;
+    margin-right: 20rpx;
+}
+.title text {
+    font-size: 36rpx;
+}
+.card .more {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.more text:nth-child(2n+1) {
+    font-size: 48rpx;
+}
+.more text:nth-child(2n) {
+    font-size: 24rpx;
+}
+.more text:nth-child(3) {
+    margin-left: 60rpx;
+}
+.more image {
+    margin-left: 76rpx;
+    width: 80rpx;
+    height: 80rpx;
+}
 /* 上报 */
 .bottom {
     display: flex;

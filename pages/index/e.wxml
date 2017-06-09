@@ -16,13 +16,20 @@
             </view>
             <block wx:for="{{order}}" wx:key="key">
                 <view class="we-slide">
-                    <image class="bg" src="https://bigc.cc/tools/open/bg01.png" />
+                    <image class="bg" src="../../ku/img/bg01.png" />
                     <image class="refresh" src="../../ku/img/iconRefresh.png" />
                     <view class="title">
-                        
+                        <image src="../../ku/img/iconHomeCircle.png" />
+                        <text> 回家 </text>
                     </view>
                     <view class="more">
-
+                        <view>
+                            <text> 35 </text>
+                            <text> 分钟 </text>
+                            <text> 10 </text>
+                            <text> 公里 </text>
+                        </view>
+                        <image src="../../ku/img/invalidName.png" />
                     </view>
                 </view>
             </block>
