@@ -1,4 +1,4 @@
-const log = console.log.bind(console)
+const log = console.log.bind(console, '>>>')
 const config = require('../../ku/js/config.js')
 const app = getApp()
 import weSwiper from '../../ku/we_swiper/src/main'
@@ -18,6 +18,7 @@ Page({
         if (userInfo && location) {
             that.init()
         } else {
+            log('首次登陆')
             app.getLocation(function() {
                 app.getUserInfo(function() {
                     that.getUser()
@@ -134,5 +135,38 @@ Page({
     },
     touchend(e) {
         this.weswiper.touchend(e)
+    },
+    shangbao() {
+        let dot = {
+            type: "Point",
+            coordinates: [104.115448, 30.746012]
+        }
+        let session = userInfo.session_key
+        wx.request({
+            url: config.url + '/info/save',
+            data: {
+                // 拥堵程度 1 - 4 数字
+                traffic: 1,
+                // 用户自定义
+                custom: "有大水坑",
+                // 拥堵原因
+                reason: "下雨",
+                // 当前时间
+                data: Date.now(),
+                // 经纬度
+                location: JSON.stringify(dot),
+                // session
+                user_id: session
+            },
+            method: "POST",
+            header: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "ucloudtech_3rd_key": session
+            },
+            success: function(res) {
+                log(res)
+            },
+            fail: (err) => {log(err)}
+        })
     }
 })

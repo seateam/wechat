@@ -6,7 +6,7 @@ const config = require('ku/js/config.js')
 App({
     // onLaunch 全局登陆触发一次
     onLaunch() {
-        this.getUserInfo()
+        // this.getUserInfo()
         // 开启罗盘
         // wx.startCompass()
     },
@@ -19,11 +19,11 @@ App({
         wx.login({
             success: function (res) {
                 let code = res.code
+                log(code)
                 wx.getUserInfo({
                     withCredentials: false,
                     success: function (res) {
                         let userInfo = res.userInfo
-
                         userInfo.code = code
                         userInfo.rawData = res.rawData
                         // 获取 ucloud session
@@ -39,9 +39,10 @@ App({
                                 "Content-Type": "application/x-www-form-urlencoded",
                             },
                             success: function(res) {
+                                log(res)
                                 userInfo.session_key = res.data.info.session_key
                                 wx.setStorageSync('userInfo', userInfo)
-                                if (callback) { callback() }
+                                if (typeof callback === 'function') { callback() }
                             },
                             fail: (err) => {log(err)}
                         })

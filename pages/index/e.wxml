@@ -41,6 +41,6 @@
     </view>
 
     <view class="bottom">
-        <image class="report" src="../../ku/img/iconShangbao.png" />
+        <image bindtap="shangbao" class="report" src="../../ku/img/iconShangbao.png" />
     </view>
 </view>
