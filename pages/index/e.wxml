@@ -12,7 +12,10 @@
             bindtouchend="touchend"
             animation="{{animationData}}">
             <view class="we-slide">
-                +
+                <view class="add">
+                    <image src="../../ku/img/add.png" />
+                    <text> 添加目的地 </text>
+                </view>
             </view>
             <block wx:for="{{cards}}" wx:for-item="e" wx:key="key" >
                 <view class="we-slide">
@@ -34,7 +37,10 @@
                 </view>
             </block>
             <view class="we-slide">
-                +
+                <view class="add">
+                    <image src="../../ku/img/add.png" />
+                    <text> 添加目的地 </text>
+                </view>
             </view>
           </view>
         </view>

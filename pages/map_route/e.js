@@ -5,6 +5,10 @@ const config = require('../../ku/js/config.js')
 const deitude = function(itude) {
     return itude.split(',').reverse().join(',')
 }
+const User = {
+    info: wx.getStorageSync('userInfo'),
+    location: wx.getStorageSync('userLocation')
+}
 // 默认参数
 let db = {
     myAmapFun: null, // 高德API实例
@@ -107,21 +111,21 @@ Page({
                     // 目的地
                     destination: deitude(end),
                     // 我的位置
-                    mypoints: deitude(now),
+                    myorigin: deitude(now),
                     // 躲避拥堵
-                    isGetRouts: true,
+                    // isGetRouts: true,
                     // 记录起点
-                    // isStart: false
+                    // isStart: true,
                 },
-                method: "GET",
+                method: "POST",
                 header: {
                     "Content-Type": "application/json",
-                    "ucloudtech_3rd_key": "test"
+                    "ucloudtech_3rd_key": User.info.session_key
                 },
                 success: function(res) {
-                    if (res.data.code == 201) {
-                        log('堵死了')
-                        return null
+                    log(res.data.code)
+                    if (Number(res.data.code) !== 200) {
+                        return;
                     }
                     let dot = res.data.around
                     var points = [];
@@ -177,7 +181,6 @@ Page({
         let now = userLocation.now
         let end = deitude("104.118492,30.745042")
         testBubble(now, end)
-
     },
     onReady: function () {
         // 使用 wx.createMapContext 获取 map 上下文

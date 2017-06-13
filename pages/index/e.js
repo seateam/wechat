@@ -10,112 +10,75 @@ const User = {
     location: null,
     cards: [
         {
-            // name: '升仙湖',
-            // time: '25',
-            // km: '10',
+            name: '升仙湖',
+            time: '25',
+            km: '10',
             // 出发点
             origin: deitude('30.56585,104.06588'), // 环球中心
             // 目的地
             destination: deitude('30.70775,104.08171'), // 升仙湖
             // 我的位置
-            myorigin: deitude('30.572269,104.066541'), // 当前位置
+            myorigin: deitude('30.572269,104.066541'), // 公司
             // 躲避拥堵
             isGetRouts: false,
             // 记录起点
             isStart: false
         },
         {
-            // name: '黄龙奇观',
-            // time: '11',
-            // km: '90',
+            name: '黄龙奇观',
+            time: '11',
+            km: '90',
             // 出发点
             origin: deitude('33.18523,103.9267'), // 九寨沟风景区
             // 目的地
             destination: deitude('32.74994,103.82415'), // 黄龙奇观
             // 我的位置
-            myorigin: deitude('30.572269,104.066541'), // 当前位置
+            myorigin: deitude('30.572269,104.066541'), // 公司
             isGetRouts: false,
             isStart: false
         },
         {
-            // name: '华阳客运中心',
-            // time: '11',
-            // km: '90',
+            name: '华阳客运中心',
+            time: '11',
+            km: '90',
             // 出发点
-            origin: deitude('30.572269,104.066541'), // 当前位置
+            origin: deitude('30.572269,104.066541'), // 公司
             // 目的地
             destination: deitude('30.48864,104.06858'), // 华阳客运中心
             // 我的位置
-            myorigin: deitude('30.572269,104.066541'), // 当前位置
+            myorigin: deitude('30.572269,104.066541'), // 公司
+            isGetRouts: false,
+            isStart: false
+        },
+        {
+            name: '天府广场',
+            time: '11',
+            km: '90',
+            // 出发点
+            origin: deitude('30.66359,104.0526'), // 宽窄巷子
+            // 目的地
+            destination: deitude('30.65742,104.06584'), // 天府广场
+            // 我的位置
+            myorigin: deitude('30.572269,104.066541'), // 公司
+            isGetRouts: false,
+            isStart: false
+        },
+        {
+            name: '成都杜甫草堂博物馆',
+            time: '11',
+            km: '90',
+            // 出发点
+            origin: deitude('30.64606,104.048'), // 武侯祠博物馆
+            // 目的地
+            destination: deitude('30.66004,104.02876'), // 成都杜甫草堂博物馆
+            // 我的位置
+            myorigin: deitude('30.572269,104.066541'), // 公司
             isGetRouts: false,
             isStart: false
         }
     ]
 }
 
-User.cards = [{//1
-	origin:'104.076721,30.731496',
-	destination:'104.042389,30.516416',
-	isGetRouts:false,
-	isStart:false,
-	myorigin:'104.076721,30.731496'
-
-},{//2
-	origin:'104.076721,30.731496',
-	destination:'104.042389,30.516416',
-	isGetRouts:false,
-	isStart:false,
-	myorigin:'104.076721,30.731496'
-
-},{//3
-	origin:'104.076721,30.731496',
-	destination:'104.042389,30.516416',
-	isGetRouts:false,
-	isStart:false,
-	myorigin:'104.076721,30.731496'
-},{//4
-	origin:'104.076721,30.731496',
-	destination:'104.042389,30.516416',
-	isGetRouts:false,
-	isStart:false,
-	myorigin:'104.076721,30.731496'
-},{//5
-	origin:'104.076721,30.731496',
-	destination:'104.042389,30.516416',
-	isGetRouts:false,
-	isStart:false,
-	myorigin:'104.076721,30.731496'
-},{//6
-	origin:'104.076721,30.731496',
-	destination:'104.042389,30.516416',
-	isGetRouts:false,
-	isStart:false,
-	myorigin:'104.076721,30.731496'
-},{//7
-	origin:'104.076721,30.731496',
-	destination:'104.042389,30.516416',
-	isGetRouts:false,
-	isStart:false,
-	myorigin:'104.076721,30.731496'
-},{//8
-	origin:'104.076721,30.731496',
-	destination:'104.042389,30.516416',
-	isGetRouts:false,
-	isStart:false,
-	myorigin:'104.076721,30.731496'
-},{//9
-	origin:'104.076721,30.731496',
-	destination:'104.042389,30.516416',
-	isGetRouts:false,
-	isStart:false,
-	myorigin:'104.076721,30.731496'
-},{//10
-	origin:'104.076721,30.731496',
-	destination:'104.042389,30.516416',
-	isGetRouts:false,
-	isStart:false,
-	myorigin:'104.076721,30.731496'
-}]
 Page({
     data: {
         cards: User["cards"],
@@ -123,6 +86,21 @@ Page({
     },
     onPullDownRefresh: function() {
         wx.stopPullDownRefresh()
+    },
+    onShareAppMessage: function () {
+        log(getCurrentPages())
+        return {
+            title: '豁然交通',
+            path: 'pages/map_route/e',
+            success: function(res) {
+                log(res)
+              // 转发成功
+            },
+            fail: function(res) {
+                log(res)
+              // 转发失败
+            }
+        }
     },
     onLoad() {
         let that = this
@@ -253,7 +231,6 @@ Page({
             type: "Point",
             coordinates: [104.115448, 30.746012]
         }
-        let session = User.info.session_key
         wx.request({
             url: config.url + '/info/save',
             data: {
@@ -268,12 +245,12 @@ Page({
                 // 经纬度
                 location: JSON.stringify(dot),
                 // session
-                user_id: session
+                user_id: User.info.session_key
             },
             method: "POST",
             header: {
                 "Content-Type": "application/x-www-form-urlencoded",
-                "ucloudtech_3rd_key": session
+                "ucloudtech_3rd_key": User.info.session_key
             },
             success: function(res) {
                 log(res)
@@ -289,6 +266,7 @@ Page({
         //         log(name, dot)
         //     }
         // })
+        log(User.cards)
         wx.request({
             url: config.url + '/traffic/routes',
             data: {

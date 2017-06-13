@@ -141,10 +141,6 @@ Page({
                 isGetRouts: true,
                 isStart: true,
                 myorigin:'104.076721,30.731496'
-                // 偶都剋
-                // origin:'104.076721,30.731496',
-                // destination:'104.042389,30.516416',
-                // myorigin:'104.076721,30.731496'
             },
             method: "POST",
             header: {

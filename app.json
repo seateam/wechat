@@ -1,9 +1,8 @@
 {
     "pages": [
-        "pages/line/e",
         "pages/index/e",
         "pages/map_route/e",
-
+        "pages/line/e",
         "pages/jiejing/e",
         "pages/swiper/e"
     ],
@@ -15,7 +14,7 @@
         "navigationBarTextStyle": "black"
     },
     "networkTimeout": {
-        "request": 16000,
+        "request": 6000,
         "downloadFile": 6000
     }
 }
