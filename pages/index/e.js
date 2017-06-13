@@ -2,11 +2,123 @@ const log = console.log.bind(console, '>>>')
 const config = require('../../ku/js/config.js')
 const app = getApp()
 import weSwiper from '../../ku/we_swiper/src/main'
-let userInfo = null
-let location = null
+const deitude = function(itude) {
+    return itude.split(',').reverse().join(',')
+}
+const User = {
+    info: null,
+    location: null,
+    cards: [
+        {
+            // name: '升仙湖',
+            // time: '25',
+            // km: '10',
+            // 出发点
+            origin: deitude('30.56585,104.06588'), // 环球中心
+            // 目的地
+            destination: deitude('30.70775,104.08171'), // 升仙湖
+            // 我的位置
+            myorigin: deitude('30.572269,104.066541'), // 当前位置
+            // 躲避拥堵
+            isGetRouts: false,
+            // 记录起点
+            isStart: false
+        },
+        {
+            // name: '黄龙奇观',
+            // time: '11',
+            // km: '90',
+            // 出发点
+            origin: deitude('33.18523,103.9267'), // 九寨沟风景区
+            // 目的地
+            destination: deitude('32.74994,103.82415'), // 黄龙奇观
+            // 我的位置
+            myorigin: deitude('30.572269,104.066541'), // 当前位置
+            isGetRouts: false,
+            isStart: false
+        },
+        {
+            // name: '华阳客运中心',
+            // time: '11',
+            // km: '90',
+            // 出发点
+            origin: deitude('30.572269,104.066541'), // 当前位置
+            // 目的地
+            destination: deitude('30.48864,104.06858'), // 华阳客运中心
+            // 我的位置
+            myorigin: deitude('30.572269,104.066541'), // 当前位置
+            isGetRouts: false,
+            isStart: false
+        }
+    ]
+}
+
+User.cards = [{//1
+	origin:'104.076721,30.731496',
+	destination:'104.042389,30.516416',
+	isGetRouts:false,
+	isStart:false,
+	myorigin:'104.076721,30.731496'
+
+},{//2
+	origin:'104.076721,30.731496',
+	destination:'104.042389,30.516416',
+	isGetRouts:false,
+	isStart:false,
+	myorigin:'104.076721,30.731496'
+
+},{//3
+	origin:'104.076721,30.731496',
+	destination:'104.042389,30.516416',
+	isGetRouts:false,
+	isStart:false,
+	myorigin:'104.076721,30.731496'
+},{//4
+	origin:'104.076721,30.731496',
+	destination:'104.042389,30.516416',
+	isGetRouts:false,
+	isStart:false,
+	myorigin:'104.076721,30.731496'
+},{//5
+	origin:'104.076721,30.731496',
+	destination:'104.042389,30.516416',
+	isGetRouts:false,
+	isStart:false,
+	myorigin:'104.076721,30.731496'
+},{//6
+	origin:'104.076721,30.731496',
+	destination:'104.042389,30.516416',
+	isGetRouts:false,
+	isStart:false,
+	myorigin:'104.076721,30.731496'
+},{//7
+	origin:'104.076721,30.731496',
+	destination:'104.042389,30.516416',
+	isGetRouts:false,
+	isStart:false,
+	myorigin:'104.076721,30.731496'
+},{//8
+	origin:'104.076721,30.731496',
+	destination:'104.042389,30.516416',
+	isGetRouts:false,
+	isStart:false,
+	myorigin:'104.076721,30.731496'
+},{//9
+	origin:'104.076721,30.731496',
+	destination:'104.042389,30.516416',
+	isGetRouts:false,
+	isStart:false,
+	myorigin:'104.076721,30.731496'
+},{//10
+	origin:'104.076721,30.731496',
+	destination:'104.042389,30.516416',
+	isGetRouts:false,
+	isStart:false,
+	myorigin:'104.076721,30.731496'
+}]
 Page({
     data: {
-        order: ['red', 'red', 'left', 'left', 'go', 'commany'],
+        cards: User["cards"],
         township: '定位中…'
     },
     onPullDownRefresh: function() {
@@ -15,7 +127,7 @@ Page({
     onLoad() {
         let that = this
         that.getUser()
-        if (userInfo && location) {
+        if (User.info && User.location) {
             that.init()
         } else {
             log('首次登陆')
@@ -28,17 +140,17 @@ Page({
         }
     },
     getUser() {
-        userInfo = wx.getStorageSync('userInfo')
-        location = wx.getStorageSync('userLocation')
+        User.info = wx.getStorageSync('userInfo')
+        User.location = wx.getStorageSync('userLocation')
     },
     init() {
         this.setData({
-            township: location.data.regeocode.addressComponent.township
+            township: User.location.data.regeocode.addressComponent.township
         })
         const device = wx.getSystemInfoSync()
         new weSwiper({
             animationViewName: 'animationData',
-            slideLength: this.data.order.length + 2,
+            slideLength: this.data.cards.length + 2,
             initialSlide: 1,
             width: 606 * device.windowWidth / 750,
             /**
@@ -141,7 +253,7 @@ Page({
             type: "Point",
             coordinates: [104.115448, 30.746012]
         }
-        let session = userInfo.session_key
+        let session = User.info.session_key
         wx.request({
             url: config.url + '/info/save',
             data: {
@@ -167,6 +279,32 @@ Page({
                 log(res)
             },
             fail: (err) => {log(err)}
+        })
+    },
+    refresh() {
+        // wx.chooseLocation({
+        //     success: (res) => {
+        //         let name = res.name
+        //         let dot = [res.latitude,res.longitude].join(',')
+        //         log(name, dot)
+        //     }
+        // })
+        wx.request({
+            url: config.url + '/traffic/routes',
+            data: {
+                cards: User.cards
+            },
+            method: "POST",
+            header: {
+                "Content-Type": "application/json",
+                "ucloudtech_3rd_key": User.info.session_key
+            },
+            success: function(res) {
+                log(res)
+            },
+            fail: function(err){
+                log(err)
+            }
         })
     }
 })

@@ -4,6 +4,10 @@ const app = getApp()
 const deitude = function(itude) {
     return itude.split(',').reverse().join(',')
 }
+const User = {
+    info: wx.getStorageSync('userInfo'),
+    location: wx.getStorageSync('userLocation')
+}
 const getBezier = function() {
     // 新算法
     // anchorpoints：贝塞尔基点
@@ -128,19 +132,30 @@ Page({
         let now = deitude("104.06951,30.537107")
         let end = deitude("104.118492,30.745042")
         wx.request({
-            url: config.test + '/traffic/situation',
+            url: config.url + '/traffic/situation',
             data: {
-                // 出发点
+                // // 出发点
                 origin: deitude(now),
-                // 目的地
-                destination: deitude(end)
+                // // 目的地
+                destination: deitude(end),
+                isGetRouts: true,
+                isStart: true,
+                myorigin:'104.076721,30.731496'
+                // 偶都剋
+                // origin:'104.076721,30.731496',
+                // destination:'104.042389,30.516416',
+                // myorigin:'104.076721,30.731496'
             },
-            method: "GET",
+            method: "POST",
             header: {
                 "Content-Type": "application/json",
+                "ucloudtech_3rd_key": User.info.session_key
             },
             success: function(res) {
                 log(res)
+                if (Number(res.data.code) === 201) {
+                    return;
+                }
                 // 取比例
                 let ratioArr = getRatio(res)
                 // 坐标点

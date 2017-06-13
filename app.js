@@ -1,12 +1,10 @@
-//app.js
-const log = console.log.bind(console)
+const log = console.log.bind(console, '>>>')
 const amapFile = require('ku/js/amap-wx.js')
 const config = require('ku/js/config.js')
 
 App({
     // onLaunch 全局登陆触发一次
     onLaunch() {
-        // this.getUserInfo()
         // 开启罗盘
         // wx.startCompass()
     },
@@ -19,7 +17,6 @@ App({
         wx.login({
             success: function (res) {
                 let code = res.code
-                log(code)
                 wx.getUserInfo({
                     withCredentials: false,
                     success: function (res) {
@@ -39,7 +36,6 @@ App({
                                 "Content-Type": "application/x-www-form-urlencoded",
                             },
                             success: function(res) {
-                                log(res)
                                 userInfo.session_key = res.data.info.session_key
                                 wx.setStorageSync('userInfo', userInfo)
                                 if (typeof callback === 'function') { callback() }
@@ -81,7 +77,7 @@ App({
                 })
             },
             cancel: function(res) {
-                console.log(res);
+                log(res)
             },
             fail: (err) => {
                 log(err)

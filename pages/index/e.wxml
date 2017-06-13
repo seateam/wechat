@@ -14,19 +14,19 @@
             <view class="we-slide">
                 +
             </view>
-            <block wx:for="{{order}}" wx:key="key">
+            <block wx:for="{{cards}}" wx:for-item="e" wx:key="key" >
                 <view class="we-slide">
                     <image class="bg" src="../../ku/img/bg01.png" />
-                    <image class="refresh" src="../../ku/img/iconRefresh.png" />
+                    <image bindtap="refresh" class="refresh" src="../../ku/img/iconRefresh.png" />
                     <view class="title">
                         <image src="../../ku/img/iconHomeCircle.png" />
-                        <text> 回家 </text>
+                        <text> {{e.name}} </text>
                     </view>
                     <view class="more">
                         <view>
-                            <text> 35 </text>
+                            <text> {{e.time}} </text>
                             <text> 分钟 </text>
-                            <text> 10 </text>
+                            <text> {{e.km}} </text>
                             <text> 公里 </text>
                         </view>
                         <image src="../../ku/img/invalidName.png" />
