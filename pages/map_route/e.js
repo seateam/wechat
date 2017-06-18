@@ -123,7 +123,7 @@ Page({
                     "ucloudtech_3rd_key": User.info.session_key
                 },
                 success: function(res) {
-                    log(res.data.code)
+                    log(res)
                     if (Number(res.data.code) !== 200) {
                         return;
                     }

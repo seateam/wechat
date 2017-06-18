@@ -1,10 +1,10 @@
 {
     "pages": [
         "pages/index/e",
+        "pages/editaddress/e",
         "pages/map_route/e",
         "pages/line/e",
-        "pages/jiejing/e",
-        "pages/swiper/e"
+        "pages/jiejing/e"
     ],
     "window": {
         "enablePullDownRefresh": true,
