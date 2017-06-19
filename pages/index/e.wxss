@@ -1,23 +1,18 @@
 .tan {
-    background: rgb(242, 242, 242) url('https://bigc.cc/md/ku/bg.png');
+    background-color: rgb(235, 235, 235);
+    /*background: rgb(242, 242, 242) url('https://bigc.cc/md/ku/bg.png');*/
 }
 /* 地址 */
 .location {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     box-sizing: border-box;
-    height: 52rpx;
-    padding: 10rpx 0 8rpx 0;
-    background-color: rgba(0,0,0,0.02);
-}
-.location image {
-    width: 20rpx;
-    height: 27rpx;
-    margin: 4rpx 12rpx 4rpx 0;
+    height: 40rpx;
+    background-color: rgb(248, 248, 248);
 }
 .location text {
-    font-size: 24rpx;
+    font-size: 20rpx;
 }
 
 .add {
@@ -93,11 +88,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 220rpx;
+    margin-top: 90rpx;
 }
 .bottom image {
-    width: 116rpx;
-    height: 116rpx;
+    width: 108rpx;
+    height: 108rpx;
 }
 
 /* 卡片样式 */

@@ -17,5 +17,5 @@
 
 <view class="location-btn">
     <button disabled >删除</button>
-    <button>保存</button>
+    <button open-type="share" >保存</button>
 </view>

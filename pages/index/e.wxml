@@ -1,6 +1,5 @@
 <view class="tan">
     <view class="location">
-        <image src="img/iocnLocation.png" />
         <text> {{township}} </text>
     </view>
 
@@ -47,6 +46,6 @@
     </view>
 
     <view class="bottom">
-        <image bindtap="shangbao" class="report" src="img/iconShangbao.png" />
+        <image bindtap="shangbao" class="report" src="img/iconShangbao@3x.png" />
     </view>
 </view>

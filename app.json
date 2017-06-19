@@ -1,15 +1,15 @@
 {
     "pages": [
+        "pages/index/e",
         "pages/editaddress/e",
         "pages/map_route/e",
-        "pages/index/e",
         "pages/line/e",
         "pages/jiejing/e"
     ],
     "window": {
         "enablePullDownRefresh": true,
-        "backgroundTextStyle": "dark",
-        "navigationBarBackgroundColor": "#FFF",
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#F8F8F8",
         "navigationBarTitleText": "豁然交通",
         "navigationBarTextStyle": "black"
     },
