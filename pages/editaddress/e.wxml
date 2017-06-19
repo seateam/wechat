@@ -1,0 +1,21 @@
+<view class="location">
+    <image src="img/iconLocationSmall@3x.png" />
+    <text> 移动互联网创业大厦 </text>
+</view>
+<view class="location-name">
+    <image src="img/iconName@3x.png" />
+    <input placeholder="取个名字吧，如：公司" placeholder-style="color:rgb(216, 216, 216)" />
+</view>
+
+<view class="location-icon">
+    <image src="img/iconOriginalCircle@3x.png" />
+    <image src="img/iconHomeGrey@3x.png" />
+    <image src="img/iconOfficeGrey@3x.png" />
+    <image src="img/iconSchoolGrey@3x.png" />
+    <image src="img/iconMarketGrey@3x.png" />
+</view>
+
+<view class="location-btn">
+    <button disabled >删除</button>
+    <button>保存</button>
+</view>

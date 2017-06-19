@@ -1,6 +1,6 @@
 <view class="tan">
     <view class="location">
-        <image src="../../ku/img/iocnLocation.png" />
+        <image src="img/iocnLocation.png" />
         <text> {{township}} </text>
     </view>
 
@@ -13,16 +13,16 @@
             animation="{{animationData}}">
             <view class="we-slide">
                 <view class="add">
-                    <image src="../../ku/img/add.png" />
+                    <image src="img/add.png" />
                     <text> 添加目的地 </text>
                 </view>
             </view>
             <block wx:for="{{cards}}" wx:for-item="e" wx:key="key" >
                 <view class="we-slide">
-                    <image class="bg" src="../../ku/img/bg01.png" />
-                    <image bindtap="refresh" class="refresh" src="../../ku/img/iconRefresh.png" />
+                    <image class="bg" src="img/bg01.png" />
+                    <image bindtap="refresh" class="refresh" src="img/iconRefresh.png" />
                     <view class="title">
-                        <image src="../../ku/img/iconHomeCircle.png" />
+                        <image src="img/iconHomeCircle.png" />
                         <text> {{e.name}} </text>
                     </view>
                     <view class="more">
@@ -32,13 +32,13 @@
                             <text> {{e.km}} </text>
                             <text> 公里 </text>
                         </view>
-                        <image src="../../ku/img/invalidName.png" />
+                        <image src="img/invalidName.png" />
                     </view>
                 </view>
             </block>
             <view class="we-slide">
                 <view class="add">
-                    <image src="../../ku/img/add.png" />
+                    <image src="img/add.png" />
                     <text> 添加目的地 </text>
                 </view>
             </view>
@@ -47,6 +47,6 @@
     </view>
 
     <view class="bottom">
-        <image bindtap="shangbao" class="report" src="../../ku/img/iconShangbao.png" />
+        <image bindtap="shangbao" class="report" src="img/iconShangbao.png" />
     </view>
 </view>

@@ -1,8 +1,8 @@
 {
     "pages": [
-        "pages/index/e",
         "pages/editaddress/e",
         "pages/map_route/e",
+        "pages/index/e",
         "pages/line/e",
         "pages/jiejing/e"
     ],

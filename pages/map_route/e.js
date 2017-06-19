@@ -14,23 +14,23 @@ let db = {
     myAmapFun: null, // 高德API实例
     mapCtx: null,    // 地图实例
     markers: [{
-        iconPath: '../../ku/img/icecream-07.png',
+        iconPath: 'img/icecream-20.png',
         id: 0,
         latitude:  null,
         longitude: null,
-        width: 24,
+        width: 34,
         height: 34
     }, {
-        iconPath: '../../ku/img/icecream-18.png',
+        iconPath: 'img/icecream-07.png',
         id: 1,
         latitude: null,
         longitude: null,
-        width: 24,
+        width: 34,
         height: 34
     }],
     controls: [{
             // id: 1,
-            iconPath: '../../ku/img/bottom.png',
+            iconPath: 'img/bottom.png',
             // clickable: true,
             position: {
                 left: 0,
@@ -40,7 +40,7 @@ let db = {
             }
         }, {
             id: 1,
-            iconPath: '../../ku/img/sea.png',
+            iconPath: 'img/sea.png',
             clickable: true,
             position: {
                 left: 10,
@@ -50,7 +50,7 @@ let db = {
             }
         }, {
             id: 2,
-            iconPath: '../../ku/img/mountain.png',
+            iconPath: 'img/mountain.png',
             clickable: true,
             position: {
                 left:375 / 2 - 25,
@@ -161,11 +161,11 @@ Page({
                     let arr = db.markers
                     for (let i of dot) {
                         arr.push({
-                            iconPath: '../../ku/img/icecream-18.png',
+                            iconPath: 'img/icecream-11.png',
                             id: 1,
                             latitude: i.lat,
                             longitude: i.lon,
-                            width: 24,
+                            width: 34,
                             height: 34
                         })
                     }
@@ -179,7 +179,7 @@ Page({
             })
         }
         let now = userLocation.now
-        let end = deitude("104.118492,30.745042")
+        let end = '30.48864,104.06858'
         testBubble(now, end)
     },
     onReady: function () {
