@@ -1,5 +1,6 @@
 {
     "pages": [
+        "pages/sendshare/e",
         "pages/index/e",
         "pages/editaddress/e",
         "pages/map_route/e",

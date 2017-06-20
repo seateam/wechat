@@ -1,0 +1,79 @@
+#topMap {
+    height: 300rpx;
+    width: 100%;
+}
+.feel, .jam {
+    text-align: left;
+    margin-left: 40rpx;
+}
+.title  {
+    font-size: 32rpx;
+    font-weight: bolder;
+    color: rgba(52, 52, 52, 0.9)
+}
+
+.feel {
+    margin-top: 50rpx;
+    height: 214rpx;
+}
+.feel-box {
+    margin: 50rpx 0 0 20rpx;
+}
+.feel-btn {
+    border: 1px solid rgb(216, 216, 216);
+    width: 120rpx;
+    height: 60rpx;
+    line-height: 60rpx;
+    border-radius: 30rpx;
+    font-size: 36rpx;
+    margin-right: 50rpx;
+    color: rgb(216, 216, 216);
+    background-color: #FFF;
+}
+.feel-btn:nth-child(1) {
+    color: rgb(255, 99, 61);
+    border-color: rgb(255, 99, 61);
+}
+
+.jam {
+    height: 470rpx;
+}
+.jam-box {
+    margin: 0 0 0 30rpx;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.jam-btn {
+    display: inline-block;
+    height: 146rpx;
+    overflow: hidden;
+    text-align: center;
+    margin-top: 40rpx;
+    margin-right: 70rpx;
+}
+.jam-btn:nth-last-child(1) image {
+    margin: 0 10rpx;
+}
+.jam-btn:nth-last-child(2) {
+    margin-right: 60rpx;
+}
+.jam-btn image {
+    display: block;
+    width: 100rpx;
+    height: 100rpx;
+}
+.jam-btn text {
+    font-size: 24rpx;
+}
+
+.report button {
+    width: 368rpx;
+    height: 88rpx;
+    line-height: 88rpx;
+    color: white;
+    font-size: 36rpx;
+    border-radius: 8rpx;
+    border: 1px solid rgb(120, 120, 255);
+    background-color: rgb(120, 120, 255);
+}

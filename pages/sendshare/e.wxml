@@ -1,0 +1,42 @@
+<!--
+scale 缩放级别 5 - 18
+controls 按钮
+markers 标记
+polyline 路线
+ -->
+ <view class="tan">
+     <map id="topMap"
+         latitude="{{User.location.latitude}}"
+         longitude="{{User.location.longitude}}"
+         scale="14"
+         show-location
+         controls="{{controls}}"
+         bindcontroltap="bindControls"
+     />
+
+     <view class="feel">
+         <text class="title"> 驾驶体验 </text>
+         <view class="feel-box">
+             <button class="feel-btn">畅</button>
+             <button class="feel-btn">缓</button>
+             <button class="feel-btn">慢</button>
+             <button class="feel-btn">挤</button>
+         </view>
+     </view>
+
+     <view class="jam">
+         <text class="title"> 堵车原因 </text>
+         <view class="jam-box">
+             <block wx:for="{{jam}}" wx:for-item="e" wx:key="key" >
+                 <view class="jam-btn">
+                     <image src="img/{{e.checked}}/{{e.icon}}" />
+                     <text> {{e.text}} </text>
+                 </view>
+             </block>
+         </view>
+     </view>
+
+     <view class="report">
+         <button>上报路况</button>
+     </view>
+ </view>
