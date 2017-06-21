@@ -2,6 +2,20 @@
     height: 300rpx;
     width: 100%;
 }
+#share {
+    position: absolute;
+    top: 340rpx;
+    right: 40rpx;
+    font-size: 0;
+    padding: 0;
+    border-radius: 0;
+    border-style: none;
+    overflow: auto;
+}
+#share image {
+    width: 36rpx;
+    height: 36rpx;
+}
 .feel, .jam {
     text-align: left;
     margin-left: 40rpx;
@@ -20,15 +34,21 @@
     margin: 50rpx 0 0 20rpx;
 }
 .feel-btn {
-    border: 1px solid rgb(216, 216, 216);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 2rpx solid rgb(216, 216, 216);
     width: 120rpx;
     height: 60rpx;
-    line-height: 60rpx;
     border-radius: 30rpx;
     font-size: 36rpx;
-    margin-right: 50rpx;
+
     color: rgb(216, 216, 216);
     background-color: #FFF;
+}
+.feel-btn + .feel-btn {
+    margin-left: 50rpx;
 }
 .feel-btn:nth-child(1) {
     color: rgb(255, 99, 61);
@@ -74,6 +94,6 @@
     color: white;
     font-size: 36rpx;
     border-radius: 8rpx;
-    border: 1px solid rgb(120, 120, 255);
+    border-style: none;
     background-color: rgb(120, 120, 255);
 }

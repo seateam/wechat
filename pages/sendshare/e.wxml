@@ -4,7 +4,12 @@ controls 按钮
 markers 标记
 polyline 路线
  -->
- <view class="tan">
+ <view class="box">
+     <button id="share"
+        plain 
+        open-type="share" >
+         <image src="img/iconShare@3x.png" />
+     </button>
      <map id="topMap"
          latitude="{{User.location.latitude}}"
          longitude="{{User.location.longitude}}"
@@ -17,10 +22,10 @@ polyline 路线
      <view class="feel">
          <text class="title"> 驾驶体验 </text>
          <view class="feel-box">
-             <button class="feel-btn">畅</button>
-             <button class="feel-btn">缓</button>
-             <button class="feel-btn">慢</button>
-             <button class="feel-btn">挤</button>
+             <view class="feel-btn">畅</view>
+             <view class="feel-btn">缓</view>
+             <view class="feel-btn">慢</view>
+             <view class="feel-btn">挤</view>
          </view>
      </view>
 

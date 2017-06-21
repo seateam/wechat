@@ -1,6 +1,7 @@
-<view class="location">
+<view class="location"
+    bindtap="bindChoose" >
     <image src="img/iconLocationSmall@3x.png" />
-    <text> 移动互联网创业大厦 </text>
+    <text> {{location}} </text>
 </view>
 <view class="location-name">
     <image src="img/iconName@3x.png" />
@@ -16,6 +17,7 @@
 </view>
 
 <view class="location-btn">
-    <button disabled >删除</button>
-    <button open-type="share" >保存</button>
+    <!-- disabled -->
+    <button bindtap="bindDel" >删除</button>
+    <button >保存</button>
 </view>

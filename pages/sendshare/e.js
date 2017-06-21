@@ -59,6 +59,18 @@ Page({
     onLoad: function () {
 
     },
+    onShareAppMessage: function() {
+        return {
+            title: '自定义标题',
+            // path: '/pages/map_route/e',
+            success: function(res) {
+            // 转发成功
+            },
+            fail: function(res) {
+            // 转发失败
+            }
+        }
+    },
     onReady: function () {
         // 使用 wx.createMapContext 获取 map 上下文
         User.mapCtx = wx.createMapContext('topMap')
