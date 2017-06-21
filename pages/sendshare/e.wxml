@@ -6,7 +6,7 @@ polyline 路线
  -->
  <view class="box">
      <button id="share"
-        plain 
+        plain
         open-type="share" >
          <image src="img/iconShare@3x.png" />
      </button>
@@ -22,22 +22,42 @@ polyline 路线
      <view class="feel">
          <text class="title"> 驾驶体验 </text>
          <view class="feel-box">
-             <view class="feel-btn">畅</view>
-             <view class="feel-btn">缓</view>
-             <view class="feel-btn">慢</view>
-             <view class="feel-btn">挤</view>
+             <block wx:for="{{feel}}" wx:key="key" >
+                <view wx:if="{{checked.feel === index}}"
+                    class="feel-btn feel-btn-checked"
+                    bindtap="bindFeel"
+                    data-index="{{index}}" >
+                    {{item}}
+                </view>
+                <view wx:else
+                    class="feel-btn"
+                    bindtap="bindFeel"
+                    data-index="{{index}}" >
+                    {{item}}
+                </view>
+             </block>
          </view>
      </view>
 
      <view class="jam">
          <text class="title"> 堵车原因 </text>
          <view class="jam-box">
-             <block wx:for="{{jam}}" wx:for-item="e" wx:key="key" >
-                 <view class="jam-btn">
-                     <image src="img/{{e.checked}}/{{e.icon}}" />
-                     <text> {{e.text}} </text>
-                 </view>
-             </block>
+            <block wx:for="{{jam}}" wx:for-item="e" wx:key="key">
+                <view class="jam-btn">
+                    <view wx:if="{{e.checked}}"
+                        bindtap="bindJam"
+                        data-index="{{index}}">
+                        <image src="img/1/{{e.icon}}" />
+                        <text> {{e.text}} </text>
+                    </view>
+                    <view wx:else
+                        bindtap="bindJam"
+                        data-index="{{index}}">
+                        <image src="img/0/{{e.icon}}" />
+                        <text> {{e.text}} </text>
+                    </view>
+                </view>
+            </block>
          </view>
      </view>
 

@@ -4,6 +4,7 @@ const User = {
     location: wx.getStorageSync('userLocation'),
     mapCtx: null
 }
+const device = wx.getSystemInfoSync()
 const mapButton = {
     1: function() {
         User.mapCtx.moveToLocation()
@@ -14,47 +15,51 @@ Page({
         User: User,
         controls: [{
             id: 1,
-            iconPath: 'img/sea.png',
+            iconPath: 'img/iconRelocation@3x.png',
             clickable: true,
             position: {
-                left: 10,
-                top: 10,
-                width: 30,
-                height: 30
+                left: 30 * device.windowWidth / 750,
+                top: 178 * device.windowWidth / 750,
+                width: 36,
+                height: 36
             }
         }],
         jam: [
             {
-                checked: "1",
+                checked: false,
                 icon: "iconAccident@3x.png",
                 text: "交通事故"
             },
             {
-                checked: "0",
+                checked: true,
                 icon: "iconWater@3x.png",
                 text: "积水"
             },
             {
-                checked: "0",
+                checked: false,
                 icon: "iconFenglu@3x.png",
                 text: "封路"
             },
             {
-                checked: "0",
+                checked: true,
                 icon: "iconShigong@3x.png",
                 text: "施工"
             },
             {
-                checked: "0",
+                checked: false,
                 icon: "iconHonglvdeng@3x.png",
                 text: "道路故障"
             },
             {
-                checked: "0",
+                checked: false,
                 icon: "iconBuwenmGrey@3x.png",
                 text: "不文明驾驶"
             },
-        ]
+        ],
+        feel: ["畅","缓","慢","挤"],
+        checked: {
+            feel: 2
+        }
     },
     onLoad: function () {
 
@@ -82,5 +87,23 @@ Page({
     bindControls: function(e) {
         let that = this
         mapButton[e.controlId](that)
+    },
+    bindFeel: function(e) {
+        let that = this
+        let i = e.currentTarget.dataset.index
+        let checked = that.data.checked
+        checked.feel = i
+        that.setData({
+            checked: checked
+        })
+    },
+    bindJam: function(e) {
+        let that = this
+        let i = e.currentTarget.dataset.index
+        let jam = that.data.jam
+        jam[i].checked = !jam[i].checked
+        that.setData({
+            jam: jam
+        })
     }
 })

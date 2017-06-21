@@ -4,13 +4,14 @@
 }
 #share {
     position: absolute;
-    top: 340rpx;
-    right: 40rpx;
+    top: 300rpx;
+    right: 0;
     font-size: 0;
     padding: 0;
     border-radius: 0;
     border-style: none;
     overflow: auto;
+    padding: 40rpx;
 }
 #share image {
     width: 36rpx;
@@ -43,6 +44,8 @@
     height: 60rpx;
     border-radius: 30rpx;
     font-size: 36rpx;
+    /* 神奇不居中bug */
+    padding-right: 4rpx;
 
     color: rgb(216, 216, 216);
     background-color: #FFF;
@@ -50,7 +53,7 @@
 .feel-btn + .feel-btn {
     margin-left: 50rpx;
 }
-.feel-btn:nth-child(1) {
+.feel-btn-checked {
     color: rgb(255, 99, 61);
     border-color: rgb(255, 99, 61);
 }
