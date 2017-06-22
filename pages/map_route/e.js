@@ -1,14 +1,18 @@
 const log = console.log.bind(console)
 const amapFile = require('../../ku/js/amap-wx.js')
 const config = require('../../ku/js/config.js')
+const app = getApp()
 // 反转坐标
 const deitude = function(itude) {
     return itude.split(',').reverse().join(',')
 }
-const User = {
-    info: wx.getStorageSync('userInfo'),
-    location: wx.getStorageSync('userLocation')
+// 自适应宽度
+const device = function(number) {
+    let device = wx.getSystemInfoSync()
+    return number * 2 * device.windowWidth / 750
 }
+let User
+
 // 默认参数
 let db = {
     myAmapFun: null, // 高德API实例
@@ -33,30 +37,30 @@ let db = {
             iconPath: 'img/bottom.png',
             // clickable: true,
             position: {
-                left: 0,
-                top: 603 - 100,
-                width: 375,
-                height: 100
+                left: device(0),
+                top: device(603 - 100),
+                width: device(375),
+                height: device(100)
             }
         }, {
             id: 1,
             iconPath: 'img/sea.png',
             clickable: true,
             position: {
-                left: 10,
-                top: 603 - 50 - 10,
-                width: 50,
-                height: 50
+                left: device(10),
+                top: device(603 - 50 - 10),
+                width: device(50),
+                height: device(50)
             }
         }, {
             id: 2,
             iconPath: 'img/mountain.png',
             clickable: true,
             position: {
-                left:375 / 2 - 25,
-                top: 603 - 50 - 10,
-                width: 50,
-                height: 50
+                left:device(375 / 2 - 25),
+                top: device(603 - 50 - 10),
+                width:  device(50),
+                height: device(50)
             }
         }]
 }
@@ -75,8 +79,6 @@ const mapButton = {
         })
     }
 }
-// 用户位置
-const userLocation = wx.getStorageSync('userLocation')
 Page({
     onPullDownRefresh: function() {
         wx.stopPullDownRefresh()
@@ -87,10 +89,20 @@ Page({
         controls: db.controls
     },
     onLoad: function() {
+        let that = this
+        app.login(function(userInfo) {
+            User = userInfo
+            that.init()
+        })
+    },
+    onReady: function () {
+        // 使用 wx.createMapContext 获取 map 上下文
+        db.mapCtx = wx.createMapContext('navi_map')
+    },
+    init: function() {
         let that = this;
-        let key = config.key;
         db.myAmapFun = new amapFile.AMapWX({
-            key: key
+            key: config.key
         })
         // 气泡测试
         let testBubble = function(now, end) {
@@ -178,13 +190,9 @@ Page({
                 }
             })
         }
-        let now = userLocation.now
+        let now = User.location.now
         let end = '30.48864,104.06858'
         testBubble(now, end)
-    },
-    onReady: function () {
-        // 使用 wx.createMapContext 获取 map 上下文
-        db.mapCtx = wx.createMapContext('navi_map')
     },
     // 解析地址
     deLocation: function() {

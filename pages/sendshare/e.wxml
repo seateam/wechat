@@ -62,6 +62,6 @@ polyline 路线
      </view>
 
      <view class="report">
-         <button>上报路况</button>
+         <button bindtap="bindSend">上报路况</button>
      </view>
  </view>

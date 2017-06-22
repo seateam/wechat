@@ -6,8 +6,8 @@ const deitude = function(itude) {
     return itude.split(',').reverse().join(',')
 }
 const User = {
-    info: null,
-    location: null,
+    info: wx.getStorageSync('userInfo'),
+    location: wx.getStorageSync('userLocation'),
     cards: [
         {
             name: '升仙湖',
@@ -78,7 +78,6 @@ const User = {
         }
     ]
 }
-
 Page({
     data: {
         cards: User["cards"],
@@ -103,23 +102,10 @@ Page({
         }
     },
     onLoad() {
-        let that = this
-        that.getUser()
-        if (User.info && User.location) {
-            that.init()
-        } else {
-            log('首次登陆')
-            app.getLocation(function() {
-                app.getUserInfo(function() {
-                    that.getUser()
-                    that.init()
-                })
-            })
-        }
+         this.init()
     },
-    getUser() {
-        User.info = wx.getStorageSync('userInfo')
-        User.location = wx.getStorageSync('userLocation')
+    onReachBottom: function() {
+        // 上滑
     },
     init() {
         this.setData({
@@ -130,7 +116,7 @@ Page({
             animationViewName: 'animationData',
             slideLength: this.data.cards.length + 2,
             initialSlide: 1,
-            width: 606 * device.windowWidth / 750,
+            width: 620 * device.windowWidth / 750,
             /**
              * swiper初始化后执行
              */
@@ -241,7 +227,7 @@ Page({
                 // 拥堵原因
                 reason: "下雨",
                 // 当前时间
-                data: Date.now(),
+                date: Date.now(),
                 // 经纬度
                 location: JSON.stringify(dot),
                 // session
@@ -267,6 +253,10 @@ Page({
         //     }
         // })
         log(User.cards)
+        // status <= 0 畅
+        // status <= 0.2 缓
+        // status <= 1 慢
+        // status > 1 堵
         wx.request({
             url: config.url + '/traffic/routes',
             data: {
@@ -278,7 +268,9 @@ Page({
                 "ucloudtech_3rd_key": User.info.session_key
             },
             success: function(res) {
-                log(res)
+                res.data.forEach(function(e) {
+                    log(e.index, e.data.info.status)
+                })
             },
             fail: function(err){
                 log(err)

@@ -1,4 +1,6 @@
 const log = console.log.bind(console)
+const config = require('../../ku/js/config.js')
+const app = getApp()
 const User = {
     info: wx.getStorageSync('userInfo'),
     location: wx.getStorageSync('userLocation'),
@@ -31,7 +33,7 @@ Page({
                 text: "交通事故"
             },
             {
-                checked: true,
+                checked: false,
                 icon: "iconWater@3x.png",
                 text: "积水"
             },
@@ -41,7 +43,7 @@ Page({
                 text: "封路"
             },
             {
-                checked: true,
+                checked: false,
                 icon: "iconShigong@3x.png",
                 text: "施工"
             },
@@ -58,11 +60,10 @@ Page({
         ],
         feel: ["畅","缓","慢","挤"],
         checked: {
-            feel: 2
+            feel: 0
         }
     },
     onLoad: function () {
-
     },
     onShareAppMessage: function() {
         return {
@@ -104,6 +105,76 @@ Page({
         jam[i].checked = !jam[i].checked
         that.setData({
             jam: jam
+        })
+    },
+    bindSend: function(e) {
+        let that = this
+        let dot = {
+            type: "Point",
+            coordinates: [User.location.longitude, User.location.latitude]
+        }
+        let arr = []
+        that.data.jam.forEach(function(e, i) {
+            if (e.checked === true) {
+                arr.push(i)
+            }
+        })
+        app.getLocation(function() {
+            wx.request({
+                url: config.url + '/info/save',
+                data: {
+                    // 拥堵程度 1 - 4 数字
+                    traffic: that.data.checked.feel,
+                    // 拥堵原因
+                    reason: arr.join(','),
+                    // 当前时间
+                    date: Date.now(),
+                    // 经纬度
+                    location: JSON.stringify(dot),
+                    // session
+                    user_id: User.info.session_key
+                },
+                method: "POST",
+                header: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "ucloudtech_3rd_key": User.info.session_key
+                },
+                success: function(res) {
+                    if (res.data.code === 100) {
+                        wx.showModal({
+                            title: '恭喜您，上报成功！',
+                            content: '豁然交通感谢您的支持，期待给您更好的服务☺',
+                            showCancel: false,
+                            confirmText: "知道了",
+                            confirmColor: "#7878FF",
+                            success: function(res) {
+                                if (res.confirm) {
+                                    console.log('用户点击确定')
+                                } else if (res.cancel) {
+                                    console.log('用户点击取消')
+                                }
+                            }
+                        })
+                    } else {
+                        wx.showModal({
+                            content: '上传失败！',
+                            showCancel: false,
+                            confirmText: "重试",
+                            confirmColor: "#7878FF",
+                            success: function(res) {
+                                if (res.confirm) {
+                                    console.log('用户点击确定')
+                                } else if (res.cancel) {
+                                    console.log('用户点击取消')
+                                }
+                            }
+                        })
+                    }
+                },
+                fail: (err) => {
+                    log(err)
+                }
+            })
         })
     }
 })

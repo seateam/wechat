@@ -68,7 +68,7 @@ App({
                     success: function(res) {
                         location.data = res.data
                         wx.setStorageSync('userLocation', location)
-                        if (callback) { callback() }
+                        if (typeof callback === 'function') { callback() }
                     },
                     fial: function(err) {
                         wx.setStorageSync('userLocation', location)
@@ -83,6 +83,24 @@ App({
                 log(err)
             }
         })
+    },
+    login(callback) {
+        let that = this
+        let User = {
+            info: wx.getStorageSync('userInfo'),
+            location: wx.getStorageSync('userLocation')
+        }
+        if (User.info && User.location) {
+            if (typeof callback === 'function') { callback(User) }
+        } else {
+            that.getUserInfo(function() {
+                that.getLocation(function() {
+                    User.info = wx.getStorageSync('userInfo')
+                    User.location = wx.getStorageSync('userLocation')
+                    if (typeof callback === 'function') { callback(User) }
+                })
+            })
+        }
     },
     // 暂时不用
     direction(du) {

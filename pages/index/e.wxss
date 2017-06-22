@@ -12,7 +12,7 @@
     background-color: rgb(248, 248, 248);
 }
 .location text {
-    font-size: 20rpx;
+    font-size: 24rpx;
 }
 
 .add {
@@ -35,12 +35,11 @@
 /* 卡片 */
 .card {
     margin-top: 60rpx;
-    height: 874rpx;
-    /*background-color: pink;*/
+    height: 870rpx;
 }
 .card .bg {
-    width: 542rpx;
-    height: 542rpx;
+    width: 560rpx;
+    height: 560rpx;
 }
 .card .refresh {
     position: absolute;
@@ -88,11 +87,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 90rpx;
+    margin-top: 88rpx;
 }
 .bottom image {
-    width: 108rpx;
-    height: 108rpx;
+    width: 105rpx;
+    height: 105rpx;
 }
 
 /* 卡片样式 */
@@ -109,14 +108,14 @@
     display: flex;
     flex-direction: column;
     align-content: flex-start;
-    width: 542rpx;
+    width: 560rpx;
     height: 100%;
-    margin: 0 32rpx;
+    margin: 0 30rpx;
     box-sizing: border-box;
     background-color: #FFF;
     border-radius: 10rpx;
-    box-shadow: 0 8rpx 16rpx 0 rgba(0,0,0,0.4);
+    box-shadow: 0 9rpx 12rpx 3rpx rgba(0,0,0,0.1);
 }
 .we-slide:nth-child(1) {
-    margin-left: 104rpx;
+    margin-left: 95rpx;
 }
