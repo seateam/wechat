@@ -13,7 +13,7 @@ polyline 路线
      <map id="topMap"
          latitude="{{User.location.latitude}}"
          longitude="{{User.location.longitude}}"
-         scale="14"
+         scale="16"
          show-location
          controls="{{controls}}"
          bindcontroltap="bindControls"

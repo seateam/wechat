@@ -17,10 +17,10 @@
                 </view>
             </view>
             <block wx:for="{{cards}}" wx:for-item="e" wx:key="key" >
-                <view class="we-slide">
+                <view class="we-slide" data-id="{{index}}" bindtap="bindCard">
                     <image class="bg" src="img/bg01@3x.png" />
-                    <image bindtap="bindRefresh" class="refresh" src="img/iconRefresh@3x.png" />
-                    <image bindtap="bindSet" class="set" src="img/set@3x.png" />
+                    <image data-btn="true" bindtap="bindRefresh"  class="refresh" src="img/iconRefresh@3x.png" />
+                    <image data-btn="true" bindtap="bindSet" class="set" src="img/set@3x.png" />
                     <view class="jam">
                         <text> {{e.jam}} </text>
                     </view>

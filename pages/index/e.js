@@ -227,71 +227,44 @@ Page({
         this.weswiper.touchend(e)
     },
     shangbao() {
-        let dot = {
-            type: "Point",
-            coordinates: [104.115448, 30.746012]
-        }
-        wx.request({
-            url: config.url + '/info/save',
-            data: {
-                // 拥堵程度 1 - 4 数字
-                traffic: 1,
-                // 用户自定义
-                custom: "有大水坑",
-                // 拥堵原因
-                reason: "下雨",
-                // 当前时间
-                date: Date.now(),
-                // 经纬度
-                location: JSON.stringify(dot),
-                // session
-                user_id: User.info.session_key
-            },
-            method: "POST",
-            header: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "ucloudtech_3rd_key": User.info.session_key
-            },
-            success: function(res) {
-                log(res)
-            },
-            fail: (err) => {log(err)}
+        wx.navigateTo({
+            url: "../sendshare/e"
         })
     },
     bindRefresh() {
-        // wx.chooseLocation({
-        //     success: (res) => {
-        //         let name = res.name
-        //         let dot = [res.latitude,res.longitude].join(',')
-        //         log(name, dot)
-        //     }
-        // })
-        log(User.cards)
+        log('刷新')
+        // log(User.cards)
         // status <= 0 畅
         // status <= 0.2 缓
         // status <= 1 慢
         // status > 1 堵
-        wx.request({
-            url: config.url + '/traffic/routes',
-            data: {
-                cards: User.cards
-            },
-            method: "POST",
-            header: {
-                "Content-Type": "application/json",
-                "ucloudtech_3rd_key": User.info.session_key
-            },
-            success: function(res) {
-                res.data.forEach(function(e) {
-                    log(e.index, e.data.info.status)
-                })
-            },
-            fail: function(err){
-                log(err)
-            }
-        })
+        // wx.request({
+        //     url: config.url + '/traffic/routes',
+        //     data: {
+        //         cards: User.cards
+        //     },
+        //     method: "POST",
+        //     header: {
+        //         "Content-Type": "application/json",
+        //         "ucloudtech_3rd_key": User.info.session_key
+        //     },
+        //     success: function(res) {
+        //         res.data.forEach(function(e) {
+        //             log(e.index, e.data.info.status)
+        //         })
+        //     },
+        //     fail: function(err){
+        //         log(err)
+        //     }
+        // })
     },
     bindSet: function() {
-
+        log('编辑')
+    },
+    bindCard: function(e) {
+        let id = e.currentTarget.dataset.id
+        if (!e.target.dataset.btn) {
+            log("卡片", id)
+        }
     }
 })
