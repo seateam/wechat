@@ -19,17 +19,25 @@
             <block wx:for="{{cards}}" wx:for-item="e" wx:key="key" >
                 <view class="we-slide">
                     <image class="bg" src="img/bg01@3x.png" />
-                    <image bindtap="refresh" class="refresh" src="img/iconRefresh@3x.png" />
-                    <view class="title">
-                        <image src="img/combinedShape@3x.png" />
-                        <text> {{e.name}} </text>
+                    <image bindtap="bindRefresh" class="refresh" src="img/iconRefresh@3x.png" />
+                    <image bindtap="bindSet" class="set" src="img/set@3x.png" />
+                    <view class="jam">
+                        <text> {{e.jam}} </text>
                     </view>
                     <view class="more">
-                        <view>
+                        <view class="time">
                             <text> {{e.time}} </text>
-                            <text> 分钟 </text>
+                            <text> min </text>
+                        </view>
+                        <view class="division"></view>
+                        <view class="km">
                             <text> {{e.km}} </text>
-                            <text> 公里 </text>
+                            <text> km </text>
+                        </view>
+                        <view class="division"></view>
+                        <view class="name">
+                            <image src="img/combinedShape@3x.png" />
+                            <text> {{e.shortName}} </text>
                         </view>
                     </view>
                 </view>
@@ -42,6 +50,18 @@
             </view>
           </view>
         </view>
+    </view>
+
+    <view class="cardDot">
+
+        <block wx:for="{{cards.length + 2}}" wx:for-item="e" wx:key="key" >
+            <view wx:if="{{index === dotNow}}">
+                <view class="dot dotNow" />
+            </view>
+            <view wx:else>
+                <view class="dot" />
+            </view>
+        </block>
     </view>
 
     <view class="bottom">

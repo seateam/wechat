@@ -38,60 +38,113 @@
     height: 870rpx;
 }
 .card .bg {
-    width: 560rpx;
-    height: 560rpx;
+    width: 562rpx;
+    height: 662rpx;
 }
 .card .refresh {
     position: absolute;
-    top: 40rpx;
-    right: 40rpx;
-    width: 60rpx;
-    height: 60rpx;
+    top: 0;
+    right: 0;
+    padding: 26rpx 36rpx 20rpx 20rpx;
+    width: 36rpx;
+    height: 40rpx;
 }
-.card .title {
+.card .set {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 26rpx 20rpx 20rpx 36rpx;
+    width: 40rpx;
+    height: 40rpx;
+}
+.card .jam {
     display: flex;
-    align-items: center;
-    height: 60rpx;
-    margin: 36rpx 0 64rpx 40rpx;
+    justify-content: center;
+    height: 80rpx;
 }
-.title image {
-    width: 60rpx;
-    height: 60rpx;
-    margin-right: 20rpx;
-}
-.title text {
-    font-size: 36rpx;
+.jam text {
+    font-size: 60rpx;
+    color: #4483ff;
 }
 .card .more {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 30rpx;
 }
-.more text:nth-child(2n+1) {
-    font-size: 48rpx;
+.more text {
+    font-size: 30rpx;
+    color: #609efb;
 }
-.more text:nth-child(2n) {
+.more text + text {
     font-size: 24rpx;
 }
-.more text:nth-child(3) {
-    margin-left: 60rpx;
-}
 .more image {
-    margin-left: 76rpx;
-    width: 80rpx;
-    height: 80rpx;
+    width: 28rpx;
+    height: 28rpx;
 }
+.more image ~ text {
+    font-size: 28rpx;
+}
+.more .time {
+    box-sizing: border-box;
+    width: 208rpx;
+    text-align: right;
+    padding-right: 20rpx;
+}
+.more .km {
+    width: 144rpx;
+}
+.more .name {
+    display: flex;
+    align-items: center;
+    /*justify-content: center;*/
+    box-sizing: border-box;
+    text-align: left;
+    padding-left: 20rpx;
+    width: 208rpx;
+}
+.name image {
+    margin-right: 10rpx;
+}
+.more .division {
+    width: 2rpx;
+    height: 20rpx;
+    background-color: rgb(200,200,200);
+}
+
+/* cardDot */
+.cardDot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 14rpx;
+    margin-top: 32rpx;
+}
+.dot {
+    width: 10rpx;
+    height: 10rpx;
+    background-color: #d8d8d8;
+    border-radius: 50%;
+    margin: 0 13rpx;
+}
+.dotNow {
+    width: 14rpx;
+    height: 14rpx;
+    background-color: #9b9b9b;
+}
+
 /* 上报 */
 .bottom {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 88rpx;
+    margin-top: 34rpx;
 }
 .bottom image {
-    width: 105rpx;
-    height: 105rpx;
+    width: 122rpx;
+    height: 122rpx;
 }
 
 /* 卡片样式 */
@@ -108,7 +161,7 @@
     display: flex;
     flex-direction: column;
     align-content: flex-start;
-    width: 560rpx;
+    width: 562rpx;
     height: 100%;
     margin: 0 30rpx;
     box-sizing: border-box;

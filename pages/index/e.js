@@ -11,6 +11,8 @@ const User = {
     cards: [
         {
             name: '升仙湖',
+            shortName: '升仙湖',
+            jam: "畅",
             time: '25',
             km: '10',
             // 出发点
@@ -26,6 +28,8 @@ const User = {
         },
         {
             name: '黄龙奇观',
+            shortName: '黄龙奇…',
+            jam: "畅",
             time: '11',
             km: '90',
             // 出发点
@@ -39,6 +43,8 @@ const User = {
         },
         {
             name: '华阳客运中心',
+            shortName: '华阳客…',
+            jam: "畅",
             time: '11',
             km: '90',
             // 出发点
@@ -52,6 +58,8 @@ const User = {
         },
         {
             name: '天府广场',
+            shortName: '天府广…',
+            jam: "畅",
             time: '11',
             km: '90',
             // 出发点
@@ -65,6 +73,8 @@ const User = {
         },
         {
             name: '成都杜甫草堂博物馆',
+            shortName: '成都杜…',
+            jam: "畅",
             time: '11',
             km: '90',
             // 出发点
@@ -81,7 +91,8 @@ const User = {
 Page({
     data: {
         cards: User["cards"],
-        township: '定位中…'
+        township: '定位中…',
+        dotNow: 1
     },
     onPullDownRefresh: function() {
         wx.stopPullDownRefresh()
@@ -108,15 +119,16 @@ Page({
         // 上滑
     },
     init() {
-        this.setData({
+        let that = this
+        that.setData({
             township: User.location.data.regeocode.addressComponent.township
         })
         const device = wx.getSystemInfoSync()
         new weSwiper({
             animationViewName: 'animationData',
-            slideLength: this.data.cards.length + 2,
+            slideLength: that.data.cards.length + 2,
             initialSlide: 1,
-            width: 620 * device.windowWidth / 750,
+            width: 622 * device.windowWidth / 750,
             /**
              * swiper初始化后执行
              */
@@ -157,7 +169,9 @@ Page({
              *  swiper从一个slide过渡到另一个slide结束时执行
              */
             onSlideChangeEnd(weswiper) {
-
+                that.setData({
+                    dotNow: weswiper.activeIndex
+                })
             },
             /**
              *  过渡时触发
@@ -244,7 +258,7 @@ Page({
             fail: (err) => {log(err)}
         })
     },
-    refresh() {
+    bindRefresh() {
         // wx.chooseLocation({
         //     success: (res) => {
         //         let name = res.name
@@ -276,5 +290,8 @@ Page({
                 log(err)
             }
         })
+    },
+    bindSet: function() {
+
     }
 })
