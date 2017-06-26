@@ -1,13 +1,13 @@
 {
     "pages": [
-        "pages/index/e",
-        "pages/map_route/e",
-        "pages/sendshare/e",
+        "page/index/e",
+        "page/map_route/e",
+        "page/sendshare/e",
 
-        "pages/editaddress/e",
+        "page/editaddress/e",
 
-        "pages/line/e",
-        "pages/jiejing/e"
+        "page/line/e",
+        "page/jiejing/e"
     ],
     "window": {
         "enablePullDownRefresh": true,
