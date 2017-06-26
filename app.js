@@ -7,6 +7,91 @@ App({
     onLaunch() {
         // 开启罗盘
         // wx.startCompass()
+
+        // 卡片测试
+        // let deitude = function(itude) {
+        //     return itude.split(',').reverse().join(',')
+        // }
+        // let cards = [
+        //     {
+        //         name: '升仙湖',
+        //         shortName: '升仙湖',
+        //         jam: "畅",
+        //         time: '25',
+        //         km: '10',
+        //         // 出发点
+        //         origin: deitude('30.56585,104.06588'), // 环球中心
+        //         // 目的地
+        //         destination: deitude('30.70775,104.08171'), // 升仙湖
+        //         // 我的位置
+        //         myorigin: deitude('30.572269,104.066541'), // 公司
+        //         // 躲避拥堵
+        //         // isGetRouts: false,
+        //         // 记录起点
+        //         // isStart: false
+        //     },
+        //     {
+        //         name: '黄龙奇观',
+        //         shortName: '黄龙奇…',
+        //         jam: "畅",
+        //         time: '11',
+        //         km: '90',
+        //         // 出发点
+        //         origin: deitude('33.18523,103.9267'), // 九寨沟风景区
+        //         // 目的地
+        //         destination: deitude('32.74994,103.82415'), // 黄龙奇观
+        //         // 我的位置
+        //         myorigin: deitude('30.572269,104.066541'), // 公司
+        //         // isGetRouts: false,
+        //         // isStart: false
+        //     },
+        //     {
+        //         name: '华阳客运中心',
+        //         shortName: '华阳客…',
+        //         jam: "畅",
+        //         time: '11',
+        //         km: '90',
+        //         // 出发点
+        //         origin: deitude('30.572269,104.066541'), // 公司
+        //         // 目的地
+        //         destination: deitude('30.48864,104.06858'), // 华阳客运中心
+        //         // 我的位置
+        //         myorigin: deitude('30.572269,104.066541'), // 公司
+        //         // isGetRouts: false,
+        //         // isStart: false
+        //     },
+        //     {
+        //         name: '天府广场',
+        //         shortName: '天府广…',
+        //         jam: "畅",
+        //         time: '11',
+        //         km: '90',
+        //         // 出发点
+        //         origin: deitude('30.66359,104.0526'), // 宽窄巷子
+        //         // 目的地
+        //         destination: deitude('30.65742,104.06584'), // 天府广场
+        //         // 我的位置
+        //         myorigin: deitude('30.572269,104.066541'), // 公司
+        //         // // isGetRouts: false,
+        //         // // isStart: false
+        //     },
+        //     {
+        //         name: '成都杜甫草堂博物馆',
+        //         shortName: '成都杜…',
+        //         jam: "畅",
+        //         time: '11',
+        //         km: '90',
+        //         // 出发点
+        //         origin: deitude('30.64606,104.048'), // 武侯祠博物馆
+        //         // 目的地
+        //         destination: deitude('30.66004,104.02876'), // 成都杜甫草堂博物馆
+        //         // 我的位置
+        //         myorigin: deitude('30.572269,104.066541'), // 公司
+        //         // // isGetRouts: false,
+        //         // // isStart: false
+        //     }
+        // ]
+        // wx.setStorageSync('userCards', cards)
     },
     // 小程序启动 或 后台进入前台展示
     onShow() {

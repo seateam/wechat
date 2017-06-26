@@ -1,96 +1,15 @@
+import weSwiper from '../../ku/we_swiper/src/main'
 const log = console.log.bind(console, '>>>')
 const config = require('../../ku/js/config.js')
 const app = getApp()
-import weSwiper from '../../ku/we_swiper/src/main'
-const deitude = function(itude) {
-    return itude.split(',').reverse().join(',')
-}
 const User = {
     info: wx.getStorageSync('userInfo'),
     location: wx.getStorageSync('userLocation'),
-    cards: [
-        {
-            name: '升仙湖',
-            shortName: '升仙湖',
-            jam: "畅",
-            time: '25',
-            km: '10',
-            // 出发点
-            origin: deitude('30.56585,104.06588'), // 环球中心
-            // 目的地
-            destination: deitude('30.70775,104.08171'), // 升仙湖
-            // 我的位置
-            myorigin: deitude('30.572269,104.066541'), // 公司
-            // 躲避拥堵
-            isGetRouts: false,
-            // 记录起点
-            isStart: false
-        },
-        {
-            name: '黄龙奇观',
-            shortName: '黄龙奇…',
-            jam: "畅",
-            time: '11',
-            km: '90',
-            // 出发点
-            origin: deitude('33.18523,103.9267'), // 九寨沟风景区
-            // 目的地
-            destination: deitude('32.74994,103.82415'), // 黄龙奇观
-            // 我的位置
-            myorigin: deitude('30.572269,104.066541'), // 公司
-            isGetRouts: false,
-            isStart: false
-        },
-        {
-            name: '华阳客运中心',
-            shortName: '华阳客…',
-            jam: "畅",
-            time: '11',
-            km: '90',
-            // 出发点
-            origin: deitude('30.572269,104.066541'), // 公司
-            // 目的地
-            destination: deitude('30.48864,104.06858'), // 华阳客运中心
-            // 我的位置
-            myorigin: deitude('30.572269,104.066541'), // 公司
-            isGetRouts: false,
-            isStart: false
-        },
-        {
-            name: '天府广场',
-            shortName: '天府广…',
-            jam: "畅",
-            time: '11',
-            km: '90',
-            // 出发点
-            origin: deitude('30.66359,104.0526'), // 宽窄巷子
-            // 目的地
-            destination: deitude('30.65742,104.06584'), // 天府广场
-            // 我的位置
-            myorigin: deitude('30.572269,104.066541'), // 公司
-            isGetRouts: false,
-            isStart: false
-        },
-        {
-            name: '成都杜甫草堂博物馆',
-            shortName: '成都杜…',
-            jam: "畅",
-            time: '11',
-            km: '90',
-            // 出发点
-            origin: deitude('30.64606,104.048'), // 武侯祠博物馆
-            // 目的地
-            destination: deitude('30.66004,104.02876'), // 成都杜甫草堂博物馆
-            // 我的位置
-            myorigin: deitude('30.572269,104.066541'), // 公司
-            isGetRouts: false,
-            isStart: false
-        }
-    ]
+    cards:  wx.getStorageSync('userCards')
 }
 Page({
     data: {
-        cards: User["cards"],
+        cards: User.cards,
         township: '定位中…',
         dotNow: 1
     },
@@ -98,10 +17,9 @@ Page({
         wx.stopPullDownRefresh()
     },
     onShareAppMessage: function () {
-        log(getCurrentPages())
         return {
             title: '豁然交通',
-            path: 'pages/map_route/e',
+            // path: 'pages/map_route/e',
             success: function(res) {
                 log(res)
               // 转发成功
@@ -114,6 +32,7 @@ Page({
     },
     onLoad() {
          this.init()
+         this.initJam()
     },
     onReachBottom: function() {
         // 上滑
@@ -124,10 +43,19 @@ Page({
             township: User.location.data.regeocode.addressComponent.township
         })
         const device = wx.getSystemInfoSync()
+        let l = that.data.cards.length
+        let slideLength, initialSlide
+        if (l > 3) {
+            slideLength = l + 3
+            initialSlide = 2
+        } else {
+            slideLength = l + 2
+            initialSlide = 1
+        }
         new weSwiper({
             animationViewName: 'animationData',
-            slideLength: that.data.cards.length + 2,
-            initialSlide: 1,
+            slideLength: slideLength,
+            initialSlide: initialSlide,
             width: 622 * device.windowWidth / 750,
             /**
              * swiper初始化后执行
@@ -217,6 +145,46 @@ Page({
             }
         })
     },
+    initJam() {
+        let that = this
+       //  status <= 0 畅
+       //  status <= 0.2 缓
+       //  status <= 1 慢
+       //  status > 1 堵
+       let deStatus = function(s) {
+           if (s <= 0) {
+               return "畅"
+           } else if (s <= 0.2) {
+               return "缓"
+           } else if (s <= 1) {
+               return "慢"
+           } else if (s > 1) {
+               return "堵"
+           }
+       }
+        wx.request({
+            url: config.url + '/traffic/routes',
+            data: {
+                cards: User.cards
+            },
+            method: "POST",
+            header: {
+                "Content-Type": "application/json",
+                "ucloudtech_3rd_key": User.info.session_key
+            },
+            success: function(res) {
+                res.data.forEach(function(e) {
+                    User.cards[e.index].jam = deStatus(e.data.info.status)
+                })
+                that.setData({
+                    cards: User.cards
+                })
+            },
+            fail: function(err){
+                log(err)
+            }
+        })
+    },
     touchstart(e) {
         this.weswiper.touchstart(e)
     },
@@ -226,40 +194,18 @@ Page({
     touchend(e) {
         this.weswiper.touchend(e)
     },
-    shangbao() {
+    bindReport() {
         wx.navigateTo({
             url: "../sendshare/e"
         })
     },
     bindRefresh() {
         log('刷新')
-        // log(User.cards)
-        // status <= 0 畅
-        // status <= 0.2 缓
-        // status <= 1 慢
-        // status > 1 堵
-        // wx.request({
-        //     url: config.url + '/traffic/routes',
-        //     data: {
-        //         cards: User.cards
-        //     },
-        //     method: "POST",
-        //     header: {
-        //         "Content-Type": "application/json",
-        //         "ucloudtech_3rd_key": User.info.session_key
-        //     },
-        //     success: function(res) {
-        //         res.data.forEach(function(e) {
-        //             log(e.index, e.data.info.status)
-        //         })
-        //     },
-        //     fail: function(err){
-        //         log(err)
-        //     }
-        // })
     },
     bindSet: function() {
-        log('编辑')
+        wx.navigateTo({
+            url: "../editaddress/e"
+        })
     },
     bindCard: function(e) {
         let id = e.currentTarget.dataset.id
