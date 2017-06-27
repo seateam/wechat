@@ -134,13 +134,14 @@ Page({
         wx.request({
             url: config.url + '/traffic/situation',
             data: {
-                // // 出发点
+                // 我的位置
+                myorigin: deitude(now),
+                // 出发点
                 origin: deitude(now),
-                // // 目的地
+                // 目的地
                 destination: deitude(end),
-                isGetRouts: true,
-                isStart: true,
-                myorigin:'104.076721,30.731496'
+                // isGetRouts: true,
+                // isStart: true,
             },
             method: "POST",
             header: {
@@ -149,7 +150,7 @@ Page({
             },
             success: function(res) {
                 log(res)
-                if (Number(res.data.code) === 201) {
+                if (Number(res.data.code) !== 200) {
                     return;
                 }
                 // 取比例

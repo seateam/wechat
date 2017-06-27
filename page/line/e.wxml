@@ -1,3 +1,9 @@
+<view class="top">
+    <image src="img/bg01@3x.png" />
+</view>
+
+
+<!-- 贝塞尔曲线 -->
 <canvas canvas-id="myCanvas" class="line"
     bindtap="ctxClick"
     bindtouchstart="start"
