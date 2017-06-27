@@ -4,6 +4,11 @@ const app = getApp()
 const deitude = function(itude) {
     return itude.split(',').reverse().join(',')
 }
+// 自适应宽度
+const device = function(number) {
+    let device = wx.getSystemInfoSync()
+    return number * 2 * device.windowWidth / 750
+}
 const User = {
     info: wx.getStorageSync('userInfo'),
     location: wx.getStorageSync('userLocation')
@@ -49,22 +54,22 @@ const getBezier = function() {
     }
     // 实例
     let arr1 = CreateBezierPoints([
-        {x: 21,y: 116},
-        {x: 27,y: 92},
-        {x: 60,y: 52},
-        {x: 110,y: 52}
+        {x: device(35.5) ,y: device(119.5)},
+        {x: device(40.5) ,y: device(115)},
+        {x: device(76)   ,y: device(72.5)},
+        {x: device(130.5),y: device(71.5)}
     ], 100)
     let arr2 = CreateBezierPoints([
-        {x: 110,y: 52},
-        {x: 160,y: 52},
-        {x: 187,y: 91},
-        {x: 225,y: 91}
+        {x: device(130.5),y: device(71.5)},
+        {x: device(185)  ,y: device(70.5)},
+        {x: device(203.5),y: device(99.5)},
+        {x: device(251)  ,y: device(101)}
     ], 100)
     let arr3 = CreateBezierPoints([
-        {x: 225,y: 91},
-        {x: 269,y: 91},
-        {x: 290,y: 70},
-        {x: 306,y: 44}
+        {x: device(251)  ,y: device(101)},
+        {x: device(298.5),y: device(102.5)},
+        {x: device(333)  ,y: device(71)},
+        {x: device(339.5),y: device(65.5)}
     ], 100)
     let arr = arr1.concat(arr2, arr3)
     return arr
@@ -122,9 +127,6 @@ const getRatio = function(res) {
 }
 Page({
     data: {
-      x: 0,
-      y: 0,
-      hidden: true,
       Bezier: null
     },
     onLoad: function () {
@@ -167,8 +169,8 @@ Page({
                 // 画线
                 const ctx = wx.createCanvasContext('myCanvas')
                 ctx.setLineCap('round')
-                ctx.setLineWidth(3)
-                ctx.setStrokeStyle('red')
+                ctx.setLineWidth(2)
+                ctx.setStrokeStyle('#4990e2')
                 let drawBezierPoints = function(arr) {
                     ctx.moveTo(arr[0].x, arr[0].y)
                     for (let i of arr) {
@@ -182,6 +184,16 @@ Page({
                     let e = Bezier[i.index]
                     ctx.drawImage('../../ku/img/icecream-19.png', e.x - 12, e.y - 24, 24, 24)
                 }
+                // 画圆点
+                ctx.beginPath()
+                ctx.arc(device(35.5), device(119.5), device(4), 0, 2 * Math.PI)
+                ctx.setFillStyle('#7ed321')
+                ctx.fill()
+                ctx.beginPath()
+                ctx.arc(device(339.5),device(65.5), device(4), 0, 2 * Math.PI)
+                ctx.setFillStyle('#ff2c46')
+                ctx.fill()
+
                 ctx.draw()
             },
             fail: function(err) {
@@ -193,25 +205,4 @@ Page({
         // 停止刷新
         wx.stopPullDownRefresh()
     },
-    ctxClick: function(e) {
-
-    },
-    start: function(e) {
-      this.setData({
-        hidden: false,
-        x: e.touches[0].x,
-        y: e.touches[0].y
-      })
-    },
-    move: function(e) {
-      this.setData({
-        x: e.touches[0].x,
-        y: e.touches[0].y
-      })
-    },
-    end: function(e) {
-      this.setData({
-        hidden: true
-      })
-    }
 })

@@ -2,10 +2,10 @@
     "pages": [
         "page/line/e",
         "page/index/e",
-        "page/map_route/e",
         "page/sendshare/e",
-        "page/editaddress/e",
 
+        "page/map_route/e",
+        "page/editaddress/e",
         "page/jiejing/e"
     ],
     "window": {

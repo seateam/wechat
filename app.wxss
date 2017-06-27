@@ -1,7 +1,6 @@
 /* galbol */
 
 button {
-    /*position: static;*/
     display: inline-block;
 }
 
@@ -33,25 +32,19 @@ button {
     height: 100%;
     text-align: center;
 }
-/*.center {
+.center {
     position:relative;
     top: 50%;
     transform: translateY(-50%);
-}*/
+}
 
 .box {
     width: 100%;
 }
-/* icon*/
 
-.fa-lg {
-    font-size: 1.33333333rem;
-    line-height: 0.75rem;
-    vertical-align: -15%;
-}
 /* button */
 
-.btn {
+/*.btn {
     cursor: pointer;
     vertical-align: middle;
     border: 1px solid transparent;
@@ -81,4 +74,4 @@ button {
 .btn-red:active {
     background-color: #C9302C;
     border-color: #AC2925;
-}
+}*/

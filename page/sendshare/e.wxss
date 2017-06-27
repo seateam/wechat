@@ -18,8 +18,10 @@
     height: 36rpx;
 }
 .feel, .jam {
+    width: 100%;
     text-align: left;
-    margin-left: 40rpx;
+    padding-left: 40rpx;
+    box-sizing: border-box;
 }
 .title  {
     font-size: 32rpx;
@@ -35,18 +37,17 @@
     margin: 50rpx 0 0 20rpx;
 }
 .feel-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
+    display: inline-block;
     border: 2rpx solid rgb(216, 216, 216);
+    border-radius: 30rpx;
     width: 120rpx;
     height: 60rpx;
-    border-radius: 30rpx;
+    line-height: 60rpx;
     font-size: 36rpx;
-    /* 神奇不居中bug */
+    box-sizing: border-box;
+    text-align: center;
+    /* 无解 bug */
     padding-right: 4rpx;
-
     color: rgb(216, 216, 216);
     background-color: #FFF;
 }

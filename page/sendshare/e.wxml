@@ -4,7 +4,7 @@ controls 按钮
 markers 标记
 polyline 路线
  -->
- <view class="box">
+ <!-- <view class="box"> -->
      <button id="share"
         plain
         open-type="share" >
@@ -64,4 +64,4 @@ polyline 路线
      <view class="report">
          <button bindtap="bindSend">上报路况</button>
      </view>
- </view>
+ <!-- </view> -->

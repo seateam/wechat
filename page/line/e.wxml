@@ -1,15 +1,38 @@
 <view class="top">
-    <image src="img/bg01@3x.png" />
+    <image class="bg" src="img/bg01@3x.png" />
+    <!-- <view class="more">
+        <view class="time">
+            <text> 999 </text>
+            <text> min </text>
+        </view>
+        <view class="division"></view>
+        <view class="km">
+            <text> 999 </text>
+            <text> km </text>
+        </view>
+        <view class="division"></view>
+        <view class="name">
+            <image src="img/combinedShape@3x.png" />
+            <text> 北大街 </text>
+        </view>
+    </view> -->
 </view>
-
-
-<!-- 贝塞尔曲线 -->
-<canvas canvas-id="myCanvas" class="line"
-    bindtap="ctxClick"
-    bindtouchstart="start"
-    bindtouchmove="move"
-    bindtouchend="end"/>
-
-<view hidden="{{hidden}}">
-  Coordinates: ({{x}}, {{y}})
+<!-- 行程概览 -->
+<view class="trip">
+    <text class="tittle"> 行程概览 </text>
+    <view class="btn"> 启程 </view>
+    <view class="dot">
+        <image src="img/dot@3x.png" />
+        <view class="text">
+            <text> 益州大道中段1800号移动互联创业大厦… </text>
+            <text> 天府广场成都博物馆停车场西入口 </text>
+        </view>
+    </view>
+    <!-- 贝塞尔曲线 -->
+    <canvas canvas-id="myCanvas" class="line"/>
+</view>
+<!-- 出行建议 -->
+<view class="suggest">
+    <text class="tittle"> 出行建议 </text>
+    <view class="btn"> 避堵 </view>
 </view>

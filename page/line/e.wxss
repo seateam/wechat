@@ -1,12 +1,114 @@
-.top image{
+.top .bg{
     width: 750rpx;
     height: 320rpx;
 }
-.line {
-    width: 650rpx;
-    height: 320rpx;
-    border: 2rpx solid #666;
+/* More */
+.top .more {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.more text {
+    font-size: 30rpx;
+    color: #609efb;
+}
+.more text + text {
+    font-size: 24rpx;
+}
+.more image {
+    width: 28rpx;
+    height: 28rpx;
+}
+.more image ~ text {
+    font-size: 28rpx;
+}
+.more .time {
+    box-sizing: border-box;
+    width: 208rpx;
+    text-align: right;
+    padding-right: 20rpx;
+}
+.more .km {
+    width: 144rpx;
+}
+.more .name {
+    display: flex;
+    align-items: center;
+    /*justify-content: center;*/
+    box-sizing: border-box;
+    text-align: left;
+    padding-left: 20rpx;
+    width: 208rpx;
+}
+.name image {
+    margin-right: 10rpx;
+}
+.more .division {
+    width: 2rpx;
+    height: 20rpx;
+    background-color: rgb(200,200,200);
+}
+
+.tittle {
+    font-size: 32rpx;
+    font-weight: bolder;
+    color: #343434;
+    margin-left: 50rpx;
+    margin-right: 436rpx;
+}
+.btn {
+    text-align: center;
+    display: inline-block;
+    border: 2rpx solid #6464ff;
+    border-radius: 26rpx;
+    width: 96rpx;
+    height: 48rpx;
+    line-height: 48rpx;
+    font-size: 24rpx;
+    color: #6464ff;
+}
+
+.trip {
+    background-color: #f2f2f2;
+    text-align: left;
+    padding-top: 28rpx;
+}
+.trip .dot {
+    margin-top: 30rpx;
+}
+.dot image {
+    margin-left: 50rpx;
+    margin-right: 12rpx;
+    margin-bottom: 12rpx;
+    width: 10rpx;
+    height: 62rpx;
+}
+.dot .text {
+    display: inline-block;
+    width: 438rpx;
+    font-size: 24rpx;
+    /* 禁止 换行 */
+    white-space: nowrap;
+    /* 隐藏 超出部分 */
+    overflow: hidden;
+    /* 省略号 替代 */
+    text-overflow: ellipsis;
+}
+.dot text {
+    display: block;
+}
+.dot text + text {
+    margin-top: 20rpx;
+}
+.trip .line {
+    width: 750rpx;
+    height: 308rpx;
     /*background: pink url('http://www.sogou.com/index/images/logo_440x140.v.1.png');*/
-    /*margin: 50rpx auto;
-    border-radius: 8rpx;*/
+}
+
+.suggest {
+    text-align: left;
+    width: 100%;
+    padding-top: 30rpx;
 }
