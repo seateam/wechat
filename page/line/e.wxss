@@ -1,9 +1,14 @@
+.top {
+    position: relative;
+}
 .top .bg{
     width: 750rpx;
     height: 320rpx;
 }
 /* More */
 .top .more {
+    position: absolute;
+    bottom: 28rpx;
     width: 100%;
     display: flex;
     justify-content: center;

@@ -1,6 +1,6 @@
 <view class="top">
     <image class="bg" src="img/bg01@3x.png" />
-    <!-- <view class="more">
+    <view class="more">
         <view class="time">
             <text> 999 </text>
             <text> min </text>
@@ -15,7 +15,7 @@
             <image src="img/combinedShape@3x.png" />
             <text> 北大街 </text>
         </view>
-    </view> -->
+    </view>
 </view>
 <!-- 行程概览 -->
 <view class="trip">
