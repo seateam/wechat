@@ -109,11 +109,56 @@
 .trip .line {
     width: 750rpx;
     height: 308rpx;
-    /*background: pink url('http://www.sogou.com/index/images/logo_440x140.v.1.png');*/
 }
 
 .suggest {
     text-align: left;
     width: 100%;
+    height: 398rpx;
     padding-top: 30rpx;
+    box-sizing: border-box;
+}
+.sugs {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.sug {
+    font-size: 24rpx;
+    color: rgba(52, 52, 52, 0.9);
+    display: flex;
+    align-items: center;
+    width: 662rpx;
+    margin-bottom: 20rpx;
+}
+.sug:first-child {
+    margin-top: 30rpx;
+}
+.sug + .sug {
+    padding-top: 21rpx;
+    border-top: 1rpx solid #9b9b9b;
+}
+.sug image {
+    margin-right: 20rpx;
+    width: 60rpx;
+    height: 60rpx;
+}
+.sug .text {
+    display: inline-block;
+}
+.sug text:nth-child(2n+1) {
+    font-size: 30rpx;
+    font-weight: bolder;
+}
+.sug:last-child text:last-child {
+    display: none;
+}
+
+.jam {
+    text-align: left;
+    width: 100%;
+    height: 464rpx;
+    padding-top: 30rpx;
+    box-sizing: border-box;
+    background-color: #F2F2F2;
 }

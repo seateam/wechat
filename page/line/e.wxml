@@ -1,3 +1,4 @@
+<!-- 简介 -->
 <view class="top">
     <image class="bg" src="img/bg01@3x.png" />
     <view class="more">
@@ -29,10 +30,44 @@
         </view>
     </view>
     <!-- 贝塞尔曲线 -->
-    <canvas canvas-id="myCanvas" class="line"/>
+    <canvas canvas-id="myCanvas" class="line" />
 </view>
 <!-- 出行建议 -->
 <view class="suggest">
     <text class="tittle"> 出行建议 </text>
+    <view class="btn"> 避堵 </view>
+    <view class="sugs">
+        <view class="sug">
+            <image src="img/iconLeft@3x.png" />
+            <view class="text">
+                <text> 300 </text>
+                <text> 米后进入 </text>
+                <text> 人民中路二段 </text>
+                <text> ，然后 </text>
+            </view>
+        </view>
+        <view class="sug">
+            <image src="img/iconLeft@3x.png" />
+            <view class="text">
+                <text> 400 </text>
+                <text> 米后进入 </text>
+                <text> 人民中路二段二段… </text>
+                <text> ，然后 </text>
+            </view>
+        </view>
+        <view class="sug">
+            <image src="img/iconLeft@3x.png" />
+            <view class="text">
+                <text> 1500 </text>
+                <text> 米后进入 </text>
+                <text> 人民中路二段 </text>
+                <text> ，然后 </text>
+            </view>
+        </view>
+    </view>
+</view>
+<!-- 路况播报 -->
+<view class="jam">
+    <text class="tittle"> 路况播报 </text>
     <view class="btn"> 避堵 </view>
 </view>
