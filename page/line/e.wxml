@@ -6,12 +6,12 @@
             <text> 999 </text>
             <text> min </text>
         </view>
-        <view class="division"></view>
+        <view class="viewision"></view>
         <view class="km">
             <text> 999 </text>
             <text> km </text>
         </view>
-        <view class="division"></view>
+        <view class="viewision"></view>
         <view class="name">
             <image src="img/combinedShape@3x.png" />
             <text> 北大街 </text>
@@ -69,5 +69,36 @@
 <!-- 路况播报 -->
 <view class="jam">
     <text class="tittle"> 路况播报 </text>
-    <view class="btn"> 避堵 </view>
+    <image src="img/iconMap@3x.png" />
+    <view class="news">
+        <view class="new">
+            <view class="dot"></view>
+            <text> 人民中路二段封路 </text>
+            <text> 15分钟前 </text>
+        </view>
+        <view class="new">
+            <view class="dot"></view>
+            <text> 人民中路二段出现车祸 </text>
+            <text> 28分钟前 </text>
+        </view>
+        <view class="new">
+            <view class="dot"></view>
+            <text> 人民中路二段出现不文明驾驶 </text>
+            <text> 35分钟前 </text>
+        </view>
+        <view class="new">
+            <view class="dot"></view>
+            <text> 人民中路二段出现不文明驾驶 </text>
+            <text> 35分钟前 </text>
+        </view>
+        <view class="new">
+            <view class="dot"></view>
+            <text> 人民中路二段与西御河街道交界出现不文明驾驶 </text>
+            <text> 35分钟前 </text>
+        </view>
+    </view>
+</view>
+<!-- 上报 -->
+<view class="report">
+    <image src="img/iconShangbao@3x.png" />
 </view>

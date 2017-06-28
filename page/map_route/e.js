@@ -89,11 +89,7 @@ Page({
         controls: db.controls
     },
     onLoad: function() {
-        let that = this
-        app.login(function(userInfo) {
-            User = userInfo
-            that.init()
-        })
+
     },
     onReady: function () {
         // 使用 wx.createMapContext 获取 map 上下文

@@ -2,10 +2,10 @@ import weSwiper from '../../ku/we_swiper/src/main'
 const log = console.log.bind(console, '>>>')
 const config = require('../../ku/js/config.js')
 const app = getApp()
-const User = {
-    info: wx.getStorageSync('userInfo'),
-    location: wx.getStorageSync('userLocation'),
-    cards:  wx.getStorageSync('userCards')
+let User = {
+    info: null,
+    location: null,
+    cards: wx.getStorageSync('userCards')
 }
 Page({
     data: {
@@ -16,23 +16,28 @@ Page({
     onPullDownRefresh: function() {
         wx.stopPullDownRefresh()
     },
-    onShareAppMessage: function () {
+    onShareAppMessage: function() {
         return {
             title: '豁然交通',
             // path: 'pages/map_route/e',
             success: function(res) {
                 log(res)
-              // 转发成功
+                // 转发成功
             },
             fail: function(res) {
                 log(res)
-              // 转发失败
+                // 转发失败
             }
         }
     },
     onLoad() {
-         this.init()
-         this.initJam()
+        let that = this
+        app.login(function(userInfo) {
+            User.info = userInfo.info
+            User.location = userInfo.location
+            that.init()
+            that.initJam()
+        })
     },
     onReachBottom: function() {
         // 上滑
@@ -147,21 +152,21 @@ Page({
     },
     initJam() {
         let that = this
-       //  status <= 0 畅
-       //  status <= 0.2 缓
-       //  status <= 1 慢
-       //  status > 1 堵
-       let deStatus = function(s) {
-           if (s <= 0) {
-               return "畅"
-           } else if (s <= 0.2) {
-               return "缓"
-           } else if (s <= 1) {
-               return "慢"
-           } else if (s > 1) {
-               return "堵"
-           }
-       }
+        //  status <= 0 畅
+        //  status <= 0.2 缓
+        //  status <= 1 慢
+        //  status > 1 堵
+        let deStatus = function(s) {
+            if (s <= 0) {
+                return "畅"
+            } else if (s <= 0.2) {
+                return "缓"
+            } else if (s <= 1) {
+                return "慢"
+            } else if (s > 1) {
+                return "堵"
+            }
+        }
         wx.request({
             url: config.url + '/traffic/routes',
             data: {
@@ -173,6 +178,7 @@ Page({
                 "ucloudtech_3rd_key": User.info.session_key
             },
             success: function(res) {
+                log(res)
                 res.data.forEach(function(e) {
                     User.cards[e.index].jam = deStatus(e.data.info.status)
                 })
@@ -180,7 +186,7 @@ Page({
                     cards: User.cards
                 })
             },
-            fail: function(err){
+            fail: function(err) {
                 log(err)
             }
         })
@@ -211,6 +217,9 @@ Page({
         let id = e.currentTarget.dataset.id
         if (!e.target.dataset.btn) {
             log("卡片", id)
+            wx.navigateTo({
+                url: "../line/e"
+            })
         }
     }
 })

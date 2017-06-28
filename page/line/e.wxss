@@ -1,3 +1,4 @@
+/* 简介 */
 .top {
     position: relative;
 }
@@ -73,7 +74,7 @@
     font-size: 24rpx;
     color: #6464ff;
 }
-
+/* 行程概览 */
 .trip {
     background-color: #f2f2f2;
     text-align: left;
@@ -110,7 +111,7 @@
     width: 750rpx;
     height: 308rpx;
 }
-
+/* 出行建议 */
 .suggest {
     text-align: left;
     width: 100%;
@@ -153,12 +154,62 @@
 .sug:last-child text:last-child {
     display: none;
 }
-
+/* 路况播报 */
 .jam {
-    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
     width: 100%;
-    height: 464rpx;
+    /* 隐藏 超出部分 */
+    overflow: hidden;
+    /* 禁止 换行 */
+    white-space: nowrap;
+    /* 省略号 替代 */
+    text-overflow: ellipsis;
+    height: 612rpx;
     padding-top: 30rpx;
+    /*margin-bottom: 148rpx;*/
     box-sizing: border-box;
     background-color: #F2F2F2;
+}
+.jam .tittle {
+    margin-right: 488rpx;
+}
+.jam image {
+    width: 44rpx;
+    height: 44rpx;
+}
+.new {
+    display: flex;
+    align-items: center;
+    margin-top: 30rpx;
+    color: rgba(52, 52, 52, 0.9);
+    font-size: 30rpx;
+}
+.new .dot {
+    display: inline-block;
+    width: 12rpx;
+    height: 12rpx;
+    background-color: #707070;
+    border-radius: 50%;
+    margin-left: 48rpx;
+    margin-right: 10rpx;
+}
+.new text:last-child {
+    margin-left: 16rpx;
+    font-size: 24rpx;
+}
+/* 上报 */
+.report {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    bottom: 34rpx;
+}
+.report image {
+    width: 122rpx;
+    height: 122rpx;
 }

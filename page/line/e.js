@@ -9,10 +9,7 @@ const device = function(number) {
     let device = wx.getSystemInfoSync()
     return number * 2 * device.windowWidth / 750
 }
-const User = {
-    info: wx.getStorageSync('userInfo'),
-    location: wx.getStorageSync('userLocation')
-}
+let User = {}
 const getBezier = function() {
     // 新算法
     // anchorpoints：贝塞尔基点
@@ -130,6 +127,15 @@ Page({
       Bezier: null
     },
     onLoad: function () {
+        let that = this
+        app.login(function(userInfo) {
+            User.info = userInfo.info
+            User.location = userInfo.location
+            that.init()
+        })
+
+    },
+    init: function() {
         let Bezier = getBezier() // 取点
         let now = deitude("104.06951,30.537107")
         let end = deitude("104.118492,30.745042")
