@@ -11,12 +11,10 @@
             bindtouchend="touchend"
             animation="{{animationData}}">
             <!-- 首部添加 -->
-            <view wx:if="{{cards.length > 3}}">
-                <view class="we-slide">
-                    <view class="add">
-                        <image src="img/add@3x.png" />
-                        <text> 添加目的地 </text>
-                    </view>
+            <view wx:if="{{cards.length > 3}}" class="we-slide">
+                <view class="add">
+                    <image src="img/add@3x.png" />
+                    <text> 添加目的地 </text>
                 </view>
             </view>
             <!-- 周围路况 -->

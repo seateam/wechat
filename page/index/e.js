@@ -5,7 +5,7 @@ const app = getApp()
 let User = {
     info: null,
     location: null,
-    cards: wx.getStorageSync('userCards')
+    cards: []
 }
 Page({
     data: {
@@ -35,6 +35,9 @@ Page({
         app.login(function(userInfo) {
             User.info = userInfo.info
             User.location = userInfo.location
+            that.setData({
+                cards: wx.getStorageSync('userCards')
+            })
             that.init()
             that.initJam()
         })
