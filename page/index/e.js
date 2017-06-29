@@ -238,6 +238,11 @@ Page({
             url: "../editaddress/e"
         })
     },
+    bindAdd: function() {
+        wx.navigateTo({
+            url: "../addaddress/e"
+        })
+    },
     bindCard: function(e) {
         let id = e.currentTarget.dataset.id
         if (!e.target.dataset.btn) {

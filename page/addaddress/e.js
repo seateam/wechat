@@ -34,12 +34,8 @@ Page({
             }
         })
     },
-    bindDel: function() {
-        wx.showModal({
-            content: "确认删除吗？",
-            cancelColor: "#9B9B9B",
-            confirmColor: "#FF633D"
-        })
+    bindAdd: function() {
+        log("新建")
     },
     bindIcon: function(e) {
         let i = e.currentTarget.dataset.index

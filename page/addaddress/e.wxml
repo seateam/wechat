@@ -25,7 +25,6 @@
 </view>
 
 <view class="location-btn">
-    <!-- disabled -->
-    <view class="btn" bindtap="bindDel">删除</view>
-    <view class="btn" >保存</view>
+    <view class="btn" > 删除 </view>
+    <view class="btn" bindtap="bindAdd"> 新建 </view>
 </view>

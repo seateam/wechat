@@ -68,9 +68,9 @@
     background-color: white;
 }
 .location-btn .btn:nth-child(1) {
-    border-color: #D9534F;
+    border-color: #d8d8d8;
     background-color: #FFF;
-    color: #D9534F;
+    color: #d8d8d8;
 }
 .location-btn .btn:nth-child(2) {
     margin-left: 90rpx;

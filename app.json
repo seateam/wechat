@@ -5,6 +5,7 @@
         "page/sendshare/e",
         "page/map_route/e",
         "page/editaddress/e",
+        "page/addaddress/e",
         "page/jiejing/e"
     ],
     "window": {
