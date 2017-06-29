@@ -3,10 +3,21 @@ const User = {
     info: wx.getStorageSync('userInfo'),
     location: wx.getStorageSync('userLocation')
 }
+// 反转坐标
+const deitude = function(itude) {
+    return itude.split(',').reverse().join(',')
+}
+
+const result = {
+    checked: 0,
+    name: null,
+    destination: deitude(User.location.now)
+}
 Page({
     data: {
         location: "定位中…",
-        checked: 0,
+        checked: result.checked,
+        focus: false,
         icon: {
             url: [
                 "iconOriginal@3x.png",
@@ -26,22 +37,43 @@ Page({
         })
     },
     bindChoose: function() {
+        let that = this
         wx.chooseLocation({
             success: (res) => {
                 let name = res.name
                 let dot = [res.latitude,res.longitude].join(',')
-                log(name, dot)
+                result.destination = dot
+                that.setData({
+                    location: name
+                })
             }
         })
     },
-    bindAdd: function() {
-        log("新建")
+    bindInputBlur: function(e) {
+        result.name = e.detail.value
     },
     bindIcon: function(e) {
         let i = e.currentTarget.dataset.index
-        log('icon', i)
+        result.checked = i
         this.setData({
             checked: i
         })
+    },
+    bindAdd: function() {
+        if (result.name) {
+            // log(wx.getStorageSync('userCards'))
+            // let newCard = {
+            //     destination: null
+            // }
+            log(result)
+            // 后退
+            wx.navigateBack({
+                delta: 1
+            })
+        } else {
+            this.setData({
+                focus: true
+            })
+        }
     }
 })

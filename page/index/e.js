@@ -203,7 +203,7 @@ Page({
                 "ucloudtech_3rd_key": User.info.session_key
             },
             success: function(res) {
-                log(res)
+                // log("routes获取成功", res)
                 res.data.forEach(function(e) {
                     User.cards[e.index].jam = deStatus(e.data.info.status)
                 })
@@ -212,7 +212,7 @@ Page({
                 })
             },
             fail: function(err) {
-                log(err)
+                // log("routes获取失败",err)
             }
         })
     },

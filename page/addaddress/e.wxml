@@ -5,7 +5,7 @@
 </view>
 <view class="location-name">
     <image src="img/iconName@3x.png" />
-    <input placeholder="取个名字吧，如：公司" placeholder-style="color:rgb(216, 216, 216)" />
+    <input bindblur="bindInputBlur" focus="{{focus}}" placeholder="取个名字吧，如：公司" placeholder-style="color:rgb(216, 216, 216)" />
 </view>
 
 <view class="location-icon">
@@ -26,5 +26,5 @@
 
 <view class="location-btn">
     <view class="btn" > 删除 </view>
-    <view class="btn" bindtap="bindAdd"> 新建 </view>
+    <view class="btn" bindtap="bindAdd"> 保存 </view>
 </view>
