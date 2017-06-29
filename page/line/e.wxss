@@ -149,7 +149,6 @@
 }
 .sug text:nth-child(2n+1) {
     font-size: 30rpx;
-    font-weight: bolder;
 }
 .sug:last-child text:last-child {
     display: none;

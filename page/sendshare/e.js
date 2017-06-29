@@ -6,7 +6,10 @@ const User = {
     location: wx.getStorageSync('userLocation'),
     mapCtx: null
 }
-const device = wx.getSystemInfoSync()
+const deviceInfo = wx.getSystemInfoSync().windowWidth
+const device = function(number) {
+    return number * 2 * deviceInfo / 750
+}
 const mapButton = {
     1: function() {
         User.mapCtx.moveToLocation()
@@ -20,10 +23,10 @@ Page({
             iconPath: 'img/iconRelocation@3x.png',
             clickable: true,
             position: {
-                left: 30 * device.windowWidth / 750,
-                top: 178 * device.windowWidth / 750,
+                left:device(15),
+                top: device(89),
                 width: 36,
-                height: 36
+                height:36
             }
         }],
         jam: [

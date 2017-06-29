@@ -11,7 +11,7 @@
             bindtouchend="touchend"
             animation="{{animationData}}">
             <!-- 首部添加 -->
-            <view wx:if="{{cards.length > 3}}" class="we-slide">
+            <view wx:if="{{cards.length > 3}}" class="we-slide" bindtap="bindSet">
                 <view class="add">
                     <image src="img/add@3x.png" />
                     <text> 添加目的地 </text>
@@ -45,14 +45,14 @@
                         </view>
                         <view class="division"></view>
                         <view class="name">
-                            <image src="img/combinedShape@3x.png" />
+                            <image src="img/icon-original-blue.svg" />
                             <text> {{e.shortName}} </text>
                         </view>
                     </view>
                 </view>
             </block>
             <!-- 尾部添加 -->
-            <view class="we-slide">
+            <view class="we-slide" bindtap="bindSet">
                 <view class="add">
                     <image src="img/add@3x.png" />
                     <text> 添加目的地 </text>

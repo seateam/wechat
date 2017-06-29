@@ -82,7 +82,7 @@
 }
 .more image {
     width: 28rpx;
-    height: 28rpx;
+    height: 26rpx;
 }
 .more image ~ text {
     font-size: 28rpx;
@@ -170,5 +170,5 @@
     box-shadow: 0 9rpx 12rpx 3rpx rgba(0,0,0,0.1);
 }
 .we-slide:nth-child(1) {
-    margin-left: 95rpx;
+    margin-left: 94rpx;
 }

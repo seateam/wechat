@@ -7,9 +7,9 @@ const deitude = function(itude) {
     return itude.split(',').reverse().join(',')
 }
 // 自适应宽度
+const deviceInfo = wx.getSystemInfoSync().windowWidth
 const device = function(number) {
-    let device = wx.getSystemInfoSync()
-    return number * 2 * device.windowWidth / 750
+    return number * 2 * deviceInfo / 750
 }
 let User
 

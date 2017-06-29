@@ -2,6 +2,10 @@ import weSwiper from '../../ku/we_swiper/src/main'
 const log = console.log.bind(console, '>>>')
 const config = require('../../ku/js/config.js')
 const app = getApp()
+const deviceInfo = wx.getSystemInfoSync().windowWidth
+const device = function(number) {
+    return number * 2 * deviceInfo / 750
+}
 let User = {
     info: null,
     location: null,
@@ -50,7 +54,6 @@ Page({
         that.setData({
             township: User.location.data.regeocode.addressComponent.township
         })
-        const device = wx.getSystemInfoSync()
         let l = that.data.cards.length
         let slideLength, initialSlide
         if (l > 3) {
@@ -64,7 +67,7 @@ Page({
             animationViewName: 'animationData',
             slideLength: slideLength,
             initialSlide: initialSlide,
-            width: 622 * device.windowWidth / 750,
+            width: Math.floor(device(281)) + Math.floor(device(15)) + Math.floor(device(15)),
             /**
              * swiper初始化后执行
              */
