@@ -17,6 +17,7 @@ App({
                 name: '升仙湖',
                 shortName: '升仙湖',
                 jam: "畅",
+                icon: "home",
                 time: '25',
                 km: '10',
                 // 出发点
@@ -34,6 +35,7 @@ App({
                 name: '黄龙奇观',
                 shortName: '黄龙奇…',
                 jam: "畅",
+                icon: "school",
                 time: '11',
                 km: '90',
                 // 出发点
@@ -49,6 +51,7 @@ App({
                 name: '华阳客运中心',
                 shortName: '华阳客…',
                 jam: "畅",
+                icon: "market",
                 time: '11',
                 km: '90',
                 // 出发点
@@ -63,7 +66,8 @@ App({
             {
                 name: '天府广场',
                 shortName: '天府广…',
-                jam: "畅",
+                jam: "缓",
+                icon: "office",
                 time: '11',
                 km: '90',
                 // 出发点
@@ -78,9 +82,10 @@ App({
             {
                 name: '成都杜甫草堂博物馆',
                 shortName: '成都杜…',
-                jam: "畅",
-                time: '11',
-                km: '90',
+                jam: "堵",
+                icon: "original",
+                time: '999',
+                km: '999',
                 // 出发点
                 origin: deitude('30.64606,104.048'), // 武侯祠博物馆
                 // 目的地

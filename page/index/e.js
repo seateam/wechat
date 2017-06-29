@@ -15,7 +15,25 @@ Page({
     data: {
         cards: User.cards,
         township: '定位中…',
-        dotNow: 1
+        dotNow: 1,
+        jam: {
+            "畅": {
+                color: "#e9585c",
+                id: "0"
+            },
+            "缓": {
+                color: "#eab52f",
+                id: "1"
+            },
+            "慢": {
+                color: "#2eada3",
+                id: "2"
+            },
+            "堵": {
+                color: "#207ab6",
+                id: "3"
+            }
+        }
     },
     onPullDownRefresh: function() {
         wx.stopPullDownRefresh()
@@ -42,6 +60,7 @@ Page({
             that.setData({
                 cards: wx.getStorageSync('userCards')
             })
+            User.cards = that.data.cards
             that.init()
             that.initJam()
         })

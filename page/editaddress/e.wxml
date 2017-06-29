@@ -1,6 +1,6 @@
 <view class="location"
     bindtap="bindChoose" >
-    <image src="img/iconLocationSmall@3x.png" />
+    <image src="img/iocnLocation@3x.png" />
     <text> {{location}} </text>
 </view>
 <view class="location-name">
@@ -9,11 +9,19 @@
 </view>
 
 <view class="location-icon">
-    <image src="img/iconOriginalCircle@3x.png" />
-    <image src="img/iconHomeGrey@3x.png" />
-    <image src="img/iconOfficeGrey@3x.png" />
-    <image src="img/iconSchoolGrey@3x.png" />
-    <image src="img/iconMarketGrey@3x.png" />
+    <block wx:for="{{icon.url}}" wx:key="key" >
+        <view wx:if="{{checked === index}}"
+            bindtap="bindIcon"
+            data-index="{{index}}" >
+            <image src="img/1/{{item}}" />
+        </view>
+        <view wx:else
+            bindtap="bindIcon"
+            data-index="{{index}}" >
+            <image src="img/0/{{item}}" />
+        </view>
+
+    </block>
 </view>
 
 <view class="location-btn">

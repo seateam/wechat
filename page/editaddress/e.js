@@ -5,7 +5,17 @@ const User = {
 }
 Page({
     data: {
-        location: "定位中…"
+        location: "定位中…",
+        checked: 0,
+        icon: {
+            url: [
+                "iconOriginal@3x.png",
+                "iconHome@3x.png",
+                "iconOffice@3x.png",
+                "iconSchool@3x.png",
+                "iconMarket@3x.png"
+            ]
+        }
     },
     onPullDownRefresh: function() {
         wx.stopPullDownRefresh()
@@ -29,6 +39,12 @@ Page({
             content: "确认删除吗？",
             cancelColor: "#9B9B9B",
             confirmColor: "#FF633D"
+        })
+    },
+    bindIcon: function(e) {
+        let i = e.currentTarget.dataset.index
+        this.setData({
+            checked: i
         })
     }
 })
