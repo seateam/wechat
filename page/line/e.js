@@ -133,7 +133,6 @@ Page({
             User.location = userInfo.location
             that.init()
         })
-
     },
     init: function() {
         let Bezier = getBezier() // 取点
@@ -211,4 +210,9 @@ Page({
         // 停止刷新
         wx.stopPullDownRefresh()
     },
+    bindMap: function() {
+        wx.navigateTo({
+            url: "../map_route/e"
+        })
+    }
 })

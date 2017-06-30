@@ -11,7 +11,7 @@ const deviceInfo = wx.getSystemInfoSync().windowWidth
 const device = function(number) {
     return number * 2 * deviceInfo / 750
 }
-let User
+let User = {}
 
 // 默认参数
 let db = {
@@ -89,7 +89,12 @@ Page({
         controls: db.controls
     },
     onLoad: function() {
-
+        let that = this
+        app.login(function(userInfo) {
+            User.info = userInfo.info
+            User.location = userInfo.location
+            that.init()
+        })
     },
     onReady: function () {
         // 使用 wx.createMapContext 获取 map 上下文

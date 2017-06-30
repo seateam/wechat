@@ -162,7 +162,7 @@ App({
                     },
                     fial: function(err) {
                         wx.setStorageSync('userLocation', location)
-                        if (callback) { callback() }
+                        if (typeof callback === 'function') { callback() }
                     }
                 })
             },

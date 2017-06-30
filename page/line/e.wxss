@@ -82,11 +82,12 @@
 }
 .trip .dot {
     margin-top: 30rpx;
+    display: flex;
+    align-items: center;
 }
 .dot image {
     margin-left: 50rpx;
     margin-right: 12rpx;
-    margin-bottom: 12rpx;
     width: 10rpx;
     height: 62rpx;
 }

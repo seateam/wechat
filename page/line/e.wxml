@@ -69,7 +69,7 @@
 <!-- 路况播报 -->
 <view class="jam">
     <text class="tittle"> 路况播报 </text>
-    <image src="img/iconMap@3x.png" />
+    <image bindtap="bindMap" src="img/iconMap@3x.png" />
     <view class="news">
         <view class="new">
             <view class="dot"></view>
