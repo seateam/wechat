@@ -62,8 +62,11 @@
     justify-content: center;
     height: 80rpx;
 }
-.jam text {
+.jam .text {
     font-size: 60rpx;
+}
+.jam .tooLong {
+    font-size: 58rpx;
 }
 .card .more {
     width: 100%;
@@ -84,6 +87,13 @@
 }
 .more image ~ text {
     font-size: 28rpx;
+    width: 116rpx;
+    /* 禁止 换行 */
+    white-space: nowrap;
+    /* 隐藏 超出部分 */
+    overflow: hidden;
+    /* 省略号 替代 */
+    text-overflow: ellipsis;
 }
 .more .time {
     box-sizing: border-box;
@@ -144,6 +154,8 @@
     width: 122rpx;
     height: 122rpx;
 }
+
+
 
 /* 卡片样式 */
 @import "../../ku/we_swiper/dist/weSwiper.wxss";

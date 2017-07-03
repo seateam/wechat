@@ -3,8 +3,8 @@ const log = console.log.bind(console)
 const deitude = function(itude) {
     return itude.split(',').reverse().join(',')
 }
+const iconArr = ["original", "home", "office", "school", "market"]
 const result = {
-    checked: 0,
     name: null,
     destination: null
 }
@@ -12,7 +12,7 @@ let User = {}
 Page({
     data: {
         location: "定位中…",
-        checked: result.checked,
+        checked: 0,
         focus: false,
         icon: {
             url: [
@@ -29,8 +29,11 @@ Page({
     },
     onLoad: function() {
         User.location = wx.getStorageSync('userLocation')
+        let now = deitude(User.location.now)
         // 目的地
-        result.destination = deitude(User.location.now)
+        result.destination = now
+        result.origin = now
+        result.myorigin = now
         this.setData({
             location: User.location.data.regeocode.addressComponent.township
         })
@@ -41,7 +44,7 @@ Page({
             success: (res) => {
                 let name = res.name
                 let dot = [res.latitude,res.longitude].join(',')
-                result.destination = dot
+                result.destination = deitude(dot)
                 that.setData({
                     location: name
                 })
@@ -53,18 +56,21 @@ Page({
     },
     bindIcon: function(e) {
         let i = e.currentTarget.dataset.index
-        result.checked = i
         this.setData({
             checked: i
         })
     },
     bindAdd: function() {
+        let i = this.data.checked
+        result.icon = iconArr[i]
         if (result.name) {
-            // log(wx.getStorageSync('userCards'))
-            // let newCard = {
-            //     destination: null
-            // }
-            log(result)
+            result.jam = "堵"
+            let cards = wx.getStorageSync('userCards')
+            if (cards.length === 0) {
+                cards = []
+            }
+            cards.push(result)
+            wx.setStorageSync('userCards', cards)
             // 后退
             wx.navigateBack({
                 delta: 1

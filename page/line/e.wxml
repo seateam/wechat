@@ -3,18 +3,18 @@
     <image class="bg" src="img/bg01@3x.png" />
     <view class="more">
         <view class="time">
-            <text> 999 </text>
+            <text> {{card.time}} </text>
             <text> min </text>
         </view>
         <view class="viewision"></view>
         <view class="km">
-            <text> 999 </text>
+            <text> {{card.km}} </text>
             <text> km </text>
         </view>
         <view class="viewision"></view>
         <view class="name">
             <image src="img/combinedShape@3x.png" />
-            <text> 北大街 </text>
+            <text> {{card.name}} </text>
         </view>
     </view>
 </view>

@@ -32,6 +32,10 @@ Page({
             "堵": {
                 color: "#207ab6",
                 id: "3"
+            },
+            "距离过长" : {
+                color: "#207ab6",
+                id: "3"
             }
         }
     },
@@ -53,16 +57,21 @@ Page({
         }
     },
     onLoad() {
+        wx.showLoading({
+            title: "正在登陆",
+            mask: true
+        })
         let that = this
         app.login(function(userInfo) {
             User.info = userInfo.info
             User.location = userInfo.location
+            User.cards = wx.getStorageSync('userCards')
             that.setData({
-                cards: wx.getStorageSync('userCards')
+                cards: User.cards
             })
-            User.cards = that.data.cards
             that.init()
             that.initJam()
+            wx.hideLoading()
         })
     },
     onReachBottom: function() {
@@ -204,9 +213,17 @@ Page({
                     "ucloudtech_3rd_key": User.info.session_key
                 },
                 success: function(res) {
-                    // log("routes获取成功", res)
                     res.data.forEach(function(e) {
-                        User.cards[e.index].jam = deStatus(e.data.info.status)
+                        let card = User.cards[e.index]
+                        if (e.code === 200) {
+                            card.time = Math.round(e.data.info.duration / 60 * 10) / 10
+                            card.km = Math.round(e.data.info.distance / 1000 * 10) / 10
+                            card.jam = deStatus(e.data.info.status)
+                        } else if (e.message === "距离过长"){
+                            card.jam = e.message
+                            card.km = 999
+                            card.time = 999
+                        }
                     })
                     that.setData({
                         cards: User.cards

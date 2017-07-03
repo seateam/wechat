@@ -32,6 +32,11 @@ Page({
         wx.stopPullDownRefresh()
     },
     onLoad: function() {
+        // 卡片
+        User.cards = wx.getStorageSync('userCards')
+        if (User.cards.length === 0) {
+            User.cards = []
+        }
         // 目的地
         result.destination = deitude(User.location.now)
         this.setData({

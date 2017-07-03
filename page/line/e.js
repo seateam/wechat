@@ -9,7 +9,13 @@ const device = function(number) {
     return number * 2 * deviceInfo / 750
 }
 let User = {
-    card: null,
+    card: {
+        name: '升仙湖',
+        jam: "畅",
+        icon: "home",
+        time: '999',
+        km: '999'
+    },
     info: null,
     location: null
 }
@@ -127,7 +133,8 @@ const getRatio = function(res) {
 }
 Page({
     data: {
-      Bezier: null
+      Bezier: null,
+      card: User.card
     },
     onLoad: function (option) {
         let that = this
