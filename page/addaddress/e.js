@@ -1,18 +1,14 @@
 const log = console.log.bind(console)
-const User = {
-    info: wx.getStorageSync('userInfo'),
-    location: wx.getStorageSync('userLocation')
-}
 // 反转坐标
 const deitude = function(itude) {
     return itude.split(',').reverse().join(',')
 }
-
 const result = {
     checked: 0,
     name: null,
     destination: null
 }
+let User = {}
 Page({
     data: {
         location: "定位中…",
@@ -32,6 +28,7 @@ Page({
         wx.stopPullDownRefresh()
     },
     onLoad: function() {
+        User.location = wx.getStorageSync('userLocation')
         // 目的地
         result.destination = deitude(User.location.now)
         this.setData({

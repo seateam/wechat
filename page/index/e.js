@@ -250,9 +250,8 @@ Page({
     bindCard: function(e) {
         let id = e.currentTarget.dataset.id
         if (!e.target.dataset.btn) {
-            log("卡片", id)
             wx.navigateTo({
-                url: "../line/e"
+                url: "../line/e?id=" + id
             })
         }
     }

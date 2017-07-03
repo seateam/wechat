@@ -1,6 +1,5 @@
 const log = console.log.bind(console)
 const config = require('../../ku/js/config.js')
-const app = getApp()
 const deitude = function(itude) {
     return itude.split(',').reverse().join(',')
 }
@@ -9,7 +8,11 @@ const deviceInfo = wx.getSystemInfoSync().windowWidth
 const device = function(number) {
     return number * 2 * deviceInfo / 750
 }
-let User = {}
+let User = {
+    card: null,
+    info: null,
+    location: null
+}
 const getBezier = function() {
     // 新算法
     // anchorpoints：贝塞尔基点
@@ -126,27 +129,27 @@ Page({
     data: {
       Bezier: null
     },
-    onLoad: function () {
+    onLoad: function (option) {
         let that = this
-        app.login(function(userInfo) {
-            User.info = userInfo.info
-            User.location = userInfo.location
-            that.init()
-        })
+        // 取卡片
+        User.card = wx.getStorageSync('userCards')[option.id]
+        User.info = wx.getStorageSync('userInfo')
+        User.location = wx.getStorageSync('userLocation')
+        that.init()
     },
     init: function() {
         let Bezier = getBezier() // 取点
-        let now = deitude("104.06951,30.537107")
-        let end = deitude("104.118492,30.745042")
+        let now = User.card.myorigin
+        let end = User.card.destination
         wx.request({
             url: config.url + '/traffic/situation',
             data: {
                 // 我的位置
-                myorigin: deitude(now),
+                myorigin: now,
                 // 出发点
-                origin: deitude(now),
+                origin: now,
                 // 目的地
-                destination: deitude(end),
+                destination: end,
                 // isGetRouts: true,
                 // isStart: true,
             },
