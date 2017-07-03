@@ -69,11 +69,11 @@ Page({
             if (cards.length === 0) {
                 cards = []
             }
-            cards.push(result)
-            wx.setStorageSync('userCards', cards)
+            cards.reverse().push(result)
+            wx.setStorageSync('userCards', cards.reverse())
             // 后退
-            wx.navigateBack({
-                delta: 1
+            wx.redirectTo({
+                url: "../index/e"
             })
         } else {
             this.setData({
