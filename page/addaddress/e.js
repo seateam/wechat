@@ -74,7 +74,7 @@ Page({
             cards.reverse().push(result)
             wx.setStorageSync('userCards', cards.reverse())
             // 后退
-            wx.redirectTo({
+            wx.reLaunch({
                 url: "../index/e"
             })
         } else {

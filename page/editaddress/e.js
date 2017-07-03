@@ -82,7 +82,7 @@ Page({
             card.icon = result.icon
             card.name = result.name
             wx.setStorageSync('userCards', User.cards)
-            wx.redirectTo({
+            wx.reLaunch({
                 url: "../index/e"
             })
         } else {
