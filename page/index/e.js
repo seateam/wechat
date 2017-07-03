@@ -192,29 +192,33 @@ Page({
                 return "堵"
             }
         }
-        wx.request({
-            url: config.url + '/traffic/routes',
-            data: {
-                cards: User.cards
-            },
-            method: "POST",
-            header: {
-                "Content-Type": "application/json",
-                "ucloudtech_3rd_key": User.info.session_key
-            },
-            success: function(res) {
-                // log("routes获取成功", res)
-                res.data.forEach(function(e) {
-                    User.cards[e.index].jam = deStatus(e.data.info.status)
-                })
-                that.setData({
+        if (User.cards) {
+            wx.request({
+                url: config.url + '/traffic/routes',
+                data: {
                     cards: User.cards
-                })
-            },
-            fail: function(err) {
-                // log("routes获取失败",err)
-            }
-        })
+                },
+                method: "POST",
+                header: {
+                    "Content-Type": "application/json",
+                    "ucloudtech_3rd_key": User.info.session_key
+                },
+                success: function(res) {
+                    // log("routes获取成功", res)
+                    res.data.forEach(function(e) {
+                        User.cards[e.index].jam = deStatus(e.data.info.status)
+                    })
+                    that.setData({
+                        cards: User.cards
+                    })
+                },
+                fail: function(err) {
+                    // log("routes获取失败",err)
+                }
+            })
+        } else {
+            log("没有卡片！")
+        }
     },
     touchstart(e) {
         this.weswiper.touchstart(e)

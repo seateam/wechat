@@ -11,7 +11,7 @@ const deitude = function(itude) {
 const result = {
     checked: 0,
     name: null,
-    destination: deitude(User.location.now)
+    destination: null
 }
 Page({
     data: {
@@ -32,6 +32,8 @@ Page({
         wx.stopPullDownRefresh()
     },
     onLoad: function() {
+        // 目的地
+        result.destination = deitude(User.location.now)
         this.setData({
             location: User.location.data.regeocode.addressComponent.township
         })
