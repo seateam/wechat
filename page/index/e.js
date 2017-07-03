@@ -201,7 +201,7 @@ Page({
                 return "堵"
             }
         }
-        if (User.cards) {
+        if (User.cards.length) {
             wx.request({
                 url: config.url + '/traffic/routes',
                 data: {
@@ -251,12 +251,14 @@ Page({
             url: "../sendshare/e"
         })
     },
-    bindRefresh() {
-        log('刷新')
+    bindRefresh(e) {
+        let id = e.currentTarget.dataset.id
+        log('刷新', id)
     },
-    bindSet: function() {
+    bindSet: function(e) {
+        let id = e.currentTarget.dataset.id
         wx.navigateTo({
-            url: "../editaddress/e"
+            url: "../editaddress/e?id=" + id
         })
     },
     bindAdd: function() {

@@ -28,8 +28,8 @@
             <block wx:for="{{cards}}" wx:for-item="e" wx:key="key" >
                 <view class="we-slide" data-id="{{index}}" bindtap="bindCard">
                     <image class="bg" src="img/{{jam[e.jam].id}}/bg@3x.png" />
-                    <image data-btn="true" bindtap="bindRefresh"  class="refresh" src="img/iconRefresh@3x.png" />
-                    <image data-btn="true" bindtap="bindSet" class="set" src="img/set@3x.png" />
+                    <image data-id="{{index}}" data-btn="true" bindtap="bindRefresh"  class="refresh" src="img/iconRefresh@3x.png" />
+                    <image data-id="{{index}}" data-btn="true" bindtap="bindSet" class="set" src="img/set@3x.png" />
                     <view class="jam"  style="color: {{jam[e.jam].color}}">
                         <text wx:if="{{e.jam.length > 1}}" class="tooLong"> {{e.jam}} </text>
                         <text wx:else class="text"> {{e.jam}} </text>

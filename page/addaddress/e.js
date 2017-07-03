@@ -34,8 +34,9 @@ Page({
         result.destination = now
         result.origin = now
         result.myorigin = now
+        result.street = User.location.data.regeocode.addressComponent.township
         this.setData({
-            location: User.location.data.regeocode.addressComponent.township
+            location: result.street
         })
     },
     bindChoose: function() {
@@ -45,6 +46,7 @@ Page({
                 let name = res.name
                 let dot = [res.latitude,res.longitude].join(',')
                 result.destination = deitude(dot)
+                result.street = name
                 that.setData({
                     location: name
                 })
