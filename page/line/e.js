@@ -90,11 +90,18 @@ const getRatio = function(res) {
     let dotArr = []
     for (let i of points) {
         let e = [i.lon,i.lat].join(',')
-        if (!dotArr.includes(e)) {
-            dotArr.push({
-                point: e,
-                level: i.level
-            })
+        let dot = {
+            point: e,
+            level: i.level
+        }
+        let bool = false
+        for (let i2 of dotArr) {
+            if (i2.level === dot.level && i2.point === dot.point) {
+                bool = true
+            }
+        }
+        if (bool === false) {
+            dotArr.push(dot)
         }
     }
     // 总长
@@ -117,6 +124,7 @@ const getRatio = function(res) {
             })
         })
     }
+    log(arr)
     return arr
 }
 let User = {}
@@ -201,52 +209,62 @@ Page({
                 "ucloudtech_3rd_key": User.info.session_key
             },
             success: function(res) {
-                User.card.time = Math.round(res.data.info.trafficData.duration / 60 * 10) / 10
-                User.card.km = Math.round(res.data.info.trafficData.distance / 1000 * 10) / 10
-                that.setData({
-                    card: User.card
-                })
-                // 路线上的点 points
-                // 我周围的点 arounds
-                if (Number(res.data.code) !== 200) {
-                    return;
-                }
-                // 取比例
-                let ratioArr = getRatio(res)
-                // 坐标点
-                let indexArr = []
-                ratioArr.forEach((e, i) => {
-                    let index = parseInt( Bezier.length * e.ratio )
-                    indexArr.push({
-                        index: index,
-                        level: e.level
+                let draw = function() {
+                    User.card.time = Math.round(res.data.info.trafficData.duration / 60 * 10) / 10
+                    User.card.km = Math.round(res.data.info.trafficData.distance / 1000 * 10) / 10
+                    that.setData({
+                        card: User.card
                     })
-                })
-                // 画线
-                const ctx = wx.createCanvasContext('myCanvas')
-                ctx.setLineCap('round')
-                ctx.setLineWidth(2)
-                ctx.setStrokeStyle('#4990e2')
-                let drawBezierPoints = function(arr) {
-                    ctx.moveTo(arr[0].x, arr[0].y)
-                    for (let i of arr) {
-                        ctx.lineTo(i.x, i.y)
+                    // 路线上的点 points
+                    // 我周围的点 arounds
+                    if (Number(res.data.code) !== 200) {
+                        return;
                     }
-                    ctx.stroke()
-                }(Bezier)
-                // 贴图片
-                that.drawImg(indexArr, Bezier, ctx)
-                // 画圆点
-                ctx.beginPath()
-                ctx.arc(device(35.5), device(119.5), device(4), 0, 2 * Math.PI)
-                ctx.setFillStyle('#7ed321')
-                ctx.fill()
-                ctx.beginPath()
-                ctx.arc(device(339.5),device(65.5), device(4), 0, 2 * Math.PI)
-                ctx.setFillStyle('#ff2c46')
-                ctx.fill()
-
-                ctx.draw()
+                    // 取比例
+                    let ratioArr = getRatio(res)
+                    // 坐标点
+                    let indexArr = []
+                    ratioArr.forEach((e, i) => {
+                        let index = parseInt( Bezier.length * e.ratio )
+                        indexArr.push({
+                            index: index,
+                            level: e.level
+                        })
+                    })
+                    // 画线
+                    const ctx = wx.createCanvasContext('myCanvas')
+                    ctx.setLineCap('round')
+                    ctx.setLineWidth(2)
+                    ctx.setStrokeStyle('#4990e2')
+                    let drawBezierPoints = function(arr) {
+                        ctx.moveTo(arr[0].x, arr[0].y)
+                        for (let i of arr) {
+                            ctx.lineTo(i.x, i.y)
+                        }
+                        ctx.stroke()
+                    }(Bezier)
+                    // 贴图片
+                    that.drawImg(indexArr, Bezier, ctx)
+                    // 画圆点
+                    ctx.beginPath()
+                    ctx.arc(device(35.5), device(119.5), device(4), 0, 2 * Math.PI)
+                    ctx.setFillStyle('#7ed321')
+                    ctx.fill()
+                    ctx.beginPath()
+                    ctx.arc(device(339.5),device(65.5), device(4), 0, 2 * Math.PI)
+                    ctx.setFillStyle('#ff2c46')
+                    ctx.fill()
+                    // over
+                    ctx.draw()
+                }()
+                // 出行建议 (避堵)
+                let suggest = function() {
+                    let steps = res.data.info.trafficData.steps
+                    for(var i = 0; i < steps.length; i++) {
+                        let e = steps[i]
+                        // log(i,e.action,e.distance,"米",)
+                    }
+                }()
             },
             fail: function(err) {
                 console.log('err',err);
@@ -257,11 +275,13 @@ Page({
         // 画气泡
         for (let i of indexArr) {
             let e = Bezier[i.index]
-            ctx.drawImage('img/direction/iconLeft@3x.png', e.x - 12, e.y - 24, 24, 24)
+            let x = Math.round(e.x - device(22))
+            let y = Math.round(e.y - device(50))
+            ctx.drawImage('img/line/iconWaterShowmap@3x.png', x, y, device(44), device(50))
         }
         // 画起点 ( 起点不变
         let e = Bezier[0]
-        ctx.drawImage('img/iconOLoca@3x.png', e.x - 8, e.y - 8, 16, 16)
+        ctx.drawImage('img/iconOLoca@3x.png', e.x - device(8), e.y - device(8), device(16), device(16))
     },
     bindMap: function() {
         wx.navigateTo({
@@ -270,7 +290,7 @@ Page({
     },
     bindReport() {
         wx.navigateTo({
-            url: "../sendshare/e"
+            url: "../report/e"
         })
     },
     bindStart() {

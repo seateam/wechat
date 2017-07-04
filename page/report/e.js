@@ -111,10 +111,12 @@ Page({
         })
     },
     bindSend: function(e) {
+        // 公司 104.066541,30.572269 -> 升仙湖 104.08171,30.70775
         let that = this
         let dot = {
             type: "Point",
-            coordinates: [User.location.longitude, User.location.latitude]
+            coordinates: [104.068695,30.572105]
+            // coordinates: [User.location.longitude, User.location.latitude]
         }
         let arr = []
         that.data.jam.forEach(function(e, i) {
@@ -143,7 +145,7 @@ Page({
                     "ucloudtech_3rd_key": User.info.session_key
                 },
                 success: function(res) {
-                    if (res.data.code === 100) {
+                    if (res.data.code === 200) {
                         wx.showModal({
                             title: '恭喜您，上报成功！',
                             content: '豁然交通感谢您的支持，期待给您更好的服务☺',
@@ -166,9 +168,7 @@ Page({
                             confirmColor: "#7878FF",
                             success: function(res) {
                                 if (res.confirm) {
-                                    console.log('用户点击确定')
-                                } else if (res.cancel) {
-                                    console.log('用户点击取消')
+                                    console.log('上报失败！')
                                 }
                             }
                         })

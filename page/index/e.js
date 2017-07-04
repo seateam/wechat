@@ -71,6 +71,7 @@ Page({
             })
             that.init()
             that.initJam()
+            that.initZero()
             wx.hideLoading()
         })
     },
@@ -186,10 +187,6 @@ Page({
     },
     initJam() {
         let that = this
-        //  status <= 0 畅
-        //  status <= 0.2 缓
-        //  status <= 1 慢
-        //  status > 1 堵
         let deStatus = function(s) {
             if (s <= 0) {
                 return "畅"
@@ -231,12 +228,32 @@ Page({
                     wx.setStorageSync('userCards', User.cards)
                 },
                 fail: function(err) {
-                    // log("routes获取失败",err)
+                    log("routes获取失败",err)
                 }
             })
         } else {
             log("没有卡片！")
         }
+    },
+    initZero() {
+        wx.request({
+            url: config.url + '/home/zero',
+            data: {
+                longitude: User.location.longitude,
+                latitude: User.location.latitude
+            },
+            method: "POST",
+            header: {
+                "Content-Type": "application/json",
+                "ucloudtech_3rd_key": User.info.session_key
+            },
+            success: function(res) {
+                // log("zero",res)
+            },
+            fail: function(err) {
+                log("zero",err)
+            }
+        })
     },
     touchstart(e) {
         this.weswiper.touchstart(e)
@@ -249,7 +266,7 @@ Page({
     },
     bindReport() {
         wx.navigateTo({
-            url: "../sendshare/e"
+            url: "../report/e"
         })
     },
     bindRefresh(e) {
