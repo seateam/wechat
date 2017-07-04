@@ -17,8 +17,6 @@ const getBezier = function() {
         var points = [];
         for (var i = 0; i < pointsAmount; i++) {
             var point = MultiPointBezier(anchorpoints, i / pointsAmount);
-            // point.x = parseInt(point.x)
-            // point.y = parseInt(point.y)
             points.push(point);
         }
         return points;
@@ -235,13 +233,9 @@ Page({
                         ctx.lineTo(i.x, i.y)
                     }
                     ctx.stroke()
-                }
-                drawBezierPoints(Bezier)
-                // 画气泡
-                for (let i of indexArr) {
-                    let e = Bezier[i.index]
-                    ctx.drawImage('../../ku/img/icecream-19.png', e.x - 12, e.y - 24, 24, 24)
-                }
+                }(Bezier)
+                // 贴图片
+                that.drawImg(indexArr, Bezier, ctx)
                 // 画圆点
                 ctx.beginPath()
                 ctx.arc(device(35.5), device(119.5), device(4), 0, 2 * Math.PI)
@@ -259,9 +253,27 @@ Page({
             }
         })
     },
+    drawImg: function(indexArr, Bezier, ctx) {
+        // 画气泡
+        for (let i of indexArr) {
+            let e = Bezier[i.index]
+            ctx.drawImage('img/direction/iconLeft@3x.png', e.x - 12, e.y - 24, 24, 24)
+        }
+        // 画起点 ( 起点不变
+        let e = Bezier[0]
+        ctx.drawImage('img/iconOLoca@3x.png', e.x - 8, e.y - 8, 16, 16)
+    },
     bindMap: function() {
         wx.navigateTo({
             url: "../map_route/e"
         })
+    },
+    bindReport() {
+        wx.navigateTo({
+            url: "../sendshare/e"
+        })
+    },
+    bindStart() {
+        log("启程")
     }
 })

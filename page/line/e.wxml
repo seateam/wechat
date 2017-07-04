@@ -21,7 +21,7 @@
 <!-- 行程概览 -->
 <view class="trip">
     <text class="tittle"> 行程概览 </text>
-    <view class="btn"> 启程 </view>
+    <view class="btn" bindtap="bindStart"> 启程 </view>
     <view class="dot">
         <image src="img/dot@3x.png" />
         <view class="text">
@@ -38,7 +38,7 @@
     <view class="btn"> 避堵 </view>
     <view class="sugs">
         <view class="sug">
-            <image src="img/iconLeft@3x.png" />
+            <image src="img/direction/iconLeft@3x.png" />
             <view class="text">
                 <text> 300 </text>
                 <text> 米后进入 </text>
@@ -47,7 +47,7 @@
             </view>
         </view>
         <view class="sug">
-            <image src="img/iconLeft@3x.png" />
+            <image src="img/direction/iconLeft@3x.png" />
             <view class="text">
                 <text> 400 </text>
                 <text> 米后进入 </text>
@@ -56,7 +56,7 @@
             </view>
         </view>
         <view class="sug">
-            <image src="img/iconLeft@3x.png" />
+            <image src="img/direction/iconLeft@3x.png" />
             <view class="text">
                 <text> 1500 </text>
                 <text> 米后进入 </text>
@@ -100,5 +100,5 @@
 </view>
 <!-- 上报 -->
 <view class="report">
-    <image src="img/iconShangbao@3x.png" />
+    <image bindtap="bindReport" src="../index/img/iconShangbao@3x.png" />
 </view>

@@ -2,7 +2,7 @@
     "pages": [
         "page/index/e",
         "page/line/e",
-        "page/sendshare/e",
+        "page/report/e",
         "page/map_route/e",
         "page/editaddress/e",
         "page/addaddress/e",
