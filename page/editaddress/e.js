@@ -35,9 +35,10 @@ Page({
         User.location = wx.getStorageSync('userLocation')
         let now = deitude(User.location.now)
         // 目的地
-        result.destination = now
+        result.destination = card.destination
         result.origin = now
         result.myorigin = now
+        result.street = card.street
         // 图标
         let checked = 0
         for (var i = 0; i < iconArr.length; i++) {
@@ -58,6 +59,7 @@ Page({
                 let name = res.name
                 let dot = [res.latitude,res.longitude].join(',')
                 result.destination = deitude(dot)
+                result.street = name
                 that.setData({
                     location: name
                 })
@@ -81,6 +83,7 @@ Page({
             card.destination = result.destination
             card.icon = result.icon
             card.name = result.name
+            card.street = result.street
             wx.setStorageSync('userCards', User.cards)
             wx.reLaunch({
                 url: "../index/e"
@@ -93,13 +96,13 @@ Page({
     },
     bindDel: function() {
         let index = Number(User.id)
-        User.cards.splice(index, 1)
         wx.showModal({
             content: "确认删除吗？",
             cancelColor: "#9B9B9B",
             confirmColor: "#FF633D",
             success: function(res) {
                 if (res.confirm) {
+                    User.cards.splice(index, 1)
                     wx.setStorageSync('userCards', User.cards)
                     wx.redirectTo({
                         url: "../index/e"

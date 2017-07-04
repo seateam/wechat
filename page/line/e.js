@@ -8,17 +8,7 @@ const deviceInfo = wx.getSystemInfoSync().windowWidth
 const device = function(number) {
     return number * 2 * deviceInfo / 750
 }
-let User = {
-    card: {
-        name: '升仙湖',
-        jam: "畅",
-        icon: "home",
-        time: '999',
-        km: '999'
-    },
-    info: null,
-    location: null
-}
+// 贝赛尔曲线
 const getBezier = function() {
     // 新算法
     // anchorpoints：贝塞尔基点
@@ -131,10 +121,47 @@ const getRatio = function(res) {
     }
     return arr
 }
+let User = {}
 Page({
+    onPullDownRefresh: function() {
+        // 停止刷新
+        wx.stopPullDownRefresh()
+    },
     data: {
       Bezier: null,
-      card: User.card
+      card: {
+          km: "999",
+          time: "999",
+          jam: "畅",
+          icon: "home",
+          name: "默认"
+      },
+      trip: {
+          startS: "起点",
+          endS: "终点"
+      },
+      jam: {
+          "畅": {
+              color: "#e9585c",
+              id: "0"
+          },
+          "缓": {
+              color: "#eab52f",
+              id: "1"
+          },
+          "慢": {
+              color: "#2eada3",
+              id: "2"
+          },
+          "堵": {
+              color: "#207ab6",
+              id: "3"
+          },
+          "距离过长" : {
+              color: "#207ab6",
+              id: "3"
+          }
+      }
     },
     onLoad: function (option) {
         let that = this
@@ -142,19 +169,29 @@ Page({
         User.card = wx.getStorageSync('userCards')[option.id]
         User.info = wx.getStorageSync('userInfo')
         User.location = wx.getStorageSync('userLocation')
-        that.init()
-    },
-    init: function() {
-        let Bezier = getBezier() // 取点
-        let now = User.card.myorigin
+        that.setData({
+            card: User.card,
+            trip: {
+                startS: User.location.data.regeocode.addressComponent.township,
+                endS: User.card.street
+            }
+        })
+        // 起点
+        let start = User.card.myorigin
+        // 终点
         let end = User.card.destination
+        that.init(start, end)
+    },
+    init: function(start, end) {
+        let that = this
+        let Bezier = getBezier() // 取点
         wx.request({
             url: config.url + '/traffic/situation',
             data: {
                 // 我的位置
-                myorigin: now,
+                myorigin: start,
                 // 出发点
-                origin: now,
+                origin: start,
                 // 目的地
                 destination: end,
                 // isGetRouts: true,
@@ -166,7 +203,13 @@ Page({
                 "ucloudtech_3rd_key": User.info.session_key
             },
             success: function(res) {
-                log(res)
+                User.card.time = Math.round(res.data.info.trafficData.duration / 60 * 10) / 10
+                User.card.km = Math.round(res.data.info.trafficData.distance / 1000 * 10) / 10
+                that.setData({
+                    card: User.card
+                })
+                // 路线上的点 points
+                // 我周围的点 arounds
                 if (Number(res.data.code) !== 200) {
                     return;
                 }
@@ -215,10 +258,6 @@ Page({
                 console.log('err',err);
             }
         })
-    },
-    onPullDownRefresh: function() {
-        // 停止刷新
-        wx.stopPullDownRefresh()
     },
     bindMap: function() {
         wx.navigateTo({

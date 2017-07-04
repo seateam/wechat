@@ -17,7 +17,6 @@
 }
 .more text {
     font-size: 30rpx;
-    color: #609efb;
 }
 .more text + text {
     font-size: 24rpx;

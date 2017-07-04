@@ -1,7 +1,7 @@
 <!-- 简介 -->
 <view class="top">
-    <image class="bg" src="img/bg01@3x.png" />
-    <view class="more">
+    <image class="bg" src="../index/img/{{jam[card.jam].id}}/minibg@3x.png" />
+    <view class="more" style="color: {{jam[card.jam].color}}">
         <view class="time">
             <text> {{card.time}} </text>
             <text> min </text>
@@ -13,7 +13,7 @@
         </view>
         <view class="viewision"></view>
         <view class="name">
-            <image src="img/combinedShape@3x.png" />
+            <image src="../index/img/{{jam[card.jam].id}}/icon-{{card.icon}}.svg" />
             <text> {{card.name}} </text>
         </view>
     </view>
@@ -25,8 +25,8 @@
     <view class="dot">
         <image src="img/dot@3x.png" />
         <view class="text">
-            <text> 益州大道中段1800号移动互联创业大厦… </text>
-            <text> 天府广场成都博物馆停车场西入口 </text>
+            <text> {{trip.startS}} </text>
+            <text> {{trip.endS}} </text>
         </view>
     </view>
     <!-- 贝塞尔曲线 -->

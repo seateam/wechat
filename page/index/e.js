@@ -228,6 +228,7 @@ Page({
                     that.setData({
                         cards: User.cards
                     })
+                    wx.setStorageSync('userCards', User.cards)
                 },
                 fail: function(err) {
                     // log("routes获取失败",err)
