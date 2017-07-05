@@ -3,10 +3,9 @@
         "page/index/e",
         "page/line/e",
         "page/report/e",
-        "page/map_route/e",
+        "page/map/e",
         "page/editaddress/e",
-        "page/addaddress/e",
-        "page/jiejing/e"
+        "page/addaddress/e"
     ],
     "window": {
         "enablePullDownRefresh": true,

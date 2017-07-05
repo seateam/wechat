@@ -124,7 +124,7 @@ const getRatio = function(res) {
             })
         })
     }
-    log(arr)
+    log('points', arr)
     return arr
 }
 let User = {}
