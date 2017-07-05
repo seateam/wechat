@@ -285,7 +285,7 @@ Page({
     },
     bindMap: function() {
         wx.navigateTo({
-            url: "../map_route/e"
+            url: "../map/e"
         })
     },
     bindReport() {
