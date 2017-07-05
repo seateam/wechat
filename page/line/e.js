@@ -108,6 +108,7 @@ const getRatio = function(res) {
     let meterAll = Number(res.data.info.trafficData.distance)
     let temp = ''
     // 相对位置
+    // 104.072556,30.72382 中间
     for (let dot of dotArr) {
         let point = dot.point
         steps.forEach((step, i1) => {
@@ -116,15 +117,17 @@ const getRatio = function(res) {
                 if (e.polyline.includes(point) && temp !== point){
                     temp = point
                     let meter = meters(i1, i2)
+                    let bili = Math.round(meter / meterAll * 100) / 100
                     arr.push({
-                        ratio: (meter / meterAll),
+                        point: dot.point,
+                        ratio: bili,
                         level: dot.level
                     })
                 }
             })
         })
     }
-    log('points', arr)
+    log('result', arr)
     return arr
 }
 let User = {}
@@ -200,8 +203,8 @@ Page({
                 origin: start,
                 // 目的地
                 destination: end,
-                // isGetRouts: true,
-                // isStart: true,
+                isGetRouts: false,
+                isStart: false,
             },
             method: "POST",
             header: {
@@ -274,7 +277,7 @@ Page({
     drawImg: function(indexArr, Bezier, ctx) {
         // 画气泡
         for (let i of indexArr) {
-            let e = Bezier[i.index]
+            let e = Bezier[i.index - 1]
             let x = Math.round(e.x - device(22))
             let y = Math.round(e.y - device(50))
             ctx.drawImage('img/line/iconWaterShowmap@3x.png', x, y, device(44), device(50))

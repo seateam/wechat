@@ -115,8 +115,8 @@ Page({
         let that = this
         let dot = {
             type: "Point",
-            coordinates: [104.068695,30.572105]
-            // coordinates: [User.location.longitude, User.location.latitude]
+            // coordinates: [104.072556,30.72382]
+            coordinates: [User.location.longitude, User.location.latitude]
         }
         let arr = []
         that.data.jam.forEach(function(e, i) {
@@ -154,9 +154,11 @@ Page({
                             confirmColor: "#7878FF",
                             success: function(res) {
                                 if (res.confirm) {
-                                    console.log('用户点击确定')
+                                    wx.reLaunch({
+                                        url: "../index/e"
+                                    })
                                 } else if (res.cancel) {
-                                    console.log('用户点击取消')
+                                    console.log('点击取消')
                                 }
                             }
                         })
