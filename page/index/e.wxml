@@ -1,5 +1,5 @@
 <view class="tan">
-    <view class="location">
+    <view class="location" bindtap="bindTop">
         <text> {{township}} </text>
     </view>
 

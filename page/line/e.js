@@ -74,12 +74,12 @@ const getRatio = function(res) {
     let meters = function(i1, i2) {
         let meter = 0
         let step = steps.slice(0, i1)
-        let tmcs = steps[i1].tmcs.slice(0, i2)
         // 大路段
         for (let i of step) {
             meter += Number(i.distance)
         }
         // 子路段
+        let tmcs = steps[i1].tmcs.slice(0, i2)
         for (let i of tmcs) {
             meter += Number(i.distance)
         }
@@ -172,7 +172,7 @@ Page({
           }
       }
     },
-    onLoad: function (option) {
+    onLoad(option) {
         let that = this
         // 取卡片
         User.card = wx.getStorageSync('userCards')[option.id]
@@ -185,13 +185,12 @@ Page({
                 endS: User.card.street
             }
         })
-        // 起点
+        // 起点 终点
         let start = User.card.myorigin
-        // 终点
         let end = User.card.destination
         that.init(start, end)
     },
-    init: function(start, end) {
+    init(start, end) {
         let that = this
         let Bezier = getBezier() // 取点
         wx.request({
@@ -212,6 +211,7 @@ Page({
                 "ucloudtech_3rd_key": User.info.session_key
             },
             success: function(res) {
+                log(res)
                 let draw = function() {
                     User.card.time = Math.round(res.data.info.trafficData.duration / 60 * 10) / 10
                     User.card.km = Math.round(res.data.info.trafficData.distance / 1000 * 10) / 10
@@ -246,8 +246,6 @@ Page({
                         }
                         ctx.stroke()
                     }(Bezier)
-                    // 贴图片
-                    that.drawImg(indexArr, Bezier, ctx)
                     // 画圆点
                     ctx.beginPath()
                     ctx.arc(device(35.5), device(119.5), device(4), 0, 2 * Math.PI)
@@ -257,6 +255,8 @@ Page({
                     ctx.arc(device(339.5),device(65.5), device(4), 0, 2 * Math.PI)
                     ctx.setFillStyle('#ff2c46')
                     ctx.fill()
+                    // 贴图片
+                    that.initImage(indexArr, Bezier, ctx)
                     // over
                     ctx.draw()
                 }()
@@ -274,7 +274,7 @@ Page({
             }
         })
     },
-    drawImg: function(indexArr, Bezier, ctx) {
+    initImage(indexArr, Bezier, ctx) {
         // 画气泡
         for (let i of indexArr) {
             let e = Bezier[i.index - 1]
@@ -286,7 +286,10 @@ Page({
         let e = Bezier[0]
         ctx.drawImage('img/iconOLoca@3x.png', e.x - device(8), e.y - device(8), device(16), device(16))
     },
-    bindMap: function() {
+    initJam() {
+
+    },
+    bindMap() {
         wx.navigateTo({
             url: "../map/e"
         })

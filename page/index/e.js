@@ -81,7 +81,7 @@ Page({
     init() {
         let that = this
         that.setData({
-            township: User.location.data.regeocode.addressComponent.township
+            township: User.location.data.regeocode.addressComponent.township || "未知道路"
         })
         let l = that.data.cards.length
         let slideLength, initialSlide
@@ -273,23 +273,38 @@ Page({
         let id = e.currentTarget.dataset.id
         log('刷新', id)
     },
-    bindSet: function(e) {
+    bindSet(e) {
         let id = e.currentTarget.dataset.id
         wx.navigateTo({
             url: "../editaddress/e?id=" + id
         })
     },
-    bindAdd: function() {
+    bindAdd() {
         wx.navigateTo({
             url: "../addaddress/e"
         })
     },
-    bindCard: function(e) {
+    bindCard(e) {
         let id = e.currentTarget.dataset.id
         if (!e.target.dataset.btn) {
             wx.navigateTo({
                 url: "../line/e?id=" + id
             })
         }
+    },
+    bindTop() {
+        let that = this
+        wx.chooseLocation({
+            success: (res) => {
+                User.location.data.regeocode.addressComponent.township = res.name
+                User.location.longitude = res.longitude
+                User.location.latitude = res.latitude
+                User.location.now = [res.latitude,res.longitude].join(',')
+                wx.setStorageSync('userLocation', User.location)
+                that.setData({
+                    township: User.location.data.regeocode.addressComponent.township
+                })
+            }
+        })
     }
 })
