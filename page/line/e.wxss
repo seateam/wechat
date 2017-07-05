@@ -154,7 +154,7 @@
     display: none;
 }
 /* 路况播报 */
-.jam {
+.around {
     display: flex;
     justify-content: flex-start;
     align-content: flex-start;
@@ -172,10 +172,10 @@
     box-sizing: border-box;
     background-color: #F2F2F2;
 }
-.jam .tittle {
+.around .tittle {
     margin-right: 488rpx;
 }
-.jam image {
+.around image {
     width: 44rpx;
     height: 44rpx;
 }

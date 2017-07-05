@@ -115,17 +115,16 @@ const getRatio = function(res) {
     }
     return arr
 }
-let User = {}
+// 曲线图标
 const lineIcon = [
     {
-
         icon: "iconYongdu@3x.png",
-        text: "拥堵"
+        text: "出现拥堵"
     },
     {
 
         icon: "iconAccident@3x.png",
-        text: "交通事故"
+        text: "出现交通事故"
     },
     {
 
@@ -150,9 +149,10 @@ const lineIcon = [
     {
 
         icon: "iconBuwenmGrey@3x.png",
-        text: "不文明驾驶"
+        text: "出现不文明驾驶"
     },
 ]
+let User = {}
 Page({
     onPullDownRefresh: function() {
         // 停止刷新
@@ -192,7 +192,8 @@ Page({
               color: "#207ab6",
               id: "3"
           }
-      }
+      },
+      arounds: []
     },
     onLoad(option) {
         let that = this
@@ -279,13 +280,8 @@ Page({
                     ctx.draw()
                 }()
                 // 出行建议 (避堵)
-                let suggest = function() {
-                    let steps = res.data.info.trafficData.steps
-                    for(var i = 0; i < steps.length; i++) {
-                        let e = steps[i]
-                        // log(i,e.action,e.distance,"米",)
-                    }
-                }()
+                that.initTrip(res)
+                that.initJam(res)
             },
             fail: function(err) {
                 console.log('err',err);
@@ -308,8 +304,30 @@ Page({
         let e = Bezier[0]
         ctx.drawImage('img/iconOLoca@3x.png', e.x - device(8), e.y - device(8), device(16), device(16))
     },
-    initJam() {
-
+    initTrip(res) {
+        let steps = res.data.info.trafficData.steps
+        for(var i = 0; i < steps.length; i++) {
+            let e = steps[i]
+            // log(i,e.action,e.distance,"米",)
+        }
+    },
+    initJam(res) {
+        let arounds = res.data.around
+        let result = []
+        arounds.forEach(function(e, i) {
+            let text = lineIcon[0].text
+            if (e.reason) {
+                text = lineIcon[Number(e.reason) + 1].text
+            }
+            result.push({
+                around: text,
+                street: "人民中路",
+                time: "15"
+            })
+        })
+        this.setData({
+            arounds: result
+        })
     },
     bindMap() {
         wx.navigateTo({
