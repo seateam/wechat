@@ -69,8 +69,8 @@ const getBezier = function() {
     return arr
 }
 const getRatio = function(res) {
-    let steps = res.data.info.trafficData.steps
-    let points = res.data.points
+    let steps = Array.from( new Set( res.data.info.trafficData.steps ) )
+    let points = Array.from( new Set( res.data.points ) )
     let meters = function(i1, i2) {
         let meter = 0
         let step = steps.slice(0, i1)
@@ -85,52 +85,74 @@ const getRatio = function(res) {
         }
         return meter
     }
-    let arr = []
     // 去重
-    let dotArr = []
-    for (let i of points) {
-        let e = [i.lon,i.lat].join(',')
-        let dot = {
-            point: e,
-            level: i.level
-        }
-        let bool = false
-        for (let i2 of dotArr) {
-            if (i2.level === dot.level && i2.point === dot.point) {
-                bool = true
-            }
-        }
-        if (bool === false) {
-            dotArr.push(dot)
-        }
+    let dotArr = Array.from( new Set( points ) )
+    for (var i = 0; i < dotArr.length; i++) {
+        let e = dotArr[i]
+        dotArr[i].point = [e.lon,e.lat].join(',')
     }
     // 总长
     let meterAll = Number(res.data.info.trafficData.distance)
     let temp = ''
     // 相对位置
     // 104.072556,30.72382 中间
-    for (let dot of dotArr) {
+    let arr = []
+    for (var i = 0; i < dotArr.length; i++) {
+        let dot = dotArr[i]
         let point = dot.point
         steps.forEach((step, i1) => {
             step.tmcs.forEach((e, i2) => {
-                // 取尾
+                // 查找点是否在路径上 （后可扩大范围）
                 if (e.polyline.includes(point) && temp !== point){
                     temp = point
                     let meter = meters(i1, i2)
                     let bili = Math.round(meter / meterAll * 100) / 100
-                    arr.push({
-                        point: dot.point,
-                        ratio: bili,
-                        level: dot.level
-                    })
+                    dot.ratio = bili
+                    arr.push(dot)
                 }
             })
         })
     }
-    log('result', arr)
     return arr
 }
 let User = {}
+const lineIcon = [
+    {
+
+        icon: "iconYongdu@3x.png",
+        text: "拥堵"
+    },
+    {
+
+        icon: "iconAccident@3x.png",
+        text: "交通事故"
+    },
+    {
+
+        icon: "iconWater@3x.png",
+        text: "积水"
+    },
+    {
+
+        icon: "iconFenglu@3x.png",
+        text: "封路"
+    },
+    {
+
+        icon: "iconShigong@3x.png",
+        text: "施工"
+    },
+    {
+
+        icon: "iconHonglvdeng@3x.png",
+        text: "道路故障"
+    },
+    {
+
+        icon: "iconBuwenmGrey@3x.png",
+        text: "不文明驾驶"
+    },
+]
 Page({
     onPullDownRefresh: function() {
         // 停止刷新
@@ -181,7 +203,7 @@ Page({
         that.setData({
             card: User.card,
             trip: {
-                startS: User.location.data.regeocode.addressComponent.township,
+                startS: User.location.data.regeocode.addressComponent.township || "当前位置",
                 endS: User.card.street
             }
         })
@@ -211,7 +233,6 @@ Page({
                 "ucloudtech_3rd_key": User.info.session_key
             },
             success: function(res) {
-                log(res)
                 let draw = function() {
                     User.card.time = Math.round(res.data.info.trafficData.duration / 60 * 10) / 10
                     User.card.km = Math.round(res.data.info.trafficData.distance / 1000 * 10) / 10
@@ -228,11 +249,8 @@ Page({
                     // 坐标点
                     let indexArr = []
                     ratioArr.forEach((e, i) => {
-                        let index = parseInt( Bezier.length * e.ratio )
-                        indexArr.push({
-                            index: index,
-                            level: e.level
-                        })
+                        e.index = parseInt( Bezier.length * e.ratio )
+                        indexArr.push(e)
                     })
                     // 画线
                     const ctx = wx.createCanvasContext('myCanvas')
@@ -280,7 +298,11 @@ Page({
             let e = Bezier[i.index - 1]
             let x = Math.round(e.x - device(22))
             let y = Math.round(e.y - device(50))
-            ctx.drawImage('img/line/iconWaterShowmap@3x.png', x, y, device(44), device(50))
+            let icon = lineIcon[0].icon
+            if (i.reason) {
+                icon = lineIcon[Number(i.reason) + 1].icon
+            }
+            ctx.drawImage('img/line/' + icon, x, y, device(44), device(50))
         }
         // 画起点 ( 起点不变
         let e = Bezier[0]

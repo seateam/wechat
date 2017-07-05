@@ -131,7 +131,7 @@ Page({
                     // 拥堵程度 1 - 4 数字
                     traffic: that.data.checked.feel,
                     // 拥堵原因
-                    reason: arr.join(','),
+                    reason: arr.join(',') || "0",
                     // 当前时间
                     date: Date.now(),
                     // 经纬度
