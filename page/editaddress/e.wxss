@@ -19,6 +19,13 @@
     height: 56rpx;
 }
 .location text {
+    /* 禁止 换行 */
+    white-space: nowrap;
+    /* 隐藏 超出部分 */
+    overflow: hidden;
+    /* 省略号 替代 */
+    text-overflow: ellipsis;
+    
     width: 100%;
     color: rgb(255, 99, 61);
 }

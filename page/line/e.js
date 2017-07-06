@@ -69,7 +69,6 @@ const getBezier = function() {
     return arr
 }
 const getRatio = function(res) {
-    log("返回",res.data)
     let steps = Array.from( new Set( res.data.info.trafficData.steps ) )
     let points = Array.from( new Set( res.data.points ) )
     let meters = function(i1, i2) {
@@ -115,7 +114,6 @@ const getRatio = function(res) {
             })
         })
     }
-    log("去重",arr)
     return arr
 }
 // 曲线图标
@@ -196,7 +194,14 @@ Page({
               id: "3"
           }
       },
-      arounds: []
+      arounds: [],
+      firstSug: {
+          distance: 0
+      },
+      sugs: [{
+          distance: 300,
+          road: "吉龙路"
+      }]
     },
     onLoad(option) {
         let that = this
@@ -309,11 +314,22 @@ Page({
         ctx.drawImage('img/iconOLoca@3x.png', e.x - device(8), e.y - device(8), device(16), device(16))
     },
     initTrip(res) {
-        let steps = res.data.info.trafficData.steps
-        for(var i = 0; i < steps.length; i++) {
-            let e = steps[i]
-            // log(i,e.action,e.distance,"米",)
+        let steps = res.data.info.trafficData.steps.slice(0, 4)
+        let firstSug = {
+            distance: steps[0].distance
         }
+        let arr = []
+        for(var i = 1; i < steps.length - 1; i++) {
+            let e = steps[i]
+            arr.push({
+                distance: e.distance,
+                road: e.road
+            })
+        }
+        this.setData({
+            sugs: arr,
+            firstSug: firstSug
+        })
     },
     initJam(res) {
         let arounds = res.data.around

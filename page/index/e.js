@@ -304,7 +304,6 @@ Page({
                 }
             }()
             // 用户分享
-            log(res)
         }
         wx.request({
             url: config.url + '/home/zero',

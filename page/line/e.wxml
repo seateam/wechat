@@ -40,35 +40,28 @@
         <view class="sug">
             <image src="img/direction/iconLeft@3x.png" />
             <view class="text">
-                <text> 300 </text>
+                <text> {{firstSug.distance}} </text>
                 <text> 米后进入 </text>
-                <text> 人民中路二段 </text>
+                <text> 主路 </text>
                 <text> ，然后 </text>
             </view>
         </view>
-        <view class="sug">
-            <image src="img/direction/iconLeft@3x.png" />
-            <view class="text">
-                <text> 400 </text>
-                <text> 米后进入 </text>
-                <text> 人民中路二段二段… </text>
-                <text> ，然后 </text>
+        <block wx:for="{{sugs}}" wx:for-item="e" wx:key="key">
+            <view class="sug">
+                <image src="img/direction/iconLeft@3x.png" />
+                <view class="text">
+                    <text> {{e.distance}} </text>
+                    <text> 米后进入 </text>
+                    <text> {{e.road}} </text>
+                    <text> ，然后 </text>
+                </view>
             </view>
-        </view>
-        <view class="sug">
-            <image src="img/direction/iconLeft@3x.png" />
-            <view class="text">
-                <text> 1500 </text>
-                <text> 米后进入 </text>
-                <text> 人民中路二段 </text>
-                <text> ，然后 </text>
-            </view>
-        </view>
+        </block>
     </view>
 </view>
 <!-- 路况播报 -->
 <view class="around">
-    <text class="tittle"> 路况播报 </text>
+    <text class="tittle"> 用户分享 </text>
     <image bindtap="bindMap" src="img/iconMap@3x.png" />
     <view class="news">
         <block wx:for="{{arounds}}" wx:for-item="e" wx:key="key" >
