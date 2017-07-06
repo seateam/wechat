@@ -78,31 +78,6 @@
                 <text> {{e.time}}分钟前 </text>
             </view>
         </block>
-        <!-- <view class="new">
-            <view class="dot"></view>
-            <text> 人民中路二段封路 </text>
-            <text> 15分钟前 </text>
-        </view>
-        <view class="new">
-            <view class="dot"></view>
-            <text> 人民中路二段出现车祸 </text>
-            <text> 28分钟前 </text>
-        </view>
-        <view class="new">
-            <view class="dot"></view>
-            <text> 人民中路二段出现不文明驾驶 </text>
-            <text> 35分钟前 </text>
-        </view>
-        <view class="new">
-            <view class="dot"></view>
-            <text> 人民中路二段出现不文明驾驶 </text>
-            <text> 35分钟前 </text>
-        </view>
-        <view class="new">
-            <view class="dot"></view>
-            <text> 人民中路二段与西御河街道交界出现不文明驾驶 </text>
-            <text> 35分钟前 </text>
-        </view> -->
     </view>
 </view>
 <!-- 上报 -->

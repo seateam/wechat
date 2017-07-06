@@ -19,9 +19,42 @@
             </view>
             <!-- 周围路况 -->
             <view class="we-slide">
-                <view class="add">
-                    <image src="img/0/icon-home.svg" />
-                    <text> 000 </text>
+                <view class="zero-top">
+                    <text> 周围路况 </text>
+                    <image class="refresh" src="img/iconRefresh@3x.png" />
+                    <text class="bigFont" > 挤 </text>
+                </view>
+                <view class="zero-main">
+                    <text class="tittle"> 用户分享 </text>
+                    <view class="share-box">
+                        <view class="share">
+                            <view class="circle"></view>
+                            <text> 天府二街道路施工 </text>
+                        </view>
+                        <view class="share">
+                            <view class="circle"></view>
+                            <text> 天府二街道路施工 </text>
+                        </view>
+                        <view class="share">
+                            <view class="circle"></view>
+                            <text> 天府二街道路施工 </text>
+                        </view>
+                    </view>
+                    <text class="tittle"> 畅通道路 </text>
+                    <view class="smooth-box">
+                        <view class="smooth">
+                            <view class="circle"></view>
+                            <text> 天府三街自西向东畅通 </text>
+                        </view>
+                        <view class="smooth">
+                            <view class="circle"></view>
+                            <text> 天府三街自西向东畅通 </text>
+                        </view>
+                        <view class="smooth">
+                            <view class="circle"></view>
+                            <text> 天府三街自西向东畅通 </text>
+                        </view>
+                    </view>
                 </view>
             </view>
             <!-- 卡片 -->
