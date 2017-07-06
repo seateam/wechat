@@ -40,15 +40,17 @@ Page({
         },
         status: "未知",
         share: [{
-            street: "暂未有用户上传",
-            status: "交通信息"
+            street: "",
+            status: ""
         }],
         smooth: [{
-            street: "锦悦西二路",
-            status: "自西向东缓慢，反向畅通"
+            street: "",
+            status: ""
         }]
     },
     onPullDownRefresh: function() {
+        this.initZero()
+        this.initJam()
         wx.stopPullDownRefresh()
     },
     onShareAppMessage: function() {
@@ -248,6 +250,7 @@ Page({
     initZero() {
         let that = this
         let callback = function(res) {
+            // 畅通道路
             let smooth = function() {
                 let arounds = res.data.situation.description.split("；")
                 let arr = []
@@ -269,27 +272,39 @@ Page({
                         }
                     }
                 }
+                if (arr.length === 0) {
+                    arr = [{
+                        street: "",
+                        status: ""
+                    }]
+                }
                 that.setData({
                     smooth: arr
                 })
             }()
-            let e = res.data.situation.evaluation
-            let traffic = ['', '畅', '', '挤']
-            let result = traffic[e.status]
-            if (e.status === '0') {
-                log("未知路况")
-            } else {
+            // 畅缓慢挤
+            let top = function() {
+                let e = res.data.situation.evaluation
+                let traffic = ['未知', '畅', '', '挤']
+                let result = traffic[e.status]
                 if (result) {
                     that.setData({
                         status: result
                     })
                 } else {
+                    let huan = Number(e.congested.replace('%',''))
+                    let du = Number(e.blocked.replace('%',''))
+                    let str = '缓'
+                    if (huan + du > 16) {
+                        str = '慢'
+                    }
                     that.setData({
-                        status: "缓/慢"
+                        status: str
                     })
                 }
-            }
-
+            }()
+            // 用户分享
+            log(res)
         }
         wx.request({
             url: config.url + '/home/zero',
@@ -325,6 +340,7 @@ Page({
     bindRefresh(e) {
         let id = e.currentTarget.dataset.id
         log('刷新', id)
+        this.initJam()
     },
     bindRefreshZero() {
         this.initZero()
@@ -360,6 +376,7 @@ Page({
                 that.setData({
                     township: User.location.data.regeocode.addressComponent.township
                 })
+                that.onPullDownRefresh()
             }
         })
     }
