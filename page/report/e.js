@@ -115,6 +115,7 @@ Page({
         let that = this
         let dot = {
             type: "Point",
+            // 中间点
             // coordinates: [104.072556,30.72382]
             coordinates: [User.location.longitude, User.location.latitude]
         }

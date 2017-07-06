@@ -29,7 +29,7 @@ Page({
                 color: "#2eada3",
                 id: "2"
             },
-            "堵": {
+            "挤": {
                 color: "#207ab6",
                 id: "3"
             },
@@ -74,7 +74,7 @@ Page({
             that.initZero()
             wx.hideLoading()
         })
-    },
+        },
     onReachBottom: function() {
         // 上滑
     },
@@ -195,7 +195,7 @@ Page({
             } else if (s <= 1) {
                 return "慢"
             } else if (s > 1) {
-                return "堵"
+                return "挤"
             }
         }
         if (User.cards.length) {
@@ -239,8 +239,11 @@ Page({
         wx.request({
             url: config.url + '/home/zero',
             data: {
-                longitude: User.location.longitude,
-                latitude: User.location.latitude
+                // longitude: User.location.longitude,
+                // latitude: User.location.latitude
+                // 中间点测试
+                longitude: 104.072556,
+                latitude: 30.72382
             },
             method: "POST",
             header: {
@@ -248,7 +251,8 @@ Page({
                 "ucloudtech_3rd_key": User.info.session_key
             },
             success: function(res) {
-                // log("zero",res)
+                log("zero",res)
+                log(res.data.situation.description.split("；"))
             },
             fail: function(err) {
                 log("zero",err)

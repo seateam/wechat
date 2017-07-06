@@ -69,6 +69,7 @@ const getBezier = function() {
     return arr
 }
 const getRatio = function(res) {
+    log("返回",res.data)
     let steps = Array.from( new Set( res.data.info.trafficData.steps ) )
     let points = Array.from( new Set( res.data.points ) )
     let meters = function(i1, i2) {
@@ -113,6 +114,7 @@ const getRatio = function(res) {
             })
         })
     }
+    log("去重",arr)
     return arr
 }
 // 曲线图标
@@ -184,7 +186,7 @@ Page({
               color: "#2eada3",
               id: "2"
           },
-          "堵": {
+          "挤": {
               color: "#207ab6",
               id: "3"
           },
@@ -245,7 +247,7 @@ Page({
                     if (Number(res.data.code) !== 200) {
                         return;
                     }
-                    // 取比例
+                    // 去重 取比例
                     let ratioArr = getRatio(res)
                     // 坐标点
                     let indexArr = []
