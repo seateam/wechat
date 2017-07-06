@@ -21,39 +21,27 @@
             <view class="we-slide">
                 <view class="zero-top">
                     <text> 周围路况 </text>
-                    <image class="refresh" src="img/iconRefresh@3x.png" />
-                    <text class="bigFont" > 挤 </text>
+                    <image bindtap="bindRefreshZero" class="refresh" src="img/iconRefresh@3x.png" />
+                    <text class="bigFont" > {{status}} </text>
                 </view>
                 <view class="zero-main">
                     <text class="tittle"> 用户分享 </text>
                     <view class="share-box">
-                        <view class="share">
-                            <view class="circle"></view>
-                            <text> 天府二街道路施工 </text>
-                        </view>
-                        <view class="share">
-                            <view class="circle"></view>
-                            <text> 天府二街道路施工 </text>
-                        </view>
-                        <view class="share">
-                            <view class="circle"></view>
-                            <text> 天府二街道路施工 </text>
-                        </view>
+                        <block wx:for="{{share}}" wx:for-item="e" wx:key="key">
+                            <view class="share">
+                                <view class="circle"></view>
+                                <text> {{e.street}}{{e.status}} </text>
+                            </view>
+                        </block>
                     </view>
                     <text class="tittle"> 畅通道路 </text>
                     <view class="smooth-box">
-                        <view class="smooth">
-                            <view class="circle"></view>
-                            <text> 天府三街自西向东畅通 </text>
-                        </view>
-                        <view class="smooth">
-                            <view class="circle"></view>
-                            <text> 天府三街自西向东畅通 </text>
-                        </view>
-                        <view class="smooth">
-                            <view class="circle"></view>
-                            <text> 天府三街自西向东畅通 </text>
-                        </view>
+                        <block wx:for="{{smooth}}" wx:for-item="e" wx:key="key">
+                            <view class="smooth">
+                                <view class="circle"></view>
+                                <text> {{e.street}}{{e.status}} </text>
+                            </view>
+                        </block>
                     </view>
                 </view>
             </view>

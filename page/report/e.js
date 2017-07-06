@@ -2,8 +2,8 @@ const log = console.log.bind(console)
 const config = require('../../ku/js/config.js')
 const app = getApp()
 const User = {
-    info: wx.getStorageSync('userInfo'),
-    location: wx.getStorageSync('userLocation'),
+    info: null,
+    location: null,
     mapCtx: null
 }
 const deviceInfo = wx.getSystemInfoSync().windowWidth
@@ -16,6 +16,22 @@ const mapButton = {
     }
 }
 Page({
+    onPullDownRefresh() {
+        // 停止刷新
+        wx.stopPullDownRefresh()
+    },
+    onShareAppMessage() {
+        return {
+            title: '自定义标题',
+            // path: '/pages/map_route/e',
+            success: function(res) {
+            // 转发成功
+            },
+            fail: function(res) {
+            // 转发失败
+            }
+        }
+    },
     data: {
         User: User,
         controls: [{
@@ -66,33 +82,17 @@ Page({
             feel: 0
         }
     },
-    onLoad: function () {
+    onLoad() {
     },
-    onShareAppMessage: function() {
-        return {
-            title: '自定义标题',
-            // path: '/pages/map_route/e',
-            success: function(res) {
-            // 转发成功
-            },
-            fail: function(res) {
-            // 转发失败
-            }
-        }
-    },
-    onReady: function () {
+    onReady() {
         // 使用 wx.createMapContext 获取 map 上下文
         User.mapCtx = wx.createMapContext('topMap')
     },
-    onPullDownRefresh: function() {
-        // 停止刷新
-        wx.stopPullDownRefresh()
-    },
-    bindControls: function(e) {
+    bindControls(e) {
         let that = this
         mapButton[e.controlId](that)
     },
-    bindFeel: function(e) {
+    bindFeel(e) {
         let that = this
         let i = e.currentTarget.dataset.index
         let checked = that.data.checked
@@ -101,7 +101,7 @@ Page({
             checked: checked
         })
     },
-    bindJam: function(e) {
+    bindJam(e) {
         let that = this
         let i = e.currentTarget.dataset.index
         let jam = that.data.jam
@@ -110,14 +110,16 @@ Page({
             jam: jam
         })
     },
-    bindSend: function(e) {
+    bindSend(e) {
+        User.info = wx.getStorageSync('userInfo')
+        User.location = wx.getStorageSync('userLocation')
         // 公司 104.066541,30.572269 -> 升仙湖 104.08171,30.70775
         let that = this
         let dot = {
             type: "Point",
             // 中间点
-            // coordinates: [104.072556,30.72382]
-            coordinates: [User.location.longitude, User.location.latitude]
+            coordinates: [104.15873,30.651276]
+            // coordinates: [User.location.longitude, User.location.latitude]
         }
         let arr = []
         that.data.jam.forEach(function(e, i) {
@@ -125,6 +127,7 @@ Page({
                 arr.push(i)
             }
         })
+        let reason = arr.join(',') || "0"
         app.getLocation(function() {
             wx.request({
                 url: config.url + '/info/save',
@@ -132,7 +135,7 @@ Page({
                     // 拥堵程度 1 - 4 数字
                     traffic: that.data.checked.feel,
                     // 拥堵原因
-                    reason: arr.join(',') || "0",
+                    reason: reason,
                     // 当前时间
                     date: Date.now(),
                     // 经纬度

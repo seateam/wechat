@@ -100,7 +100,8 @@ const getRatio = function(res) {
     let arr = []
     for (var i = 0; i < dotArr.length; i++) {
         let dot = dotArr[i]
-        let point = dot.point
+        // let point = dot.point
+        let point = [dot.tms.lon, dot.tms.lat].join(',')
         steps.forEach((step, i1) => {
             step.tmcs.forEach((e, i2) => {
                 // 查找点是否在路径上 （后可扩大范围）
@@ -298,7 +299,8 @@ Page({
             let y = Math.round(e.y - device(50))
             let icon = lineIcon[0].icon
             if (i.reason) {
-                icon = lineIcon[Number(i.reason) + 1].icon
+                let index = i.reason.split(',')[0]
+                icon = lineIcon[Number(index) + 1].icon
             }
             ctx.drawImage('img/line/' + icon, x, y, device(44), device(50))
         }

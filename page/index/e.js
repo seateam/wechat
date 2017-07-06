@@ -37,7 +37,16 @@ Page({
                 color: "#207ab6",
                 id: "3"
             }
-        }
+        },
+        status: "未知",
+        share: [{
+            street: "暂未有用户上传",
+            status: "交通信息"
+        }],
+        smooth: [{
+            street: "锦悦西二路",
+            status: "自西向东缓慢，反向畅通"
+        }]
     },
     onPullDownRefresh: function() {
         wx.stopPullDownRefresh()
@@ -199,6 +208,24 @@ Page({
             }
         }
         if (User.cards.length) {
+            let callback = function(res) {
+                res.data.forEach( e => {
+                    let card = User.cards[e.index]
+                    if (e.code === 200) {
+                        card.time = Math.round(e.data.info.duration / 60 * 10) / 10
+                        card.km = Math.round(e.data.info.distance / 1000 * 10) / 10
+                        card.jam = deStatus(e.data.info.status)
+                    } else if (e.message === "距离过长"){
+                        card.jam = e.message
+                        card.km = 999
+                        card.time = 999
+                    }
+                })
+                that.setData({
+                    cards: User.cards
+                })
+                wx.setStorageSync('userCards', User.cards)
+            }
             wx.request({
                 url: config.url + '/traffic/routes',
                 data: {
@@ -209,24 +236,7 @@ Page({
                     "Content-Type": "application/json",
                     "ucloudtech_3rd_key": User.info.session_key
                 },
-                success: function(res) {
-                    res.data.forEach(function(e) {
-                        let card = User.cards[e.index]
-                        if (e.code === 200) {
-                            card.time = Math.round(e.data.info.duration / 60 * 10) / 10
-                            card.km = Math.round(e.data.info.distance / 1000 * 10) / 10
-                            card.jam = deStatus(e.data.info.status)
-                        } else if (e.message === "距离过长"){
-                            card.jam = e.message
-                            card.km = 999
-                            card.time = 999
-                        }
-                    })
-                    that.setData({
-                        cards: User.cards
-                    })
-                    wx.setStorageSync('userCards', User.cards)
-                },
+                success: callback,
                 fail: function(err) {
                     log("routes获取失败",err)
                 }
@@ -236,24 +246,63 @@ Page({
         }
     },
     initZero() {
+        let that = this
+        let callback = function(res) {
+            let smooth = function() {
+                let arounds = res.data.situation.description.split("；")
+                let arr = []
+                for (let i of arounds) {
+                    // 去句号
+                    let e = i.replace('。','').split('：')
+                    let k = e[1].split('，')
+                    if (k[0].slice(-2) === "畅通") {
+                        arr.push({
+                            street: e[0],
+                            status: e[1]
+                        })
+                    } else if (k[1]) {
+                        if (k[0].slice(-2) === "畅通") {
+                            arr.push({
+                                street: e[0],
+                                status: e[1]
+                            })
+                        }
+                    }
+                }
+                that.setData({
+                    smooth: arr
+                })
+            }()
+            let e = res.data.situation.evaluation
+            let traffic = ['', '畅', '', '挤']
+            let result = traffic[e.status]
+            if (e.status === '0') {
+                log("未知路况")
+            } else {
+                if (result) {
+                    that.setData({
+                        status: result
+                    })
+                } else {
+                    that.setData({
+                        status: "缓/慢"
+                    })
+                }
+            }
+
+        }
         wx.request({
             url: config.url + '/home/zero',
             data: {
-                // longitude: User.location.longitude,
-                // latitude: User.location.latitude
-                // 中间点测试
-                longitude: 104.072556,
-                latitude: 30.72382
+                longitude: User.location.longitude,
+                latitude: User.location.latitude
             },
             method: "POST",
             header: {
                 "Content-Type": "application/json",
                 "ucloudtech_3rd_key": User.info.session_key
             },
-            success: function(res) {
-                log("zero",res)
-                log(res.data.situation.description.split("；"))
-            },
+            success: callback,
             fail: function(err) {
                 log("zero",err)
             }
@@ -276,6 +325,9 @@ Page({
     bindRefresh(e) {
         let id = e.currentTarget.dataset.id
         log('刷新', id)
+    },
+    bindRefreshZero() {
+        this.initZero()
     },
     bindSet(e) {
         let id = e.currentTarget.dataset.id
