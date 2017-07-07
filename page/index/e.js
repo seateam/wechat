@@ -6,6 +6,7 @@ const deviceInfo = wx.getSystemInfoSync().windowWidth
 const device = function(number) {
     return number * 2 * deviceInfo / 750
 }
+const zeroReason = ["出现拥堵", "出现交通事故", "积水", "封路", "正在施工", "道路故障", "出现不文明驾驶"]
 let User = {
     info: null,
     location: null,
@@ -305,7 +306,20 @@ Page({
             }()
             // 用户分享
             let points = res.data.point
-            log(points)
+            let arr = []
+            for (let e of points) {
+                let name = e.street_number
+                let reasons = e.reason.split(',')
+                for (let i of reasons) {
+                    arr.push({
+                        street: name,
+                        status: zeroReason[i]
+                    })
+                }
+            }
+            that.setData({
+                share: arr.slice(0, 3)
+            })
         }
         wx.request({
             url: config.url + '/home/zero',

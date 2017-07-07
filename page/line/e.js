@@ -140,7 +140,7 @@ const lineIcon = [
     {
 
         icon: "iconShigong@3x.png",
-        text: "施工"
+        text: "正在施工"
     },
     {
 
@@ -153,6 +153,22 @@ const lineIcon = [
         text: "出现不文明驾驶"
     },
 ]
+const goIcon = {
+    "左转": "iconLeft@3x.png",
+    "右转": "iconRight@3x.png",
+    "向左前方行驶": "iconNearleft@3x.png",
+    "向右前方行驶": "iconNearright@3x.png",
+    "左转调头": "iconTurn@3x.png",
+    "向左后方行驶": "iconTurn@3x.png",
+    "向右后方行驶": "iconTurn@3x.png",
+    "直行": "iconUp@3x.png",
+    "靠左": "iconNearleft@3x.png",
+    "靠右": "iconNearright@3x.png",
+    "进入环岛": "iconHuandao@3x.png",
+    "离开环岛": "iconHuandao@3x.png",
+    "减速行驶": "iconHuandao@3x.png",
+    "插入直行": "iconUp@3x.png",
+}
 let User = {}
 Page({
     onPullDownRefresh: function() {
@@ -195,13 +211,13 @@ Page({
           }
       },
       arounds: [],
-      firstSug: {
-          distance: 0
-      },
       sugs: [{
-          distance: 300,
-          road: "吉龙路"
-      }]
+          distance: 0,
+          action: "直行",
+          road: "",
+          go: "直行"
+      }],
+      goIcon: goIcon
     },
     onLoad(option) {
         let that = this
@@ -319,45 +335,54 @@ Page({
     },
     // 出行建议
     initTrip(res) {
-        // for (let e of res.data.info.trafficData.steps) {
-        //     log(e.distance, e.action, e.road)
-        // }
-        let steps = res.data.info.trafficData.steps.slice(0, 4)
-        let firstSug = {
-            distance: steps[0].distance
-        }
+        let steps = res.data.info.trafficData.steps
         let arr = []
-        for(let i = 1; i < steps.length - 1; i++) {
-            let e = steps[i]
-            arr.push({
-                distance: e.distance,
-                road: e.road
-            })
+        for (let e of steps) {
+            // log(e.distance, e.action, e.road)
+            if (e.action.length) {
+                log(e.action)
+                if (e.road) {
+                    arr.push({
+                        distance: e.distance,
+                        action: "进入",
+                        road: e.road,
+                        go: e.action
+                    })
+                } else {
+                    arr.push({
+                        distance: e.distance,
+                        action: e.action,
+                        road: "",
+                        go: e.action
+                    })
+                }
+            }
         }
         this.setData({
-            sugs: arr,
-            firstSug: firstSug
+            sugs: arr.slice(0, 3)
         })
     },
     // 用户分享
     initJam(res) {
         let arounds = res.data.around
-        let result = []
-        arounds.forEach(function(e, i) {
-            let text = lineIcon[0].text
-            if (e.reason) {
-                text = lineIcon[Number(e.reason) + 1].text
-            }
+        let arr = []
+        for (let e of arounds) {
+            let name = e.street_number
+            let reasons = e.reason.split(',')
             let time = Math.round((Date.now() - e.date) / 1000 / 60)
-            result.push({
-                around: text,
-                street: e.street_number,
-                time: time
+            for (let i of reasons) {
+                arr.push({
+                    street: name,
+                    around: lineIcon[i].text,
+                    time: time
+                })
+            }
+        }
+        if (arr.length) {
+            this.setData({
+                arounds: arr.slice(0, 5)
             })
-        })
-        this.setData({
-            arounds: result
-        })
+        }
     },
     bindMap() {
         wx.navigateTo({
@@ -371,5 +396,37 @@ Page({
     },
     bindStart() {
         log("启程")
+    },
+    bindSuggest() {
+        let that = this
+        // 起点 终点
+        let start = [User.location.longitude, User.location.latitude].join(',')
+        let end = User.card.destination
+        wx.request({
+            url: config.url + '/traffic/situation',
+            data: {
+                // 我的位置
+                myorigin: start,
+                // 出发点
+                origin: start,
+                // 目的地
+                destination: end,
+                isGetRouts: true,
+                isStart: false,
+            },
+            method: "POST",
+            header: {
+                "Content-Type": "application/json",
+                "ucloudtech_3rd_key": User.info.session_key
+            },
+            success: function(res) {
+                if (res.data.code === "200") {
+                    that.initTrip(res)
+                }
+            },
+            fail: function(err) {
+                console.log('err',err);
+            }
+        })
     }
 })

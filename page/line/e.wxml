@@ -35,23 +35,14 @@
 <!-- 出行建议 -->
 <view class="suggest">
     <text class="tittle"> 出行建议 </text>
-    <view class="btn"> 避堵 </view>
+    <view class="btn" bindtap="bindSuggest"> 避堵 </view>
     <view class="sugs">
-        <view class="sug">
-            <image src="img/direction/iconLeft@3x.png" />
-            <view class="text">
-                <text> {{firstSug.distance}} </text>
-                <text> 米后进入 </text>
-                <text> 主路 </text>
-                <text> ，然后 </text>
-            </view>
-        </view>
         <block wx:for="{{sugs}}" wx:for-item="e" wx:key="key">
             <view class="sug">
-                <image src="img/direction/iconLeft@3x.png" />
+                <image src="img/direction/{{goIcon[e.go]}}" />
                 <view class="text">
                     <text> {{e.distance}} </text>
-                    <text> 米后进入 </text>
+                    <text> 米后{{e.action}} </text>
                     <text> {{e.road}} </text>
                     <text> ，然后 </text>
                 </view>
@@ -59,7 +50,7 @@
         </block>
     </view>
 </view>
-<!-- 路况播报 -->
+<!-- 用户分享 -->
 <view class="around">
     <text class="tittle"> 用户分享 </text>
     <image bindtap="bindMap" src="img/iconMap@3x.png" />
