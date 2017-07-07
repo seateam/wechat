@@ -91,8 +91,11 @@ Page({
     },
     init() {
         let that = this
+        let address = User.location.data.regeocode.addressComponent.streetNumber
+        User.location.street_number = address.street + address.number
+
         that.setData({
-            township: User.location.data.regeocode.addressComponent.township || "未知道路"
+            township: User.location.street_number || "未知道路"
         })
         let l = that.data.cards.length
         let slideLength, initialSlide
@@ -367,13 +370,13 @@ Page({
         let that = this
         wx.chooseLocation({
             success: (res) => {
-                User.location.data.regeocode.addressComponent.township = res.name
+                User.location.street_number = res.name
                 User.location.longitude = res.longitude
                 User.location.latitude = res.latitude
                 User.location.now = [res.latitude,res.longitude].join(',')
                 wx.setStorageSync('userLocation', User.location)
                 that.setData({
-                    township: User.location.data.regeocode.addressComponent.township
+                    township: User.location.street_number
                 })
                 that.onPullDownRefresh()
             }

@@ -128,62 +128,65 @@ Page({
             }
         })
         let reason = arr.join(',') || "0"
-        app.getLocation(function() {
-            wx.request({
-                url: config.url + '/info/save',
-                data: {
-                    // 拥堵程度 1 - 4 数字
-                    traffic: that.data.checked.feel,
-                    // 拥堵原因
-                    reason: reason,
-                    // 当前时间
-                    date: Date.now(),
-                    // 经纬度
-                    location: JSON.stringify(dot),
-                    // session
-                    user_id: User.info.session_key
-                },
-                method: "POST",
-                header: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                    "ucloudtech_3rd_key": User.info.session_key
-                },
-                success: function(res) {
-                    if (res.data.code === 200) {
-                        wx.showModal({
-                            title: '恭喜您，上报成功！',
-                            content: '豁然交通感谢您的支持，期待给您更好的服务☺',
-                            showCancel: false,
-                            confirmText: "知道了",
-                            confirmColor: "#7878FF",
-                            success: function(res) {
-                                if (res.confirm) {
-                                    wx.reLaunch({
-                                        url: "../index/e"
-                                    })
-                                } else if (res.cancel) {
-                                    console.log('点击取消')
-                                }
-                            }
-                        })
-                    } else {
-                        wx.showModal({
-                            content: '上传失败！',
-                            showCancel: false,
-                            confirmText: "重试",
-                            confirmColor: "#7878FF",
-                            success: function(res) {
-                                if (res.confirm) {
-                                    console.log('上报失败！')
-                                }
-                            }
-                        })
+        let address = User.location.data.regeocode.addressComponent.streetNumber
+        let street_number = address.street + address.number
+        let callback = function(res) {
+            if (res.data.code === 200) {
+                wx.showModal({
+                    title: '恭喜您，上报成功！',
+                    content: '豁然交通感谢您的支持，期待给您更好的服务☺',
+                    showCancel: false,
+                    confirmText: "知道了",
+                    confirmColor: "#7878FF",
+                    success: function(res) {
+                        if (res.confirm) {
+                            wx.reLaunch({
+                                url: "../index/e"
+                            })
+                        } else if (res.cancel) {
+                            console.log('点击取消')
+                        }
                     }
-                },
-                fail: (err) => {
-                    log(err)
-                }
-            })
+                })
+            } else {
+                wx.showModal({
+                    content: '上传失败！',
+                    showCancel: false,
+                    confirmText: "重试",
+                    confirmColor: "#7878FF",
+                    success: function(res) {
+                        if (res.confirm) {
+                            console.log('上报失败！')
+                        }
+                    }
+                })
+            }
+        }
+        wx.request({
+            url: config.url + '/info/save',
+            data: {
+                // 道路名称
+                street_number: street_number,
+                // 拥堵程度 1 - 4 数字
+                traffic: that.data.checked.feel,
+                // 拥堵原因
+                reason: reason,
+                // 当前时间
+                date: Date.now(),
+                // 经纬度
+                location: JSON.stringify(dot),
+                // session
+                user_id: User.info.session_key
+            },
+            method: "POST",
+            header: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "ucloudtech_3rd_key": User.info.session_key
+            },
+            success: callback,
+            fail: (err) => {
+                log(err)
+            }
         })
     }
 })
