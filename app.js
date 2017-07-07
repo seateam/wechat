@@ -160,6 +160,8 @@ App({
                     },
                     success: function(res) {
                         location.data = res.data
+                        let address = res.data.regeocode.addressComponent.streetNumber
+                        location.street_number = address.street + address.number
                         wx.setStorageSync('userLocation', location)
                         if (typeof callback === 'function') { callback() }
                     },

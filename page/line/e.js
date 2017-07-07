@@ -299,7 +299,11 @@ Page({
     initImage(indexArr, Bezier, ctx) {
         // 画气泡
         for (let i of indexArr) {
-            let e = Bezier[i.index - 1]
+            let index = i.index
+            if (index > 0) {
+                index = index - 1
+            }
+            let e = Bezier[index]
             let x = Math.round(e.x - device(22))
             let y = Math.round(e.y - device(50))
             let icon = lineIcon[0].icon
@@ -344,10 +348,11 @@ Page({
             if (e.reason) {
                 text = lineIcon[Number(e.reason) + 1].text
             }
+            let time = Math.round((Date.now() - e.date) / 1000 / 60)
             result.push({
                 around: text,
-                street: "江南大道",
-                time: "15"
+                street: e.street_number,
+                time: time
             })
         })
         this.setData({

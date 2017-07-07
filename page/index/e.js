@@ -91,9 +91,6 @@ Page({
     },
     init() {
         let that = this
-        let address = User.location.data.regeocode.addressComponent.streetNumber
-        User.location.street_number = address.street + address.number
-
         that.setData({
             township: User.location.street_number || "未知道路"
         })
@@ -307,6 +304,8 @@ Page({
                 }
             }()
             // 用户分享
+            let points = res.data.point
+            log(points)
         }
         wx.request({
             url: config.url + '/home/zero',

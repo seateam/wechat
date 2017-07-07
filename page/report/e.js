@@ -118,8 +118,7 @@ Page({
         let dot = {
             type: "Point",
             // 中间点
-            coordinates: [104.15873,30.651276]
-            // coordinates: [User.location.longitude, User.location.latitude]
+            coordinates: [User.location.longitude, User.location.latitude]
         }
         let arr = []
         that.data.jam.forEach(function(e, i) {
@@ -128,8 +127,6 @@ Page({
             }
         })
         let reason = arr.join(',') || "0"
-        let address = User.location.data.regeocode.addressComponent.streetNumber
-        let street_number = address.street + address.number
         let callback = function(res) {
             if (res.data.code === 200) {
                 wx.showModal({
@@ -166,7 +163,7 @@ Page({
             url: config.url + '/info/save',
             data: {
                 // 道路名称
-                street_number: street_number,
+                street_number: User.location.street_number,
                 // 拥堵程度 1 - 4 数字
                 traffic: that.data.checked.feel,
                 // 拥堵原因
