@@ -33,34 +33,24 @@ let db = {
         height: 34
     }],
     controls: [{
-            // id: 1,
-            iconPath: 'img/bottom.png',
-            // clickable: true,
-            position: {
-                left: device(0),
-                top: device(603 - 100),
-                width: device(375),
-                height: device(100)
-            }
-        }, {
             id: 1,
-            iconPath: 'img/sea.png',
+            iconPath: 'img/iconRelocation@3x.png',
             clickable: true,
             position: {
                 left: device(10),
-                top: device(603 - 50 - 10),
-                width: device(50),
-                height: device(50)
+                top: device(603 - 36 - 31.5),
+                width: device(36),
+                height: device(36)
             }
         }, {
             id: 2,
-            iconPath: 'img/mountain.png',
+            iconPath: 'img/invalidName@3x.png',
             clickable: true,
             position: {
-                left:device(375 / 2 - 25),
-                top: device(603 - 50 - 10),
-                width:  device(50),
-                height: device(50)
+                left:device(375 / 2 - 25.5),
+                top: device(603 - 51 - 21),
+                width:  device(51),
+                height: device(51)
             }
         }]
 }
