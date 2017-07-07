@@ -217,7 +217,7 @@ Page({
             }
         })
         // 起点 终点
-        let start = User.card.myorigin
+        let start = [User.location.longitude, User.location.latitude].join(',')
         let end = User.card.destination
         that.init(start, end)
     },
@@ -287,7 +287,7 @@ Page({
                     // over
                     ctx.draw()
                 }()
-                // 出行建议 (避堵)
+                // 出行建议
                 that.initTrip(res)
                 that.initJam(res)
             },
@@ -313,13 +313,17 @@ Page({
         let e = Bezier[0]
         ctx.drawImage('img/iconOLoca@3x.png', e.x - device(8), e.y - device(8), device(16), device(16))
     },
+    // 出行建议
     initTrip(res) {
+        // for (let e of res.data.info.trafficData.steps) {
+        //     log(e.distance, e.action, e.road)
+        // }
         let steps = res.data.info.trafficData.steps.slice(0, 4)
         let firstSug = {
             distance: steps[0].distance
         }
         let arr = []
-        for(var i = 1; i < steps.length - 1; i++) {
+        for(let i = 1; i < steps.length - 1; i++) {
             let e = steps[i]
             arr.push({
                 distance: e.distance,
@@ -331,6 +335,7 @@ Page({
             firstSug: firstSug
         })
     },
+    // 用户分享
     initJam(res) {
         let arounds = res.data.around
         let result = []
@@ -341,7 +346,7 @@ Page({
             }
             result.push({
                 around: text,
-                street: "人民中路",
+                street: "江南大道",
                 time: "15"
             })
         })

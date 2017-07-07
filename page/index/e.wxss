@@ -66,23 +66,36 @@
 }
 .zero-main .circle {
     display: inline-block;
-    width:12rpx;
-    height:12rpx;
-    background-color:#9b9b9b;
-    border-radius:50%;
+    margin-right: 16rpx;
+    width: 12rpx;
+    height: 12rpx;
+    background-color: #9b9b9b;
+    border-radius: 50%;
 }
 .share-box {
     box-sizing: border-box;
     padding-bottom: 28rpx;
     border-bottom: 2rpx solid #d8d8d8;
 }
+.smooth {
+    display: flex;
+    align-items: center;
+}
 .share-box text, .smooth-box text {
     font-size: 30rpx;
     color: #343434;
+    /* 禁止 换行 */
+    white-space: nowrap;
+    /* 隐藏 超出部分 */
+    overflow: hidden;
+    /* 省略号 替代 */
+    text-overflow: ellipsis;
 }
 .share + .share, .smooth + .smooth {
     margin-top: 18rpx;
 }
+
+
 /* 卡片 */
 .card {
     margin-top: 60rpx;
@@ -205,8 +218,6 @@
     width: 122rpx;
     height: 122rpx;
 }
-
-
 
 /* 卡片样式 */
 @import "../../ku/we_swiper/dist/weSwiper.wxss";

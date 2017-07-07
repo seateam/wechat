@@ -279,7 +279,7 @@ Page({
                     }]
                 }
                 that.setData({
-                    smooth: arr
+                    smooth: arr.slice(0, 3)
                 })
             }()
             // 畅缓慢挤
