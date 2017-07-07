@@ -12,7 +12,6 @@ const device = function(number) {
     return number * 2 * deviceInfo / 750
 }
 let User = {}
-
 // 默认参数
 let db = {
     myAmapFun: null, // 高德API实例

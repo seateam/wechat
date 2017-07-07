@@ -217,12 +217,14 @@ Page({
           road: "",
           go: "直行"
       }],
-      goIcon: goIcon
+      goIcon: goIcon,
+      start: "启程"
     },
     onLoad(option) {
         let that = this
         // 取卡片
-        User.card = wx.getStorageSync('userCards')[option.id]
+        User.cards = wx.getStorageSync('userCards')
+        User.card = User.cards[option.id]
         User.info = wx.getStorageSync('userInfo')
         User.location = wx.getStorageSync('userLocation')
         that.setData({
@@ -240,13 +242,21 @@ Page({
     init(start, end) {
         let that = this
         let Bezier = getBezier() // 取点
+        let origin = User.card.start
+        if (User.card.start === '') {
+            origin = start
+        } else {
+            that.setData({
+                start: "结束"
+            })
+        }
         wx.request({
             url: config.url + '/traffic/situation',
             data: {
                 // 我的位置
                 myorigin: start,
                 // 出发点
-                origin: start,
+                origin: origin,
                 // 目的地
                 destination: end,
                 isGetRouts: false,
@@ -340,7 +350,6 @@ Page({
         for (let e of steps) {
             // log(e.distance, e.action, e.road)
             if (e.action.length) {
-                log(e.action)
                 if (e.road) {
                     arr.push({
                         distance: e.distance,
@@ -395,7 +404,57 @@ Page({
         })
     },
     bindStart() {
-        log("启程")
+        let that = this
+        let isStart = User.card.start ? true : false
+        if (that.data.start === '启程') {
+            // 起点 终点
+            let start = [User.location.longitude, User.location.latitude].join(',')
+            let end = User.card.destination
+            let callback = function(res) {
+                if (res.data.code === "200") {
+                    User.card.start = start
+                    wx.setStorageSync('userCards', User.cards)
+                    log(start, "记录成功！")
+                } else {
+                    wx.showToast({
+                        title: res.data.message,
+                        icon: 'warn',
+                        duration: 3000
+                    })
+                }
+            }
+            wx.request({
+                url: config.url + '/traffic/situation',
+                data: {
+                    // 我的位置
+                    myorigin: start,
+                    // 出发点
+                    origin: start,
+                    // 目的地
+                    destination: end,
+                    isGetRouts: false,
+                    isStart: isStart
+                },
+                method: "POST",
+                header: {
+                    "Content-Type": "application/json",
+                    "ucloudtech_3rd_key": User.info.session_key
+                },
+                success: callback,
+                fail: function(err) {
+                    console.log('err',err);
+                }
+            })
+            that.setData({
+                start: "结束"
+            })
+        } else {
+            User.card.start = ''
+            wx.setStorageSync('userCards', User.cards)
+            that.setData({
+                start: "启程"
+            })
+        }
     },
     bindSuggest() {
         let that = this
@@ -422,6 +481,12 @@ Page({
             success: function(res) {
                 if (res.data.code === "200") {
                     that.initTrip(res)
+                } else {
+                    wx.showToast({
+                        title: res.data.message,
+                        icon: 'warn',
+                        duration: 3000
+                    })
                 }
             },
             fail: function(err) {

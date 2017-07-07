@@ -21,7 +21,7 @@
 <!-- 行程概览 -->
 <view class="trip">
     <text class="tittle"> 行程概览 </text>
-    <view class="btn" bindtap="bindStart"> 启程 </view>
+    <view class="btn" bindtap="bindStart"> {{start}} </view>
     <view class="dot">
         <image src="img/dot@3x.png" />
         <view class="text">

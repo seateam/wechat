@@ -67,6 +67,7 @@ Page({
         result.icon = iconArr[i]
         if (result.name) {
             result.jam = "挤"
+            result.start = false
             let cards = wx.getStorageSync('userCards')
             if (cards.length === 0) {
                 cards = []
