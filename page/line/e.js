@@ -95,7 +95,6 @@ const getRatio = function(res) {
     let meterAll = Number(res.data.info.trafficData.distance)
     let temp = ''
     // 相对位置
-    // 104.072556,30.72382 中间
     let arr = []
     for (var i = 0; i < dotArr.length; i++) {
         let dot = dotArr[i]
@@ -169,6 +168,16 @@ const goIcon = {
     "减速行驶": "iconHuandao@3x.png",
     "插入直行": "iconUp@3x.png",
 }
+// 到达途经地
+const startRatio = (res, i) => {
+    let meterAll = res.data.info.trafficData.distance
+    let steps = res.data.info.trafficData.steps.slice(0, i)
+    let meter = 0
+    for (let e of steps) {
+        meter += Number(e.distance)
+    }
+    return Math.round(meter / meterAll * 100) / 100
+}
 let User = {}
 Page({
     onPullDownRefresh: function() {
@@ -230,7 +239,7 @@ Page({
         that.setData({
             card: User.card,
             trip: {
-                startS: User.location.data.regeocode.addressComponent.township || "当前位置",
+                startS: User.location.street_number || "当前位置",
                 endS: User.card.street
             }
         })
@@ -260,7 +269,7 @@ Page({
                 // 目的地
                 destination: end,
                 isGetRouts: false,
-                isStart: false,
+                isStart: Boolean(User.card.start),
             },
             method: "POST",
             header: {
@@ -268,6 +277,16 @@ Page({
                 "ucloudtech_3rd_key": User.info.session_key
             },
             success: function(res) {
+                let steps = res.data.info.trafficData.steps
+                let radio
+                for(var i = 0; i < steps.length; i++) {
+                    let e = steps[i]
+                    if (e.assistant_action === '到达途经地') {
+                        radio = startRatio(res, i)
+                    }
+                }
+                let startIndex = parseInt( radio * Bezier.length )
+                // 画
                 let draw = function() {
                     User.card.time = Math.round(res.data.info.trafficData.duration / 60 * 10) / 10
                     User.card.km = Math.round(res.data.info.trafficData.distance / 1000 * 10) / 10
@@ -309,7 +328,7 @@ Page({
                     ctx.setFillStyle('#ff2c46')
                     ctx.fill()
                     // 贴图片
-                    that.initImage(indexArr, Bezier, ctx)
+                    that.initImage(startIndex, indexArr, Bezier, ctx)
                     // over
                     ctx.draw()
                 }()
@@ -322,7 +341,7 @@ Page({
             }
         })
     },
-    initImage(indexArr, Bezier, ctx) {
+    initImage(startIndex, indexArr, Bezier, ctx) {
         // 画气泡
         for (let i of indexArr) {
             let index = i.index
@@ -340,7 +359,7 @@ Page({
             ctx.drawImage('img/line/' + icon, x, y, device(44), device(50))
         }
         // 画起点 ( 起点不变
-        let e = Bezier[0]
+        let e = Bezier[startIndex]
         ctx.drawImage('img/iconOLoca@3x.png', e.x - device(8), e.y - device(8), device(16), device(16))
     },
     // 出行建议
