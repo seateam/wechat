@@ -37,6 +37,10 @@ Page({
             "距离过长" : {
                 color: "#207ab6",
                 id: "3"
+            },
+            "空": {
+                color: "#FFF",
+                id: "4"
             }
         },
         status: "未知",
@@ -218,7 +222,7 @@ Page({
                         card.time = Math.round(e.data.info.duration / 60 * 10) / 10
                         card.km = Math.round(e.data.info.distance / 1000 * 10) / 10
                         card.jam = deStatus(e.data.info.status)
-                    } else if (e.message === "距离过长"){
+                    } else if (e.message === "距离过长") {
                         card.jam = e.message
                         card.km = 999
                         card.time = 999
@@ -383,7 +387,7 @@ Page({
         let that = this
         wx.chooseLocation({
             success: (res) => {
-                User.location.street_number = res.name
+                User.location.street_number = res.name || res.address
                 User.location.longitude = res.longitude
                 User.location.latitude = res.latitude
                 User.location.now = [res.latitude,res.longitude].join(',')

@@ -56,7 +56,7 @@ Page({
         let that = this
         wx.chooseLocation({
             success: (res) => {
-                let name = res.name
+                let name = res.name || res.address
                 let dot = [res.latitude,res.longitude].join(',')
                 result.destination = deitude(dot)
                 result.street = name
@@ -85,8 +85,9 @@ Page({
             card.name = result.name
             card.street = result.street
             wx.setStorageSync('userCards', User.cards)
-            wx.reLaunch({
-                url: "../index/e"
+            // 后退
+            wx.navigateBack({
+                delta: 1
             })
         } else {
             this.setData({

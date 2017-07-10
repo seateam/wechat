@@ -43,7 +43,7 @@ Page({
         let that = this
         wx.chooseLocation({
             success: (res) => {
-                let name = res.name
+                let name = res.name || res.address
                 let dot = [res.latitude,res.longitude].join(',')
                 result.destination = deitude(dot)
                 result.street = name
@@ -66,7 +66,7 @@ Page({
         let i = this.data.checked
         result.icon = iconArr[i]
         if (result.name) {
-            result.jam = "挤"
+            result.jam = "空"
             result.start = ""
             let cards = wx.getStorageSync('userCards')
             if (cards.length === 0) {
@@ -75,8 +75,8 @@ Page({
             cards.reverse().push(result)
             wx.setStorageSync('userCards', cards.reverse())
             // 后退
-            wx.reLaunch({
-                url: "../index/e"
+            wx.navigateBack({
+              delta: 1
             })
         } else {
             this.setData({
