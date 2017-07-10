@@ -17,19 +17,19 @@ let db = {
     myAmapFun: null, // 高德API实例
     mapCtx: null,    // 地图实例
     markers: [{
-        iconPath: 'img/icecream-20.png',
+        iconPath: 'img/iconQi@3x.png',
         id: 0,
         latitude:  null,
         longitude: null,
-        width: 34,
-        height: 34
+        width: device(30),
+        height: device(38)
     }, {
-        iconPath: 'img/icecream-07.png',
+        iconPath: 'img/iconZhong@3x.png',
         id: 1,
         latitude: null,
         longitude: null,
-        width: 34,
-        height: 34
+        width: device(30),
+        height: device(38)
     }],
     controls: [{
             id: 1,
@@ -68,6 +68,43 @@ const mapButton = {
         })
     }
 }
+// 曲线图标
+const lineIcon = [
+    {
+        icon: "iconYongdu@3x.png",
+        text: "出现拥堵"
+    },
+    {
+
+        icon: "iconAccident@3x.png",
+        text: "出现交通事故"
+    },
+    {
+
+        icon: "iconWater@3x.png",
+        text: "积水"
+    },
+    {
+
+        icon: "iconFenglu@3x.png",
+        text: "封路"
+    },
+    {
+
+        icon: "iconShigong@3x.png",
+        text: "正在施工"
+    },
+    {
+
+        icon: "iconHonglvdeng@3x.png",
+        text: "道路故障"
+    },
+    {
+
+        icon: "iconBuwenmGrey@3x.png",
+        text: "出现不文明驾驶"
+    },
+]
 Page({
     onPullDownRefresh: function() {
         wx.stopPullDownRefresh()
@@ -95,57 +132,75 @@ Page({
             key: config.key
         })
         // 起点
-        let tempArr = db.markers
-        log(User.card, User.location)
-        // arr[0].latitude = Number(now.split(',')[0])
-        // arr[0].longitude = Number(now.split(',')[1])
-        // arr[1].latitude = Number(end.split(',')[0])
-        // arr[1].longitude = Number(end.split(',')[1])
-        // res
-        let res = app.res
-        let dot = res.data.around
-        var points = [];
-        // 路线
-        var steps = res.data.info.trafficData.steps
-        for (var i = 0; i < steps.length; i++) {
-            var poLen = steps[i].polyline.split(';');
-            for (var j = 0; j < poLen.length; j++) {
-                points.push({
-                    longitude: parseFloat(poLen[j].split(',')[0]),
-                    latitude: parseFloat(poLen[j].split(',')[1])
+        let now = User.card.myorigin
+        if (User.card.start) {
+            now = User.card.start
+        }
+        let end = User.card.destination
+        db.markers[0].longitude = Number(now.split(',')[0])
+        db.markers[0].latitude = Number(now.split(',')[1])
+        db.markers[1].longitude = Number(end.split(',')[0])
+        db.markers[1].latitude = Number(end.split(',')[1])
+        log(db.markers)
+        // 路径
+        let draw = function() {
+            // res
+            let res = app.res
+            let dot = res.data.around
+            var points = [];
+            // 路线
+            var steps = res.data.info.trafficData.steps
+            for (var i = 0; i < steps.length; i++) {
+                var poLen = steps[i].polyline.split(';');
+                for (var j = 0; j < poLen.length; j++) {
+                    points.push({
+                        longitude: parseFloat(poLen[j].split(',')[0]),
+                        latitude: parseFloat(poLen[j].split(',')[1])
+                    })
+                }
+            }
+            // 长度
+            let rice = res.data.info.trafficData.distance
+            if (rice < 350000) {
+                that.setData({
+                    polyline: [{
+                        points: points,
+                        color: "#0091ff",
+                        width: 6,
+                        arrowLine: true,
+                        // dottedLine: true
+                    }]
+                })
+            } else {
+                log('超过350km')
+            }
+
+            let arr = db.markers
+            for (let i of dot) {
+                // 判断是否和起始点重复
+                if (i.lon === arr[0].longitude || i.lon === arr[1].longitude) {
+                    if (i.lat === arr[0].latitude || i.lat === arr[1].latitude) {
+                        continue
+                    }
+                }
+                let icon = lineIcon[0].icon
+                if (i.reason) {
+                    let index = i.reason.split(',')[0]
+                    icon = lineIcon[Number(index) + 1].icon
+                }
+                arr.push({
+                    iconPath: '../line/img/line/' + icon,
+                    id: 1,
+                    latitude: i.lat,
+                    longitude: i.lon,
+                    width: device(44),
+                    height: device(50)
                 })
             }
-        }
-        // 长度
-        let rice = res.data.info.trafficData.distance
-        if (rice < 350000) {
             that.setData({
-                polyline: [{
-                    points: points,
-                    color: "#0091ff",
-                    width: 6,
-                    arrowLine: true,
-                    // dottedLine: true
-                }]
+                markers: arr
             })
-        } else {
-            log('超过350km')
-        }
-
-        let arr = db.markers
-        for (let i of dot) {
-            arr.push({
-                iconPath: 'img/icecream-11.png',
-                id: 1,
-                latitude: i.lat,
-                longitude: i.lon,
-                width: 34,
-                height: 34
-            })
-        }
-        that.setData({
-            markers: arr
-        })
+        }()
     },
     // 解析地址
     deLocation: function() {
