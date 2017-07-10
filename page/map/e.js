@@ -77,112 +77,75 @@ Page({
         polyline: [],
         controls: db.controls
     },
-    onLoad: function() {
-        let that = this
-        app.login(function(userInfo) {
-            User.info = userInfo.info
-            User.location = userInfo.location
-            that.init()
-        })
+    onLoad: function(option) {
+        User.info = wx.getStorageSync('userInfo')
+        User.location = wx.getStorageSync('userLocation')
+        User.cards = wx.getStorageSync('userCards')
+        User.card = User.cards[option.id]
+        this.init()
     },
     onReady: function () {
         // 使用 wx.createMapContext 获取 map 上下文
         db.mapCtx = wx.createMapContext('navi_map')
+        this.bindMarks()
     },
     init: function() {
-        let that = this;
+        let that = this
         db.myAmapFun = new amapFile.AMapWX({
             key: config.key
         })
-        // 气泡测试
-        let testBubble = function(now, end) {
-            // 起点
-            let arr = db.markers
-            arr[0].latitude = Number(now.split(',')[0])
-            arr[0].longitude = Number(now.split(',')[1])
-            arr[1].latitude = Number(end.split(',')[0])
-            arr[1].longitude = Number(end.split(',')[1])
+        // 起点
+        let tempArr = db.markers
+        log(User.card, User.location)
+        // arr[0].latitude = Number(now.split(',')[0])
+        // arr[0].longitude = Number(now.split(',')[1])
+        // arr[1].latitude = Number(end.split(',')[0])
+        // arr[1].longitude = Number(end.split(',')[1])
+        // res
+        let res = app.res
+        let dot = res.data.around
+        var points = [];
+        // 路线
+        var steps = res.data.info.trafficData.steps
+        for (var i = 0; i < steps.length; i++) {
+            var poLen = steps[i].polyline.split(';');
+            for (var j = 0; j < poLen.length; j++) {
+                points.push({
+                    longitude: parseFloat(poLen[j].split(',')[0]),
+                    latitude: parseFloat(poLen[j].split(',')[1])
+                })
+            }
+        }
+        // 长度
+        let rice = res.data.info.trafficData.distance
+        if (rice < 350000) {
             that.setData({
-                markers: arr
+                polyline: [{
+                    points: points,
+                    color: "#0091ff",
+                    width: 6,
+                    arrowLine: true,
+                    // dottedLine: true
+                }]
             })
-            wx.request({
-                url: config.url + '/traffic/situation',
-                data: {
-                    // 出发点
-                    origin: deitude(now),
-                    // 目的地
-                    destination: deitude(end),
-                    // 我的位置
-                    myorigin: deitude(now),
-                    // 躲避拥堵
-                    // isGetRouts: true,
-                    // 记录起点
-                    // isStart: true,
-                },
-                method: "POST",
-                header: {
-                    "Content-Type": "application/json",
-                    "ucloudtech_3rd_key": User.info.session_key
-                },
-                success: function(res) {
-                    log(res)
-                    if (Number(res.data.code) !== 200) {
-                        return;
-                    }
-                    let dot = res.data.around
-                    var points = [];
-                    // 路线
-                    var steps = res.data.info.trafficData.steps
-                    for (var i = 0; i < steps.length; i++) {
-                        var poLen = steps[i].polyline.split(';');
-                        for (var j = 0; j < poLen.length; j++) {
-                            points.push({
-                                longitude: parseFloat(poLen[j].split(',')[0]),
-                                latitude: parseFloat(poLen[j].split(',')[1])
-                            })
-                        }
-                    }
-                    // 长度
-                    let rice = res.data.info.trafficData.distance
-                    log(rice + '米')
-                    if (rice < 350000) {
-                        that.setData({
-                            polyline: [{
-                                points: points,
-                                color: "#0091ff",
-                                width: 6,
-                                arrowLine: true,
-                                // dottedLine: true
-                            }]
-                        })
-                        that.bindMarks()
-                    } else {
-                        log('超过350km')
-                    }
+        } else {
+            log('超过350km')
+        }
 
-                    let arr = db.markers
-                    for (let i of dot) {
-                        arr.push({
-                            iconPath: 'img/icecream-11.png',
-                            id: 1,
-                            latitude: i.lat,
-                            longitude: i.lon,
-                            width: 34,
-                            height: 34
-                        })
-                    }
-                    that.setData({
-                        markers: arr
-                    })
-                },
-                fail: function(err) {
-                    console.log('err',err);
-                }
+        let arr = db.markers
+        for (let i of dot) {
+            arr.push({
+                iconPath: 'img/icecream-11.png',
+                id: 1,
+                latitude: i.lat,
+                longitude: i.lon,
+                width: 34,
+                height: 34
             })
         }
-        let now = User.location.now
-        let end = '30.48864,104.06858'
-        testBubble(now, end)
+        that.setData({
+            markers: arr
+        })
     },
     // 解析地址
     deLocation: function() {

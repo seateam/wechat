@@ -1,5 +1,6 @@
 const log = console.log.bind(console)
 const config = require('../../ku/js/config.js')
+const app = getApp()
 const deitude = function(itude) {
     return itude.split(',').reverse().join(',')
 }
@@ -231,11 +232,12 @@ Page({
     },
     onLoad(option) {
         let that = this
+        User.info = wx.getStorageSync('userInfo')
+        User.location = wx.getStorageSync('userLocation')
         // 取卡片
         User.cards = wx.getStorageSync('userCards')
         User.card = User.cards[option.id]
-        User.info = wx.getStorageSync('userInfo')
-        User.location = wx.getStorageSync('userLocation')
+        User.card.id = option.id
         that.setData({
             card: User.card,
             trip: {
@@ -277,64 +279,76 @@ Page({
                 "ucloudtech_3rd_key": User.info.session_key
             },
             success: function(res) {
-                let steps = res.data.info.trafficData.steps
-                let radio
-                for(var i = 0; i < steps.length; i++) {
-                    let e = steps[i]
-                    if (e.assistant_action === '到达途经地') {
-                        radio = startRatio(res, i)
-                    }
-                }
-                let startIndex = parseInt( radio * Bezier.length )
-                // 画
-                let draw = function() {
-                    User.card.time = Math.round(res.data.info.trafficData.duration / 60 * 10) / 10
-                    User.card.km = Math.round(res.data.info.trafficData.distance / 1000 * 10) / 10
-                    that.setData({
-                        card: User.card
-                    })
-                    // 路线上的点 points
-                    // 我周围的点 arounds
-                    if (Number(res.data.code) !== 200) {
-                        return;
-                    }
-                    // 去重 取比例
-                    let ratioArr = getRatio(res)
-                    // 坐标点
-                    let indexArr = []
-                    ratioArr.forEach((e, i) => {
-                        e.index = parseInt( Bezier.length * e.ratio )
-                        indexArr.push(e)
-                    })
-                    // 画线
-                    const ctx = wx.createCanvasContext('myCanvas')
-                    ctx.setLineCap('round')
-                    ctx.setLineWidth(2)
-                    ctx.setStrokeStyle('#4990e2')
-                    let drawBezierPoints = function(arr) {
-                        ctx.moveTo(arr[0].x, arr[0].y)
-                        for (let i of arr) {
-                            ctx.lineTo(i.x, i.y)
+                if (res.data.code === "200") {
+                    app.res = res
+                    let steps = res.data.info.trafficData.steps
+                    let radio
+                    for(var i = 0; i < steps.length; i++) {
+                        let e = steps[i]
+                        if (e.assistant_action === '到达途经地') {
+                            radio = startRatio(res, i)
+
                         }
-                        ctx.stroke()
-                    }(Bezier)
-                    // 画圆点
-                    ctx.beginPath()
-                    ctx.arc(device(35.5), device(119.5), device(4), 0, 2 * Math.PI)
-                    ctx.setFillStyle('#7ed321')
-                    ctx.fill()
-                    ctx.beginPath()
-                    ctx.arc(device(339.5),device(65.5), device(4), 0, 2 * Math.PI)
-                    ctx.setFillStyle('#ff2c46')
-                    ctx.fill()
-                    // 贴图片
-                    that.initImage(startIndex, indexArr, Bezier, ctx)
-                    // over
-                    ctx.draw()
-                }()
-                // 出行建议
-                that.initTrip(res)
-                that.initJam(res)
+                    }
+                    let startIndex
+                    if (radio) {
+                        startIndex = parseInt( radio * Bezier.length )
+                    } else {
+                        startIndex = 0
+                    }
+
+                    // 画
+                    let draw = function() {
+                        User.card.time = Math.round(res.data.info.trafficData.duration / 60 * 10) / 10
+                        User.card.km = Math.round(res.data.info.trafficData.distance / 1000 * 10) / 10
+                        that.setData({
+                            card: User.card
+                        })
+                        // 路线上的点 points
+                        // 我周围的点 arounds
+                        if (Number(res.data.code) !== 200) {
+                            return;
+                        }
+                        // 去重 取比例
+                        let ratioArr = getRatio(res)
+                        // 坐标点
+                        let indexArr = []
+                        ratioArr.forEach((e, i) => {
+                            e.index = parseInt( Bezier.length * e.ratio )
+                            indexArr.push(e)
+                        })
+                        // 画线
+                        const ctx = wx.createCanvasContext('myCanvas')
+                        ctx.setLineCap('round')
+                        ctx.setLineWidth(2)
+                        ctx.setStrokeStyle('#4990e2')
+                        let drawBezierPoints = function(arr) {
+                            ctx.moveTo(arr[0].x, arr[0].y)
+                            for (let i of arr) {
+                                ctx.lineTo(i.x, i.y)
+                            }
+                            ctx.stroke()
+                        }(Bezier)
+                        // 画圆点
+                        ctx.beginPath()
+                        ctx.arc(device(35.5), device(119.5), device(4), 0, 2 * Math.PI)
+                        ctx.setFillStyle('#7ed321')
+                        ctx.fill()
+                        ctx.beginPath()
+                        ctx.arc(device(339.5),device(65.5), device(4), 0, 2 * Math.PI)
+                        ctx.setFillStyle('#ff2c46')
+                        ctx.fill()
+                        // 贴图片
+                        that.initImage(startIndex, indexArr, Bezier, ctx)
+                        // over
+                        ctx.draw()
+                    }()
+                    // 出行建议
+                    that.initTrip(res)
+                    that.initJam(res)
+                } else {
+                    log("situation错误", res.data)
+                }
             },
             fail: function(err) {
                 console.log('err',err);
@@ -414,7 +428,7 @@ Page({
     },
     bindMap() {
         wx.navigateTo({
-            url: "../map/e"
+            url: "../map/e?id=" + User.card.id
         })
     },
     bindReport() {

@@ -34,7 +34,7 @@ Page({
         result.destination = now
         result.origin = now
         result.myorigin = now
-        result.street = User.location.data.regeocode.addressComponent.township
+        result.street = User.location.street_number
         this.setData({
             location: result.street
         })
@@ -67,7 +67,7 @@ Page({
         result.icon = iconArr[i]
         if (result.name) {
             result.jam = "挤"
-            result.start = false
+            result.start = ""
             let cards = wx.getStorageSync('userCards')
             if (cards.length === 0) {
                 cards = []
