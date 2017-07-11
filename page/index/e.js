@@ -73,8 +73,6 @@ Page({
             title: "正在登陆",
             mask: true
         })
-    },
-    onShow() {
         let that = this
         app.login(function(userInfo) {
             User.info = userInfo.info

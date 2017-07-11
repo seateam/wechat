@@ -90,8 +90,8 @@ Page({
                 cards.reverse().push(result)
                 wx.setStorageSync('userCards', cards.reverse())
                 // 后退
-                wx.navigateBack({
-                  delta: 1
+                wx.redirectTo({
+                    url: "../index/e"
                 })
             } else {
                 this.setData({
