@@ -29,7 +29,7 @@ Page({
     },
     onLoad: function() {
         User.location = wx.getStorageSync('userLocation')
-        let now = deitude(User.location.now)
+        let now = [User.location.longitude, User.location.latitude].join(',')
         // 目的地
         result.destination = now
         result.origin = now
@@ -44,8 +44,8 @@ Page({
         wx.chooseLocation({
             success: (res) => {
                 let name = res.name || res.address
-                let dot = [res.latitude,res.longitude].join(',')
-                result.destination = deitude(dot)
+                let dot = [res.longitude, res.latitude].join(',')
+                result.destination = dot
                 result.street = name
                 that.setData({
                     location: name
@@ -63,25 +63,41 @@ Page({
         })
     },
     bindAdd: function() {
+        let that = this
         let i = this.data.checked
         result.icon = iconArr[i]
-        if (result.name) {
-            result.jam = "畅"
-            result.start = ""
-            let cards = wx.getStorageSync('userCards')
-            if (cards.length === 0) {
-                cards = []
-            }
-            cards.reverse().push(result)
-            wx.setStorageSync('userCards', cards.reverse())
-            // 后退
-            wx.navigateBack({
-              delta: 1
+        let start = [User.location.longitude ,User.location.latitude].join(',')
+        if (result.destination === start) {
+            wx.showModal({
+                title: '距离太近了',
+                showCancel: false,
+                confirmText: "选择地址",
+                confirmColor: "#7878FF",
+                success: function(res) {
+                    if (res.confirm) {
+                        that.bindChoose()
+                    }
+                }
             })
         } else {
-            this.setData({
-                focus: true
-            })
+            if (result.name) {
+                result.jam = "畅"
+                result.start = ""
+                let cards = wx.getStorageSync('userCards')
+                if (cards.length === 0) {
+                    cards = []
+                }
+                cards.reverse().push(result)
+                wx.setStorageSync('userCards', cards.reverse())
+                // 后退
+                wx.navigateBack({
+                  delta: 1
+                })
+            } else {
+                this.setData({
+                    focus: true
+                })
+            }
         }
     }
 })
