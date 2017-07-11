@@ -63,8 +63,8 @@ const mapButton = {
         //   url: '../../pages/index/e'
         // })
         db.mapCtx.includePoints({
-          padding: [40, 20, 20, 20],
-          points: that.data.markers
+            padding: [device(58), device(20), device(92), device(20)],
+            points: that.data.markers
         })
     }
 }
@@ -141,7 +141,6 @@ Page({
         db.markers[0].latitude = Number(now.split(',')[1])
         db.markers[1].longitude = Number(end.split(',')[0])
         db.markers[1].latitude = Number(end.split(',')[1])
-        log(db.markers)
         // 路径
         let draw = function() {
             // res
@@ -202,108 +201,8 @@ Page({
             })
         }()
     },
-    // 解析地址
-    deLocation: function() {
-        wx.request({
-            url: `https://restapi.amap.com/v3/assistant/coordinate/convert?`,
-            data: {
-                key: '043d1bcd92f7602cd9825bd8f6fd5be7',
-                locations: '116.481499,39.990475|116.481499,39.990375',
-                coordsys: 'mapbar'
-            },
-            method: "GET",
-            header: {
-                "Content-Type": "application/json",
-            },
-            success: function(res) {
-                console.log(res)
-            }
-        })
-    },
-    show: function(that, start, end) {
-        db.myAmapFun.getDrivingRoute({
-            origin: deitude(start),
-            destination: deitude(end),
-            // city: '成都',
-            success: function(data) {
-                var points = [];
-                // 路线
-                if (data.paths && data.paths[0] && data.paths[0].steps) {
-                    var steps = data.paths[0].steps;
-                    for (var i = 0; i < steps.length; i++) {
-                        var poLen = steps[i].polyline.split(';');
-                        for (var j = 0; j < poLen.length; j++) {
-                            points.push({
-                                longitude: parseFloat(poLen[j].split(',')[0]),
-                                latitude: parseFloat(poLen[j].split(',')[1])
-                            })
-                        }
-                    }
-                }
-
-                // 长度
-                let rice = 0
-                if (data.paths[0] && data.paths[0].distance) {
-                    rice = data.paths[0].distance
-                    log(rice + '米')
-                }
-
-                // 打车费用
-                if (data.taxi_cost) {
-                    log('打车约' + Number(data.taxi_cost).toFixed(2)  + '元')
-                }
-                if (rice < 350000) {
-                    that.setData({
-                        polyline: [{
-                            points: points,
-                            color: "#0091ff",
-                            width: 7,
-                            dottedLine: true
-                        }]
-                    })
-                    that.bindMarks()
-                } else {
-                    log('超过350km')
-                }
-
-            },
-            fail: function(info) {
-                console.log(info);
-            }
-        })
-    },
-    bindPath: function() {
-        let that = this
-        wx.chooseLocation({
-            success: function(end) {
-                wx.getLocation({
-                    type: 'wgs84',
-                    success: function(now) {
-                        now = [now.latitude,now.longitude].join(',')
-                        end = [end.latitude, end.longitude].join(',')
-                        // 设置起点终点气泡
-                        let arr = db.markers
-                        arr[0].latitude = Number(now.split(',')[0])
-                        arr[0].longitude = Number(now.split(',')[1])
-                        arr[1].latitude = Number(end.split(',')[0])
-                        arr[1].longitude = Number(end.split(',')[1])
-                        that.setData({
-                            markers: arr.slice(0,2)
-                        })
-                        that.show(that, now, end)
-                    }
-                })
-            },
-            fail: function(err) {
-                log('用户取消选择',err)
-            }
-        })
-    },
     bindMarks: function() {
-        db.mapCtx.includePoints({
-          padding: [40, 20, 20, 20],
-          points: this.data.markers
-        })
+        mapButton[2](this)
     },
     bindControls: function(e) {
         let that = this

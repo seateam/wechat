@@ -94,15 +94,15 @@
     display: inline-block;
     width: 438rpx;
     font-size: 24rpx;
+}
+.dot text {
+    display: block;
     /* 禁止 换行 */
     white-space: nowrap;
     /* 隐藏 超出部分 */
     overflow: hidden;
     /* 省略号 替代 */
     text-overflow: ellipsis;
-}
-.dot text {
-    display: block;
 }
 .dot text + text {
     margin-top: 20rpx;
