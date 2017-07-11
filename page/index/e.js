@@ -37,10 +37,6 @@ Page({
             "距离过长" : {
                 color: "#207ab6",
                 id: "3"
-            },
-            "空": {
-                color: "#FFF",
-                id: "4"
             }
         },
         status: "未知",
@@ -77,6 +73,8 @@ Page({
             title: "正在登陆",
             mask: true
         })
+    },
+    onShow() {
         let that = this
         app.login(function(userInfo) {
             User.info = userInfo.info
@@ -90,7 +88,7 @@ Page({
             that.initZero()
             wx.hideLoading()
         })
-        },
+    },
     onReachBottom: function() {
         // 上滑
     },

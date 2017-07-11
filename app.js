@@ -1,7 +1,6 @@
 const log = console.log.bind(console, '>>>')
 const amapFile = require('ku/js/amap-wx.js')
 const config = require('ku/js/config.js')
-
 App({
     // onLaunch 全局登陆触发一次
     onLaunch() {
@@ -105,6 +104,23 @@ App({
     onShow() {
         this.getLocation()
     },
+    fail() {
+        wx.hideLoading()
+        wx.showModal({
+            title: '网络状态异常！',
+            content: '当前网络不可用，请检查您的网络设置',
+            showCancel: false,
+            confirmText: "重试",
+            confirmColor: "#7878FF",
+            success: function(res) {
+                if (res.confirm) {
+                    wx.reLaunch({
+                        url: "../index/e"
+                    })
+                }
+            }
+        })
+    },
     getUserInfo(callback) {
         let that = this
         wx.login({
@@ -133,16 +149,17 @@ App({
                                 wx.setStorageSync('userInfo', userInfo)
                                 if (typeof callback === 'function') { callback() }
                             },
-                            fail: (err) => {log(err)}
+                            fail: (err) => {that.fail()}
                         })
                     },
-                    fail: (err) => {log(err)}
+                    fail: (err) => {that.fail()}
                 })
             },
-            fail: (err) => {log(err)}
+            fail: (err) => {that.fail()}
         })
     },
     getLocation(callback) {
+        let that = this
         wx.getLocation({
             success: function(res) {
                 let location = res
@@ -171,12 +188,7 @@ App({
                     }
                 })
             },
-            cancel: function(res) {
-                log(res)
-            },
-            fail: (err) => {
-                log(err)
-            }
+            fail: (err) => {that.fail()}
         })
     },
     login(callback) {
