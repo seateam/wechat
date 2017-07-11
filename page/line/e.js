@@ -254,6 +254,7 @@ Page({
         let that = this
         let Bezier = getBezier() // 取点
         let origin = User.card.start
+        log("[" + origin + "]")
         if (User.card.start === '') {
             origin = start
         } else {
@@ -426,16 +427,19 @@ Page({
             })
         }
     },
+    // 地图
     bindMap() {
         wx.navigateTo({
             url: "../map/e?id=" + User.card.id
         })
     },
+    // 上报
     bindReport() {
         wx.navigateTo({
             url: "../report/e"
         })
     },
+    // 启程
     bindStart() {
         let that = this
         let isStart = User.card.start ? true : false
@@ -489,7 +493,11 @@ Page({
             })
         }
     },
+    // 避堵
     bindSuggest() {
+        wx.showLoading({
+            title: '正在规划'
+        })
         let that = this
         // 起点 终点
         let start = [User.location.longitude, User.location.latitude].join(',')
@@ -512,6 +520,7 @@ Page({
                 "ucloudtech_3rd_key": User.info.session_key
             },
             success: function(res) {
+                wx.hideLoading()
                 if (res.data.code === "200") {
                     that.initTrip(res)
                 } else {

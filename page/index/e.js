@@ -356,7 +356,7 @@ Page({
     },
     bindRefresh(e) {
         let id = e.currentTarget.dataset.id
-        log('刷新', id)
+        // log('刷新', id)
         this.initJam()
     },
     bindRefreshZero() {
