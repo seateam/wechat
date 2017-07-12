@@ -87,9 +87,6 @@ Page({
             wx.hideLoading()
         })
     },
-    onReachBottom: function() {
-        // 上滑
-    },
     init() {
         let that = this
         that.setData({
