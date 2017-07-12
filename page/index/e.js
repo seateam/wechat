@@ -69,10 +69,10 @@ Page({
         }
     },
     onLoad() {
-        wx.showLoading({
-            title: "正在登陆",
-            mask: true
-        })
+        // wx.showLoading({
+        //     title: "正在登陆",
+        //     mask: true
+        // })
         let that = this
         app.login(function(userInfo) {
             User.info = userInfo.info
@@ -84,7 +84,7 @@ Page({
             that.init()
             that.initJam()
             that.initZero()
-            wx.hideLoading()
+            // wx.hideLoading()
         })
     },
     onShow() {
