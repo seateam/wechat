@@ -40,6 +40,7 @@ Page({
             }
         },
         status: "未知",
+        statusColor: "#207ab6",
         share: [{
             street: "",
             status: ""
@@ -292,8 +293,21 @@ Page({
             // 畅缓慢挤
             let top = function() {
                 let e = res.data.situation.evaluation
-                let traffic = ['未知', '畅', '', '挤']
-                let result = traffic[e.status]
+                let traffic = [{
+                    text: '未知',
+                    color: "#207ab6"
+                }, {
+                    text: '畅',
+                    color: "#e9585c"
+                }, {
+                    text: '',
+                    color: "#207ab6"
+                }, {
+                    text: '挤',
+                    color: "#207ab6"
+                }]
+                let result = traffic[e.status].text
+                let color = traffic[e.status].color
                 if (result) {
                     that.setData({
                         status: result
@@ -302,11 +316,14 @@ Page({
                     let huan = Number(e.congested.replace('%',''))
                     let du = Number(e.blocked.replace('%',''))
                     let str = '缓'
+                    color = "#eab52f"
                     if (huan + du > 16) {
                         str = '慢'
+                        color = "#2eada3"
                     }
                     that.setData({
-                        status: str
+                        status: str,
+                        statusColor: color
                     })
                 }
             }()

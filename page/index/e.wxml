@@ -21,7 +21,7 @@
             </view>
             <!-- 周围路况 -->
             <view class="we-slide">
-                <view class="zero-top">
+                <view class="zero-top" style="background-color:{{statusColor}}">
                     <text> 周围路况 </text>
                     <image bindtap="bindRefreshZero" class="refresh" src="img/iconRefresh@3x.png" />
                     <text class="bigFont" > {{status}} </text>

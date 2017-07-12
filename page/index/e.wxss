@@ -41,7 +41,6 @@
     padding: 30rpx;
     box-sizing: border-box;
     height: 150rpx;
-    background-color: #207ab6;
     border-top-right-radius: 10rpx;
     border-top-left-radius: 10rpx;
     color: rgba(255, 255, 255, 0.85);
