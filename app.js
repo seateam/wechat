@@ -3,12 +3,19 @@ const amapFile = require('ku/js/amap-wx.js')
 const config = require('ku/js/config.js')
 App({
     // onLaunch 全局登陆触发一次
+    data: {},
     onLaunch() {
         // 开启罗盘
         // wx.startCompass()
     },
     onShow() {
-        this.getLocation()
+        if (this.data.onShow === 'no') {
+        } else {
+            this.getLocation()
+        }
+    },
+    onHide() {
+        this.data.onShow = undefined
     },
     fail() {
         wx.hideLoading()

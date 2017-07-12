@@ -1,6 +1,8 @@
 <view class="tan">
     <view class="location" bindtap="bindTop">
-        <text> {{township}} </text>
+        <view class="location-box">
+            <text> {{township}} </text>
+        </view>
     </view>
 
     <view class="card">

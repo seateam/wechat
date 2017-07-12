@@ -132,11 +132,12 @@ Page({
             key: config.key
         })
         // 起点
-        let now = User.card.myorigin
+        let now = [User.location.longitude, User.location.latitude].join(',')
+        let end = User.card.destination
         if (User.card.start) {
             now = User.card.start
         }
-        let end = User.card.destination
+
         db.markers[0].longitude = Number(now.split(',')[0])
         db.markers[0].latitude = Number(now.split(',')[1])
         db.markers[1].longitude = Number(end.split(',')[0])

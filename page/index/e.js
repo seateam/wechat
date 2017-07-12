@@ -87,6 +87,13 @@ Page({
             wx.hideLoading()
         })
     },
+    onShow() {
+        let that = this
+        User.location = wx.getStorageSync('userLocation')
+        that.setData({
+            township: User.location.street_number || "未知道路"
+        })
+    },
     init() {
         let that = this
         that.setData({
@@ -389,6 +396,7 @@ Page({
                 that.setData({
                     township: User.location.street_number
                 })
+                app.data.onShow = 'no'
                 that.onPullDownRefresh()
             }
         })
