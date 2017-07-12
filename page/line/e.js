@@ -251,6 +251,7 @@ Page({
         that.init(start, end)
     },
     init(start, end) {
+        // log("启程与否", User.card.start)
         let that = this
         let Bezier = getBezier() // 取点
         let origin = User.card.start
@@ -485,7 +486,7 @@ Page({
                 start: "结束"
             })
         } else {
-            User.card.start = ''
+            User.cards[User.card.id].start = ''
             wx.setStorageSync('userCards', User.cards)
             that.setData({
                 start: "启程"

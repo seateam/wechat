@@ -50,12 +50,12 @@ Page({
             status: ""
         }]
     },
-    onPullDownRefresh: function() {
-        this.initZero()
+    onPullDownRefresh() {
         this.initJam()
+        this.initZero()
         wx.stopPullDownRefresh()
     },
-    onShareAppMessage: function() {
+    onShareAppMessage() {
         return {
             title: '豁然交通',
             // path: 'pages/map_route/e',
@@ -68,6 +68,9 @@ Page({
                 // 转发失败
             }
         }
+    },
+    onReachBottom() {
+
     },
     onLoad() {
         // wx.showLoading({
@@ -94,7 +97,6 @@ Page({
         that.setData({
             township: User.location.street_number || "未知道路"
         })
-        this.init()
     },
     init() {
         let that = this
@@ -204,6 +206,8 @@ Page({
         })
     },
     initJam() {
+        // 启程与否
+        User.cards = wx.getStorageSync('userCards')
         let that = this
         let deStatus = function(s) {
             if (s <= 0) {
