@@ -93,6 +93,7 @@ Page({
         that.setData({
             township: User.location.street_number || "未知道路"
         })
+        this.init()
     },
     init() {
         let that = this

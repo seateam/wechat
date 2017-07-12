@@ -86,7 +86,7 @@ Page({
             card.street = result.street
             wx.setStorageSync('userCards', User.cards)
             // 后退
-            wx.redirectTo({
+            wx.reLaunch({
                 url: "../index/e"
             })
         } else {
