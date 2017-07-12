@@ -10,6 +10,7 @@
     box-sizing: border-box;
     height: 40rpx;
     background-color: rgb(248, 248, 248);
+    padding-bottom: 60rpx;
 }
 .location text {
     font-size: 24rpx;
@@ -99,7 +100,6 @@
 
 /* 卡片 */
 .card {
-    margin-top: 60rpx;
     height: 870rpx;
 }
 .card .bg {

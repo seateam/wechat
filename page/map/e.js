@@ -37,9 +37,9 @@ let db = {
             clickable: true,
             position: {
                 left: device(10),
-                top: device(603 - 36 - 31.5),
-                width: device(36),
-                height: device(36)
+                top: device(603 - 40 - 31.5),
+                width: device(40),
+                height: device(40)
             }
         }, {
             id: 2,
@@ -47,9 +47,9 @@ let db = {
             clickable: true,
             position: {
                 left:device(375 / 2 - 25.5),
-                top: device(603 - 51 - 21),
-                width:  device(51),
-                height: device(51)
+                top: device(603 - 59 - 21),
+                width:  device(59),
+                height: device(59)
             }
         }]
 }
@@ -145,7 +145,8 @@ Page({
         let draw = function() {
             // res
             let res = app.res
-            let dot = res.data.around
+            // around
+            let dot = app.around
             var points = [];
             // 路线
             var steps = res.data.info.trafficData.steps

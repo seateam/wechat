@@ -248,6 +248,7 @@ Page({
     initZero() {
         let that = this
         let callback = function(res) {
+            app.around = res.data.point
             // 畅通道路
             let smooth = function() {
                 let arounds = res.data.situation.description.split("；")

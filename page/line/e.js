@@ -405,27 +405,26 @@ Page({
         })
     },
     // 用户分享
-    initJam(res) {
-        // 接口 around 字段停用
-        // let arounds = res.data.around
-        // let arr = []
-        // for (let e of arounds) {
-        //     let name = e.street_number
-        //     let reasons = e.reason.split(',')
-        //     let time = Math.round((Date.now() - e.date) / 1000 / 60)
-        //     for (let i of reasons) {
-        //         arr.push({
-        //             street: name,
-        //             around: lineIcon[i].text,
-        //             time: time
-        //         })
-        //     }
-        // }
-        // if (arr.length) {
-        //     this.setData({
-        //         arounds: arr.slice(0, 5)
-        //     })
-        // }
+    initJam() {
+        let arounds = app.around
+        let arr = []
+        for (let e of arounds) {
+            let name = e.street_number
+            let reasons = e.reason.split(',')
+            let time = Math.round((Date.now() - e.date) / 1000 / 60)
+            for (let i of reasons) {
+                arr.push({
+                    street: name,
+                    around: lineIcon[i].text,
+                    time: time
+                })
+            }
+        }
+        if (arr.length) {
+            this.setData({
+                arounds: arr.slice(0, 5)
+            })
+        }
     },
     // 地图
     bindMap() {
