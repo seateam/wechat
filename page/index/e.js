@@ -37,6 +37,10 @@ Page({
             "距离过长" : {
                 color: "#207ab6",
                 id: "3"
+            },
+            "未知" : {
+                color: "transparent",
+                id: "4"
             }
         },
         status: "未知",

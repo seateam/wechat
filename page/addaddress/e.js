@@ -81,7 +81,7 @@ Page({
             })
         } else {
             if (result.name) {
-                result.jam = "畅"
+                result.jam = "未知"
                 result.start = ""
                 let cards = wx.getStorageSync('userCards')
                 if (cards.length === 0) {
