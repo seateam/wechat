@@ -186,7 +186,7 @@ Page({
         wx.stopPullDownRefresh()
     },
     onReachBottom() {
-
+        //
     },
     data: {
       Bezier: null,
@@ -509,6 +509,18 @@ Page({
         // 起点 终点
         let start = [User.location.longitude, User.location.latitude].join(',')
         let end = User.card.destination
+        let callback = function(res) {
+            wx.hideLoading()
+            if (res.data.code === "200") {
+                that.initTrip(res)
+            } else {
+                wx.showToast({
+                    title: res.data.message || '距离太短',
+                    icon: 'cancel',
+                    duration: 3000
+                })
+            }
+        }
         wx.request({
             url: config.url + '/traffic/situation',
             data: {
@@ -526,18 +538,7 @@ Page({
                 "Content-Type": "application/json",
                 "ucloudtech_3rd_key": User.info.session_key
             },
-            success: function(res) {
-                wx.hideLoading()
-                if (res.data.code === "200") {
-                    that.initTrip(res)
-                } else {
-                    wx.showToast({
-                        title: res.data.message,
-                        icon: 'warn',
-                        duration: 3000
-                    })
-                }
-            },
+            success: callback,
             fail: function(err) {
                 console.log('err',err);
             }

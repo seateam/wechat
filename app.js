@@ -18,21 +18,21 @@ App({
         this.data.onShow = undefined
     },
     fail() {
-        wx.hideLoading()
-        wx.showModal({
-            title: '网络状态异常！',
-            content: '当前网络不可用，请检查您的网络设置',
-            showCancel: false,
-            confirmText: "重试",
-            confirmColor: "#7878FF",
-            success: function(res) {
-                if (res.confirm) {
-                    wx.reLaunch({
-                        url: "../index/e"
-                    })
-                }
-            }
-        })
+        log('网络状态异常！')
+        // wx.showModal({
+        //     title: '网络状态异常！',
+        //     content: '当前网络不可用，请检查您的网络设置',
+        //     showCancel: false,
+        //     confirmText: "重试",
+        //     confirmColor: "#7878FF",
+        //     success: function(res) {
+        //         if (res.confirm) {
+        //             wx.reLaunch({
+        //                 url: "../index/e"
+        //             })
+        //         }
+        //     }
+        // })
     },
     getUserInfo(callback) {
         let that = this

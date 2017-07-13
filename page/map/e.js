@@ -109,6 +109,9 @@ Page({
     onPullDownRefresh: function() {
         wx.stopPullDownRefresh()
     },
+    onReachBottom() {
+        //
+    },
     data: {
         markers: [],
         polyline: [],
