@@ -70,7 +70,7 @@ Page({
         }
     },
     onReachBottom() {
-
+        //
     },
     onLoad() {
         // wx.showLoading({
@@ -262,9 +262,10 @@ Page({
         let that = this
         let callback = function(res) {
             app.around = res.data.point
+            let description = res.data.situation.description
             // 畅通道路
             let smooth = function() {
-                let arounds = res.data.situation.description.split("；")
+                let arounds = description.length ? description.split("；") : []
                 let arr = []
                 for (let i of arounds) {
                     // 去句号
@@ -297,6 +298,7 @@ Page({
             // 畅缓慢挤
             let top = function() {
                 let e = res.data.situation.evaluation
+                let evaluation = e.status.length ? e.status : '0'
                 let traffic = [{
                     text: '未知',
                     color: "#207ab6"
@@ -310,11 +312,12 @@ Page({
                     text: '挤',
                     color: "#207ab6"
                 }]
-                let result = traffic[e.status].text
-                let color = traffic[e.status].color
+                let result = traffic[evaluation].text
+                let color = traffic[evaluation].color
                 if (result) {
                     that.setData({
-                        status: result
+                        status: result,
+                        statusColor: color
                     })
                 } else {
                     let huan = Number(e.congested.replace('%',''))

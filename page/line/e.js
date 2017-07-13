@@ -185,6 +185,9 @@ Page({
         // 停止刷新
         wx.stopPullDownRefresh()
     },
+    onReachBottom() {
+
+    },
     data: {
       Bezier: null,
       card: {
