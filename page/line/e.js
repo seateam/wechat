@@ -231,7 +231,8 @@ Page({
           go: "直行"
       }],
       goIcon: goIcon,
-      start: "启程"
+      start: "启程",
+      startColor: ""
     },
     onLoad(option) {
         let that = this
@@ -262,7 +263,8 @@ Page({
             origin = start
         } else {
             that.setData({
-                start: "结束"
+                start: "结束",
+                startColor: "btn-blue"
             })
         }
         wx.request({
@@ -486,13 +488,15 @@ Page({
                 }
             })
             that.setData({
-                start: "结束"
+                start: "结束",
+                startColor: "btn-blue"
             })
         } else {
             User.cards[User.card.id].start = ''
             wx.setStorageSync('userCards', User.cards)
             that.setData({
-                start: "启程"
+                start: "启程",
+                startColor: ""
             })
         }
     },

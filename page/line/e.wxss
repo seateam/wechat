@@ -65,13 +65,21 @@
 .btn {
     text-align: center;
     display: inline-block;
-    border: 2rpx solid #6464ff;
+    border: 2rpx solid #648cff;
     border-radius: 26rpx;
     width: 96rpx;
     height: 48rpx;
     line-height: 48rpx;
     font-size: 24rpx;
-    color: #6464ff;
+    color: #648cff;
+}
+.btnHover:active {
+    background-color: #648cff;
+    color: white;
+}
+.btn-blue {
+    background-color: #648cff;
+    color: white;
 }
 /* 行程概览 */
 .trip {

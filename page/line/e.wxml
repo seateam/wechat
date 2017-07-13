@@ -21,7 +21,7 @@
 <!-- 行程概览 -->
 <view class="trip">
     <text class="tittle"> 行程概览 </text>
-    <view class="btn" bindtap="bindStart"> {{start}} </view>
+    <view class="btn {{startColor}}" bindtap="bindStart"> {{start}} </view>
     <view class="dot">
         <image src="img/dot@3x.png" />
         <view class="text">
@@ -35,7 +35,7 @@
 <!-- 出行建议 -->
 <view class="suggest">
     <text class="tittle"> 出行建议 </text>
-    <view class="btn" bindtap="bindSuggest"> 避堵 </view>
+    <view class="btn btnHover" bindtap="bindSuggest"> 避堵 </view>
     <view class="sugs">
         <block wx:for="{{sugs}}" wx:for-item="e" wx:key="key">
             <view class="sug">
