@@ -191,8 +191,8 @@ Page({
     data: {
       Bezier: null,
       card: {
-          km: "999",
-          time: "999",
+          km: "0",
+          time: "0",
           jam: "畅",
           icon: "home",
           name: "默认"
@@ -287,29 +287,27 @@ Page({
             success: function(res) {
                 if (res.data.code === "200") {
                     app.res = res
-                    let steps = res.data.info.trafficData.steps
-                    let radio
-                    for(var i = 0; i < steps.length; i++) {
-                        let e = steps[i]
-                        if (e.assistant_action === '到达途经地') {
-                            radio = startRatio(res, i)
-
-                        }
-                    }
-                    let startIndex
-                    if (radio) {
-                        startIndex = parseInt( radio * Bezier.length )
-                    } else {
-                        startIndex = 0
-                    }
-
                     // 画
                     let draw = function() {
-                        User.card.time = Math.round(res.data.info.trafficData.duration / 60 * 10) / 10
-                        User.card.km = Math.round(res.data.info.trafficData.distance / 1000 * 10) / 10
-                        that.setData({
-                            card: User.card
-                        })
+                        let steps = res.data.info.trafficData.steps
+                        let radio
+                        for(var i = 0; i < steps.length; i++) {
+                            let e = steps[i]
+                            if (e.assistant_action === '到达途经地') {
+                                radio = startRatio(res, i)
+                            }
+                        }
+                        let startIndex
+                        if (radio) {
+                            startIndex = parseInt( radio * Bezier.length )
+                        } else {
+                            startIndex = 0
+                        }
+                        // User.card.time = Math.round(res.data.info.trafficData.duration / 60 * 10) / 10
+                        // User.card.km = Math.round(res.data.info.trafficData.distance / 1000 * 10) / 10
+                        // that.setData({
+                        //     card: User.card
+                        // })
                         // 路线上的点 points
                         // 我周围的点 arounds
                         if (Number(res.data.code) !== 200) {
@@ -505,14 +503,92 @@ Page({
         wx.showLoading({
             title: '正在规划'
         })
+        // log("启程与否", User.card.start)
         let that = this
+        let Bezier = getBezier() // 取点
+        let origin = User.card.start
+        if (User.card.start === '') {
+            origin = start
+        } else {
+            that.setData({
+                start: "结束",
+                startColor: "btn-blue"
+            })
+        }
         // 起点 终点
         let start = [User.location.longitude, User.location.latitude].join(',')
         let end = User.card.destination
         let callback = function(res) {
+            app.res = res
             wx.hideLoading()
             if (res.data.code === "200") {
+                app.res = res
+                // 新时间距离
+                User.card.time = Math.round(res.data.info.trafficData.duration / 60 * 10) / 10
+                User.card.km = Math.round(res.data.info.trafficData.distance / 1000 * 10) / 10
+                User.cards[User.card.id] = User.card
+                wx.setStorageSync('userCards', User.cards)
+                that.setData({
+                    card: User.card
+                })
+                // 画
+                let draw = function() {
+                    let steps = res.data.info.trafficData.steps
+                    let radio
+                    for(var i = 0; i < steps.length; i++) {
+                        let e = steps[i]
+                        if (e.assistant_action === '到达途经地') {
+                            radio = startRatio(res, i)
+                        }
+                    }
+                    let startIndex
+                    if (radio) {
+                        startIndex = parseInt( radio * Bezier.length )
+                    } else {
+                        startIndex = 0
+                    }
+                    // 路线上的点 points
+                    // 我周围的点 arounds
+                    if (Number(res.data.code) !== 200) {
+                        return;
+                    }
+                    // 去重 取比例
+                    let ratioArr = getRatio(res)
+                    // 坐标点
+                    let indexArr = []
+                    ratioArr.forEach((e, i) => {
+                        e.index = parseInt( Bezier.length * e.ratio )
+                        indexArr.push(e)
+                    })
+                    // 画线
+                    const ctx = wx.createCanvasContext('myCanvas')
+                    ctx.setLineCap('round')
+                    ctx.setLineWidth(2)
+                    ctx.setStrokeStyle('#4990e2')
+                    let drawBezierPoints = function(arr) {
+                        ctx.moveTo(arr[0].x, arr[0].y)
+                        for (let i of arr) {
+                            ctx.lineTo(i.x, i.y)
+                        }
+                        ctx.stroke()
+                    }(Bezier)
+                    // 画圆点
+                    ctx.beginPath()
+                    ctx.arc(device(35.5), device(119.5), device(4), 0, 2 * Math.PI)
+                    ctx.setFillStyle('#7ed321')
+                    ctx.fill()
+                    ctx.beginPath()
+                    ctx.arc(device(339.5),device(65.5), device(4), 0, 2 * Math.PI)
+                    ctx.setFillStyle('#ff2c46')
+                    ctx.fill()
+                    // 贴图片
+                    that.initImage(startIndex, indexArr, Bezier, ctx)
+                    // over
+                    ctx.draw()
+                }()
+                // 出行建议
                 that.initTrip(res)
+                that.initJam(res)
             } else {
                 wx.showToast({
                     title: res.data.message || '距离太短',

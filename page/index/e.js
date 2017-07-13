@@ -98,7 +98,9 @@ Page({
     onShow() {
         let that = this
         User.location = wx.getStorageSync('userLocation')
+        User.cards = wx.getStorageSync('userCards')
         that.setData({
+            cards: User.cards,
             township: User.location.street_number || "未知道路"
         })
     },
