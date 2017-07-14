@@ -295,6 +295,7 @@ Page({
                             let e = steps[i]
                             if (e.assistant_action === '到达途经地') {
                                 radio = startRatio(res, i)
+                                break
                             }
                         }
                         let startIndex
@@ -519,7 +520,6 @@ Page({
         let start = [User.location.longitude, User.location.latitude].join(',')
         let end = User.card.destination
         let callback = function(res) {
-            app.res = res
             wx.hideLoading()
             if (res.data.code === "200") {
                 app.res = res
@@ -534,19 +534,7 @@ Page({
                 // 画
                 let draw = function() {
                     let steps = res.data.info.trafficData.steps
-                    let radio
-                    for(var i = 0; i < steps.length; i++) {
-                        let e = steps[i]
-                        if (e.assistant_action === '到达途经地') {
-                            radio = startRatio(res, i)
-                        }
-                    }
-                    let startIndex
-                    if (radio) {
-                        startIndex = parseInt( radio * Bezier.length )
-                    } else {
-                        startIndex = 0
-                    }
+                    let startIndex = 0
                     // 路线上的点 points
                     // 我周围的点 arounds
                     if (Number(res.data.code) !== 200) {
@@ -590,11 +578,13 @@ Page({
                 that.initTrip(res)
                 that.initJam(res)
             } else {
-                wx.showToast({
-                    title: res.data.message || '距离太短',
-                    icon: 'cancel',
-                    duration: 3000
-                })
+                setTimeout(function(){
+                    wx.showToast({
+                        title: res.data.message || '距离太短',
+                        icon: 'cancel',
+                        duration: 2200
+                    })
+                }, 300)
             }
         }
         wx.request({

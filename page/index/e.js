@@ -229,11 +229,13 @@ Page({
         if (User.cards.length) {
             let callback = function(res) {
                 res.data.forEach( e => {
-                    let card = User.cards[e.index]
+                    let i = e.index
+                    let info = e.data.info
+                    let card = User.cards[i]
                     if (e.code === 200) {
-                        card.time = Math.round(e.data.info.duration / 60 * 10) / 10
-                        card.km = Math.round(e.data.info.distance / 1000 * 10) / 10
-                        card.jam = deStatus(e.data.info.status)
+                        card.time = Math.round(info.duration / 60 * 10) / 10
+                        card.km = Math.round(info.distance / 1000 * 10) / 10
+                        card.jam = deStatus(info.status)
                     } else if (e.message === "距离过长") {
                         card.jam = e.message
                         card.km = 999
@@ -422,8 +424,12 @@ Page({
                 User.location.street_number = res.name || res.address
                 User.location.longitude = res.longitude
                 User.location.latitude = res.latitude
-                User.location.now = [res.latitude,res.longitude].join(',')
+                User.location.now = [res.latitude, res.longitude].join(',')
                 wx.setStorageSync('userLocation', User.location)
+                for (let e of User.cards) {
+                    e.origin = [res.longitude, res.latitude].join(',')
+                }
+                wx.setStorageSync('userCards', User.cards)
                 that.setData({
                     township: User.location.street_number
                 })
