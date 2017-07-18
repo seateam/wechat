@@ -151,59 +151,61 @@ Page({
             let res = app.res
             // around
             let dot = app.around
-            var points = [];
-            // 路线
-            var steps = res.data.info.trafficData.steps
-            for (var i = 0; i < steps.length; i++) {
-                var poLen = steps[i].polyline.split(';');
-                for (var j = 0; j < poLen.length; j++) {
-                    points.push({
-                        longitude: parseFloat(poLen[j].split(',')[0]),
-                        latitude: parseFloat(poLen[j].split(',')[1])
-                    })
-                }
-            }
-            // 长度
-            let rice = res.data.info.trafficData.distance
-            if (rice < 350000) {
-                that.setData({
-                    polyline: [{
-                        points: points,
-                        color: "#0091ff",
-                        width: 6,
-                        arrowLine: true,
-                        // dottedLine: true
-                    }]
-                })
-            } else {
-                log('超过350km')
-            }
-
-            let arr = db.markers
-            for (let i of dot) {
-                // 判断是否和起始点重复
-                if (i.lon === arr[0].longitude || i.lon === arr[1].longitude) {
-                    if (i.lat === arr[0].latitude || i.lat === arr[1].latitude) {
-                        continue
+            if (res) {
+                var points = [];
+                // 路线
+                var steps = res.data.info.trafficData.steps
+                for (var i = 0; i < steps.length; i++) {
+                    var poLen = steps[i].polyline.split(';');
+                    for (var j = 0; j < poLen.length; j++) {
+                        points.push({
+                            longitude: parseFloat(poLen[j].split(',')[0]),
+                            latitude: parseFloat(poLen[j].split(',')[1])
+                        })
                     }
                 }
-                let icon = lineIcon[0].icon
-                if (i.reason) {
-                    let index = i.reason.split(',')[0]
-                    icon = lineIcon[Number(index) + 1].icon
+                // 长度
+                let rice = res.data.info.trafficData.distance
+                if (rice < 350000) {
+                    that.setData({
+                        polyline: [{
+                            points: points,
+                            color: "#0091ff",
+                            width: 6,
+                            arrowLine: true,
+                            // dottedLine: true
+                        }]
+                    })
+                } else {
+                    log('超过350km')
                 }
-                arr.push({
-                    iconPath: '../line/img/line/' + icon,
-                    id: 1,
-                    latitude: i.lat,
-                    longitude: i.lon,
-                    width: device(44),
-                    height: device(50)
+
+                let arr = db.markers
+                for (let i of dot) {
+                    // 判断是否和起始点重复
+                    if (i.lon === arr[0].longitude || i.lon === arr[1].longitude) {
+                        if (i.lat === arr[0].latitude || i.lat === arr[1].latitude) {
+                            continue
+                        }
+                    }
+                    let icon = lineIcon[0].icon
+                    if (i.reason) {
+                        let index = i.reason.split(',')[0]
+                        icon = lineIcon[Number(index) + 1].icon
+                    }
+                    arr.push({
+                        iconPath: '../line/img/line/' + icon,
+                        id: 1,
+                        latitude: i.lat,
+                        longitude: i.lon,
+                        width: device(44),
+                        height: device(50)
+                    })
+                }
+                that.setData({
+                    markers: arr
                 })
             }
-            that.setData({
-                markers: arr
-            })
         }()
     },
     bindMarks: function() {

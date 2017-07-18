@@ -230,7 +230,7 @@ Page({
             let callback = function(res) {
                 res.data.forEach( e => {
                     let i = e.index
-                    let info = e.data.info
+                    let info = e.info
                     let card = User.cards[i]
                     if (e.code === 200) {
                         card.time = Math.round(info.duration / 60 * 10) / 10
@@ -269,7 +269,7 @@ Page({
     initZero() {
         let that = this
         let callback = function(res) {
-            app.around = res.data.point
+            app.around = res.data.around
             let description = res.data.situation.description
             // 畅通道路
             let smooth = function() {
@@ -343,7 +343,7 @@ Page({
                 }
             }()
             // 用户分享
-            let points = res.data.point
+            let points = res.data.around
             let arr = []
             for (let e of points) {
                 let name = e.street_number
@@ -411,6 +411,8 @@ Page({
     },
     bindCard(e) {
         let id = e.currentTarget.dataset.id
+        var query = wx.createSelectorQuery()
+        query.select('#the-id')
         if (!e.target.dataset.btn) {
             wx.navigateTo({
                 url: "../line/e?id=" + id

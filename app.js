@@ -74,7 +74,11 @@ App({
     getLocation(callback) {
         let that = this
         wx.getLocation({
+            type: "gcj02",
             success: function(res) {
+                if (res.accuracy > 40) {
+                    log('当前GPS信号弱，请行驶到开阔地带')
+                }
                 let location = res
                 location.now = [res.latitude, res.longitude].join(',')
                 let dot = [res.longitude ,res.latitude].join(',')

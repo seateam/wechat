@@ -27,6 +27,10 @@
 }
 .more image ~ text {
     font-size: 28rpx;
+    width:150rpx;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 .more .time {
     box-sizing: border-box;

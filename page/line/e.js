@@ -285,7 +285,7 @@ Page({
                 "ucloudtech_3rd_key": User.info.session_key
             },
             success: function(res) {
-                if (res.data.code === "200") {
+                if (Number(res.data.code) === 200) {
                     app.res = res
                     // 画
                     let draw = function() {
