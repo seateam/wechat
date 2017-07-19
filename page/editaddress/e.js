@@ -1,4 +1,5 @@
 const log = console.log.bind(console)
+const config = require('../../ku/js/config.js')
 // 反转坐标
 const deitude = function(itude) {
     return itude.split(',').reverse().join(',')
@@ -103,6 +104,23 @@ Page({
             confirmColor: "#FF633D",
             success: function(res) {
                 if (res.confirm) {
+                    wx.request({
+                        url: config.url + '/cards/destroy',
+                        data: {
+                            destination: User.cards[index].destination
+                        },
+                        method: "POST",
+                        header: {
+                            "Content-Type": "application/json",
+                            "ucloudtech_3rd_key": wx.getStorageSync('userInfo').session_key
+                        },
+                        success: (res) => {
+                            log(res)
+                        },
+                        fail: (err) => {
+                            log("destroy删除失败",err)
+                        }
+                    })
                     User.cards.splice(index, 1)
                     wx.setStorageSync('userCards', User.cards)
                     wx.redirectTo({
