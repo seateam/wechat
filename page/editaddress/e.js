@@ -123,7 +123,7 @@ Page({
                     })
                     User.cards.splice(index, 1)
                     wx.setStorageSync('userCards', User.cards)
-                    wx.redirectTo({
+                    wx.reLaunch({
                         url: "../index/e"
                     })
                 } else if (res.cancel) {

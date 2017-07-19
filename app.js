@@ -77,11 +77,8 @@ App({
             type: "gcj02",
             success: function(res) {
                 if (res.accuracy > 40) {
-                    wx.showToast({
-                        title: '当前GPS信号弱',
-                        icon: "loading",
-                        duration: 2333
-                    })
+                    // showToast 
+                    log('当前GPS信号弱，请行驶到开阔地带')
                 }
                 let location = res
                 location.now = [res.latitude, res.longitude].join(',')

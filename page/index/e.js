@@ -411,8 +411,6 @@ Page({
     },
     bindCard(e) {
         let id = e.currentTarget.dataset.id
-        var query = wx.createSelectorQuery()
-        query.select('#the-id')
         if (!e.target.dataset.btn) {
             wx.navigateTo({
                 url: "../line/e?id=" + id
