@@ -20,6 +20,9 @@ Page({
         // 停止刷新
         wx.stopPullDownRefresh()
     },
+    onReachBottom() {
+        //
+    },
     onShareAppMessage() {
         return {
             title: '自定义标题',
@@ -118,7 +121,7 @@ Page({
         let dot = {
             type: "Point",
             // 中间点
-            coordinates: [User.location.longitude, User.location.latitude]
+            coordinates: [Number(User.location.longitude), Number(User.location.latitude)]
         }
         let arr = []
         that.data.jam.forEach(function(e, i) {

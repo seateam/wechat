@@ -420,7 +420,7 @@ Page({
             for (let i of reasons) {
                 arr.push({
                     street: name,
-                    around: lineIcon[i].text,
+                    around: lineIcon[Number(i) + 1].text,
                     time: time
                 })
             }

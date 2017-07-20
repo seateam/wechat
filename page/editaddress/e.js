@@ -11,6 +11,9 @@ const result = {
 }
 let User = {}
 Page({
+    onReachBottom() {
+        //
+    },
     data: {
         location: "定位中…",
         checked: 0,

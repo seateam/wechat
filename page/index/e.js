@@ -351,7 +351,7 @@ Page({
                 for (let i of reasons) {
                     arr.push({
                         street: name,
-                        status: zeroReason[i]
+                        status: zeroReason[Number(i) + 1]
                     })
                 }
             }
