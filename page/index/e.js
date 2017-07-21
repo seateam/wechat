@@ -232,7 +232,7 @@ Page({
                     let i = e.index
                     let info = e.info
                     let card = User.cards[i]
-                    if (e.code === 200) {
+                    if (Number(e.code) === 200) {
                         card.time = Math.round(info.duration / 60 * 10) / 10
                         card.km = Math.round(info.distance / 1000 * 10) / 10
                         card.jam = deStatus(info.status)

@@ -182,7 +182,7 @@ const startRatio = (res, i) => {
 let User = {}
 Page({
     onPullDownRefresh: function() {
-        // 停止刷新
+        this.onLoad({id:User.card.id})
         wx.stopPullDownRefresh()
     },
     onReachBottom() {
@@ -452,7 +452,7 @@ Page({
             let start = [User.location.longitude, User.location.latitude].join(',')
             let end = User.card.destination
             let callback = function(res) {
-                if (res.data.code === "200") {
+                if (Number(res.data.code) === 200) {
                     User.card.start = start
                     wx.setStorageSync('userCards', User.cards)
                     log(start, "记录成功！")
@@ -521,7 +521,7 @@ Page({
         let end = User.card.destination
         let callback = function(res) {
             wx.hideLoading()
-            if (res.data.code === "200") {
+            if (Number(res.data.code) === 200) {
                 app.res = res
                 // 新时间距离
                 User.card.time = Math.round(res.data.info.trafficData.duration / 60 * 10) / 10
