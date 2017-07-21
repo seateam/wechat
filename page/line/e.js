@@ -458,8 +458,8 @@ Page({
                     log(start, "记录成功！")
                 } else {
                     wx.showToast({
-                        title: res.data.message,
-                        icon: 'warn',
+                        title: res.data.message || '起点记录错误！',
+                        icon: 'loading',
                         duration: 3000
                     })
                 }
