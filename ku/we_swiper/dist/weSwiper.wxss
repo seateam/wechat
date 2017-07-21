@@ -12,7 +12,7 @@ Page{
     margin-left: auto;
     margin-right: auto;
     position: relative;
-    overflow: inherit;
+    overflow: hidden;
     z-index: 1;
 }
 
