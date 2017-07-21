@@ -581,7 +581,7 @@ Page({
                 setTimeout(function(){
                     wx.showToast({
                         title: res.data.message || '距离太短',
-                        icon: 'cancel',
+                        icon: 'loading',
                         duration: 2200
                     })
                 }, 300)
