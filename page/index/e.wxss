@@ -192,7 +192,6 @@
     top: 100rpx;
     width: 120rpx;
     height: 1066rpx;
-    background-color: pink;
 }
 .iosLeft {
     left: 0;

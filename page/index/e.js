@@ -10,7 +10,8 @@ const zeroReason = ["出现拥堵", "出现交通事故", "积水", "封路", "�
 let User = {
     info: null,
     location: null,
-    cards: []
+    cards: [],
+    weSwiper: null
 }
 Page({
     data: {
@@ -107,10 +108,12 @@ Page({
     },
     init() {
         let that = this
+        // 10.3 以下
         let noSwiper = 'none'
         if (wx.getStorageSync('bigcNoSwiper')) {
             noSwiper = ''
         }
+        //
         that.setData({
             bigcNoSwiper: noSwiper,
             township: User.location.street_number || "未知道路"
@@ -124,7 +127,7 @@ Page({
             slideLength = l + 2
             initialSlide = 1
         }
-        new weSwiper({
+        User.weSwiper = new weSwiper({
             animationViewName: 'animationData',
             slideLength: slideLength,
             initialSlide: initialSlide,
@@ -363,5 +366,25 @@ Page({
                 that.onPullDownRefresh()
             }
         })
+    },
+    bindIOSLeft() {
+        let index = User.weSwiper.activeIndex - 1
+        // 切换至上一个slide slidePrev
+        if (index >= 0) {
+            User.weSwiper.slideTo(index)
+            this.setData({
+                dotNow: User.weSwiper.activeIndex
+            })
+        }
+    },
+    bindIOSRight() {
+        let index = User.weSwiper.activeIndex + 1
+        // 切换至下一个slide slideNext
+        if (index < User.weSwiper.slideLength) {
+            User.weSwiper.slideTo(index)
+            this.setData({
+                dotNow: User.weSwiper.activeIndex
+            })
+        }
     }
 })
