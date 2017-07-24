@@ -118,6 +118,9 @@ Page({
             slideLength = l + 2
             initialSlide = 1
         }
+        if (wx.getStorageSync('bigcNoSwiper')) {
+            log('10.3以下')
+        }
         new weSwiper({
             animationViewName: 'animationData',
             slideLength: slideLength,

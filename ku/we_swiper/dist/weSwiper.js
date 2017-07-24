@@ -11,9 +11,11 @@ let System = device.system.split(' ')
 let v = System[1].split('.')
 if (System[0].toUpperCase() === 'IOS') {
 	if (Number(v[0]) < 10) {
+		wx.setStorageSync('bigcNoSwiper', true)
 		bigcNoSwiper = true
 	} else if (Number(v[0]) === 10) {
 		if (Number(v[1]) < 3) {
+			wx.setStorageSync('bigcNoSwiper', true)
 			bigcNoSwiper = true
 		}
 	}
