@@ -102,13 +102,12 @@ Page({
                         log("routes获取失败",err)
                     }
                 })
-
-                // let cards = wx.getStorageSync('userCards')
-                // if (cards.length === 0) {
-                //     cards = []
-                // }
-                // cards.reverse().push(result)
-                // wx.setStorageSync('userCards', cards.reverse())
+                let cards = wx.getStorageSync('userCards')
+                if (cards.length === 0) {
+                    cards = []
+                }
+                cards.reverse().push(result)
+                wx.setStorageSync('userCards', cards.reverse())
                 // 后退
                 wx.reLaunch({
                     url: "../index/e"
