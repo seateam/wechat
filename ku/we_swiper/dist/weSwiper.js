@@ -9,6 +9,7 @@ var device = wx.getSystemInfoSync(); //  获取设备信息
 let bigcNoSwiper = false
 let System = device.system.split(' ')
 let v = System[1].split('.')
+wx.setStorageSync('bigcNoSwiper', false)
 if (System[0].toUpperCase() === 'IOS') {
 	if (Number(v[0]) < 10) {
 		wx.setStorageSync('bigcNoSwiper', true)

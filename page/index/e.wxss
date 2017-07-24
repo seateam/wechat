@@ -98,7 +98,6 @@
     margin-top: 18rpx;
 }
 
-
 /* 卡片 */
 .card {
     height: 870rpx;
@@ -186,6 +185,20 @@
     width: 2rpx;
     height: 20rpx;
     background-color: rgb(200,200,200);
+}
+
+.ios {
+    position: fixed;
+    top: 100rpx;
+    width: 120rpx;
+    height: 1066rpx;
+    background-color: pink;
+}
+.iosLeft {
+    left: 0;
+}
+.iosRight {
+    right: 0;
 }
 
 /* cardDot */

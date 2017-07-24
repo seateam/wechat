@@ -52,7 +52,8 @@ Page({
         smooth: [{
             street: "",
             status: ""
-        }]
+        }],
+        bigcNoSwiper: 'none'
     },
     onPullDownRefresh() {
         this.initJam()
@@ -106,7 +107,12 @@ Page({
     },
     init() {
         let that = this
+        let noSwiper = 'none'
+        if (wx.getStorageSync('bigcNoSwiper')) {
+            noSwiper = ''
+        }
         that.setData({
+            bigcNoSwiper: noSwiper,
             township: User.location.street_number || "未知道路"
         })
         let l = that.data.cards.length
@@ -117,9 +123,6 @@ Page({
         } else {
             slideLength = l + 2
             initialSlide = 1
-        }
-        if (wx.getStorageSync('bigcNoSwiper')) {
-            log('10.3以下')
         }
         new weSwiper({
             animationViewName: 'animationData',

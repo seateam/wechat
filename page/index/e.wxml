@@ -100,3 +100,6 @@
         <image bindtap="bindReport" class="report" src="img/iconShangbao@3x.png" />
     </view>
 </view>
+
+<view class="ios iosLeft"  style="display:{{bigcNoSwiper}}"></view>
+<view class="ios iosRight" style="display:{{bigcNoSwiper}}"></view>
