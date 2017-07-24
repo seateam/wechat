@@ -129,7 +129,7 @@ Page({
                 arr.push(i)
             }
         })
-        let reason = arr.join(',') || "0"
+        let reason = arr.join(',') || '-1'
         let callback = function(res) {
             if (res.data.code === 200) {
                 wx.showModal({

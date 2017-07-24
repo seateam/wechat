@@ -189,6 +189,7 @@ Page({
     initZero() {
         let that = this
         let callback = function(res) {
+            log(res.data.around)
             app.around = res.data.around
             let description = res.data.situation.description
             // 畅通道路

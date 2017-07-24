@@ -134,17 +134,18 @@ Page({
                             "ucloudtech_3rd_key": wx.getStorageSync('userInfo').session_key
                         },
                         success: (res) => {
-                            log(res)
+                            if (res.data.code === 200) {
+                                // 删除
+                                User.cards.splice(index, 1)
+                                wx.setStorageSync('userCards', User.cards)
+                                wx.reLaunch({
+                                    url: "../index/e"
+                                })
+                            }
                         },
                         fail: (err) => {
                             log("destroy删除失败",err)
                         }
-                    })
-                    // 删除
-                    User.cards.splice(index, 1)
-                    wx.setStorageSync('userCards', User.cards)
-                    wx.reLaunch({
-                        url: "../index/e"
                     })
                 } else if (res.cancel) {
                     console.log('取消')
