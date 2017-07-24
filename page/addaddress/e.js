@@ -1,4 +1,5 @@
 const log = console.log.bind(console)
+const config = require('../../ku/js/config.js')
 // 反转坐标
 const deitude = function(itude) {
     return itude.split(',').reverse().join(',')
@@ -86,12 +87,28 @@ Page({
             if (result.name) {
                 result.jam = "未知"
                 result.start = ""
-                let cards = wx.getStorageSync('userCards')
-                if (cards.length === 0) {
-                    cards = []
-                }
-                cards.reverse().push(result)
-                wx.setStorageSync('userCards', cards.reverse())
+                wx.request({
+                    url: config.url + '/cards/add',
+                    data: result,
+                    method: "POST",
+                    header: {
+                        "Content-Type": "application/json",
+                        "ucloudtech_3rd_key": wx.getStorageSync('userInfo').session_key
+                    },
+                    success: function(res) {
+                        log(res)
+                    },
+                    fail: function(err) {
+                        log("routes获取失败",err)
+                    }
+                })
+
+                // let cards = wx.getStorageSync('userCards')
+                // if (cards.length === 0) {
+                //     cards = []
+                // }
+                // cards.reverse().push(result)
+                // wx.setStorageSync('userCards', cards.reverse())
                 // 后退
                 wx.reLaunch({
                     url: "../index/e"

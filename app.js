@@ -19,20 +19,6 @@ App({
     },
     fail() {
         log('网络状态异常！')
-        // wx.showModal({
-        //     title: '网络状态异常！',
-        //     content: '当前网络不可用，请检查您的网络设置',
-        //     showCancel: false,
-        //     confirmText: "重试",
-        //     confirmColor: "#7878FF",
-        //     success: function(res) {
-        //         if (res.confirm) {
-        //             wx.reLaunch({
-        //                 url: "../index/e"
-        //             })
-        //         }
-        //     }
-        // })
     },
     getUserInfo(callback) {
         let that = this
@@ -42,10 +28,10 @@ App({
                 wx.getUserInfo({
                     withCredentials: false,
                     success: function (res) {
+                        // 获取 ucloud session
                         let userInfo = res.userInfo
                         userInfo.code = code
                         userInfo.rawData = res.rawData
-                        // 获取 ucloud session
                         wx.request({
                             url: config.url + '/login',
                             data: {
@@ -58,9 +44,10 @@ App({
                                 "Content-Type": "application/x-www-form-urlencoded",
                             },
                             success: function(res) {
+                                let cards = res.data.info.cards
                                 userInfo.session_key = res.data.info.session_key
                                 wx.setStorageSync('userInfo', userInfo)
-                                if (typeof callback === 'function') { callback() }
+                                if (typeof callback === 'function') { callback(cards) }
                             },
                             fail: (err) => {that.fail()}
                         })
@@ -77,7 +64,7 @@ App({
             type: "gcj02",
             success: function(res) {
                 if (res.accuracy > 40) {
-                    // showToast 
+                    // showToast
                     log('当前GPS信号弱，请行驶到开阔地带')
                 }
                 let location = res
@@ -113,15 +100,25 @@ App({
         let that = this
         let User = {
             info: wx.getStorageSync('userInfo'),
-            location: wx.getStorageSync('userLocation')
+            location: wx.getStorageSync('userLocation'),
+            cards: wx.getStorageSync('userCards')
         }
         if (User.info && User.location) {
             if (typeof callback === 'function') { callback(User) }
         } else {
-            that.getUserInfo(function() {
-                that.getLocation(function() {
+            that.getLocation(function() {
+                User.location = wx.getStorageSync('userLocation')
+                that.getUserInfo(function(cards) {
+                    // 获取 cards
+                    let now = [User.location.longitude, User.location.latitude].join(',')
+                    for (let i of cards) {
+                        i.origin = now
+                        i.myorigin = now
+                    }
+                    wx.setStorageSync('userCards', cards)
+                    // 读取
                     User.info = wx.getStorageSync('userInfo')
-                    User.location = wx.getStorageSync('userLocation')
+                    User.cards = wx.getStorageSync('userCards')
                     if (typeof callback === 'function') { callback(User) }
                 })
             })

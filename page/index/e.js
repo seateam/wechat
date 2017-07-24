@@ -85,7 +85,7 @@ Page({
         app.login(function(userInfo) {
             User.info = userInfo.info
             User.location = userInfo.location
-            User.cards = wx.getStorageSync('userCards')
+            User.cards = userInfo.cards
             that.setData({
                 cards: User.cards
             })
