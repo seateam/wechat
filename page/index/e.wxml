@@ -101,5 +101,5 @@
     </view>
 </view>
 
-<view class="ios iosLeft"  bindtap="bindIOSLeft"  style="display:{{bigcNoSwiper}}"></view>
-<view class="ios iosRight" bindtap="bindIOSRight" style="display:{{bigcNoSwiper}}"></view>
+<view class="ios iosLeft"  bindtap="bindIOSLeft" ></view>
+<view class="ios iosRight" bindtap="bindIOSRight"></view>

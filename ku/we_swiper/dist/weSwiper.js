@@ -6,21 +6,21 @@
 
 var device = wx.getSystemInfoSync(); //  获取设备信息
 // IOS 10.3 以下
-let bigcNoSwiper = false
-let System = device.system.split(' ')
-let v = System[1].split('.')
-wx.setStorageSync('bigcNoSwiper', false)
-if (System[0].toUpperCase() === 'IOS') {
-	if (Number(v[0]) < 10) {
-		wx.setStorageSync('bigcNoSwiper', true)
-		bigcNoSwiper = true
-	} else if (Number(v[0]) === 10) {
-		if (Number(v[1]) < 3) {
-			wx.setStorageSync('bigcNoSwiper', true)
-			bigcNoSwiper = true
-		}
-	}
-}
+// let bigcNoSwiper = false
+// let System = device.system.split(' ')
+// let v = System[1].split('.')
+// wx.setStorageSync('bigcNoSwiper', false)
+// if (System[0].toUpperCase() === 'IOS') {
+// 	if (Number(v[0]) < 10) {
+// 		wx.setStorageSync('bigcNoSwiper', true)
+// 		bigcNoSwiper = true
+// 	} else if (Number(v[0]) === 10) {
+// 		if (Number(v[1]) < 3) {
+// 			wx.setStorageSync('bigcNoSwiper', true)
+// 			bigcNoSwiper = true
+// 		}
+// 	}
+// }
 
 var DEFAULT = {
   /**
@@ -434,7 +434,7 @@ var weSwiper = function () {
       this.rectDistance = direction === 'horizontal' ? this.width : this.height;
       this.XORY = direction === 'horizontal' ? 'X' : 'Y';
       this.activeIndex = initialSlide; //  将初始页码赋给activeIndex
-      this.noSwiper = bigcNoSwiper; //  阻止手势滑动
+      this.noSwiper = false; //  阻止手势滑动
       this.previousIndex = initialSlide; //  返回上一个活动块的索引，切换前的索引
       this.slideTo(initialSlide, 0);
       typeof autoplay === 'number' && autoplay > 0 && setInterval(function () {

@@ -54,7 +54,7 @@ Page({
             street: "",
             status: ""
         }],
-        bigcNoSwiper: 'none'
+        // bigcNoSwiper: 'none'
     },
     onPullDownRefresh() {
         this.initJam()
@@ -109,13 +109,13 @@ Page({
     init() {
         let that = this
         // 10.3 以下
-        let noSwiper = 'none'
-        if (wx.getStorageSync('bigcNoSwiper')) {
-            noSwiper = ''
-        }
+        // let noSwiper = 'none'
+        // if (wx.getStorageSync('bigcNoSwiper')) {
+        //     noSwiper = ''
+        // }
         //
         that.setData({
-            bigcNoSwiper: noSwiper,
+            // bigcNoSwiper: noSwiper,
             township: User.location.street_number || "未知道路"
         })
         let l = that.data.cards.length
