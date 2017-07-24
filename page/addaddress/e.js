@@ -96,21 +96,22 @@ Page({
                         "ucloudtech_3rd_key": wx.getStorageSync('userInfo').session_key
                     },
                     success: function(res) {
-                        log(res)
+                        if (res.data.code === 200) {
+                            let cards = wx.getStorageSync('userCards')
+                            if (cards.length === 0) {
+                                cards = []
+                            }
+                            cards.reverse().push(result)
+                            wx.setStorageSync('userCards', cards.reverse())
+                            // 后退
+                            wx.reLaunch({
+                                url: "../index/e"
+                            })
+                        }
                     },
                     fail: function(err) {
                         log("routes获取失败",err)
                     }
-                })
-                let cards = wx.getStorageSync('userCards')
-                if (cards.length === 0) {
-                    cards = []
-                }
-                cards.reverse().push(result)
-                wx.setStorageSync('userCards', cards.reverse())
-                // 后退
-                wx.reLaunch({
-                    url: "../index/e"
                 })
             } else {
                 this.setData({

@@ -147,6 +147,7 @@ Page({
         }
         if (User.cards.length) {
             let callback = function(res) {
+                // log("routes", res.data)
                 res.data.forEach( e => {
                     let i = e.index
                     let info = e.info

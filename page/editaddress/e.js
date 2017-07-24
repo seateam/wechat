@@ -84,14 +84,30 @@ Page({
         result.icon = iconArr[i]
         if (result.name) {
             let card =  User.cards[User.id]
+            card.olddestination = card.destination
             card.destination = result.destination
             card.icon = result.icon
             card.name = result.name
             card.street = result.street
-            wx.setStorageSync('userCards', User.cards)
-            // 后退
-            wx.reLaunch({
-                url: "../index/e"
+            wx.request({
+                url: config.url + '/cards/update',
+                data: card,
+                method: "POST",
+                header: {
+                    "Content-Type": "application/json",
+                    "ucloudtech_3rd_key": wx.getStorageSync('userInfo').session_key
+                },
+                success: (res) => {
+                    // 保存
+                    wx.setStorageSync('userCards', User.cards)
+                    // 后退
+                    wx.reLaunch({
+                        url: "../index/e"
+                    })
+                },
+                fail: (err) => {
+                    log("update更新失败",err)
+                }
             })
         } else {
             this.setData({
@@ -124,6 +140,7 @@ Page({
                             log("destroy删除失败",err)
                         }
                     })
+                    // 删除
                     User.cards.splice(index, 1)
                     wx.setStorageSync('userCards', User.cards)
                     wx.reLaunch({
