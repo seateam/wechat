@@ -87,12 +87,6 @@
 .share-box text, .smooth-box text {
     font-size: 30rpx;
     color: #343434;
-    /* 禁止 换行 */
-    white-space: nowrap;
-    /* 隐藏 超出部分 */
-    overflow: hidden;
-    /* 省略号 替代 */
-    text-overflow: ellipsis;
 }
 .share + .share, .smooth + .smooth {
     margin-top: 18rpx;

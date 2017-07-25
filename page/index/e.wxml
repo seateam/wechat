@@ -36,7 +36,7 @@
                             </view>
                         </block>
                     </view>
-                    <text class="tittle"> 畅通道路 </text>
+                    <text class="tittle"> 拥堵道路 </text>
                     <view class="smooth-box">
                         <block wx:for="{{smooth}}" wx:for-item="e" wx:key="key">
                             <view class="smooth">

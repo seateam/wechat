@@ -208,13 +208,14 @@ Page({
                     // 去句号
                     let e = i.replace('。','').split('：')
                     let k = e[1].split('，')
-                    if (k[0].slice(-2) === "畅通") {
+                    log(e, k)
+                    if (k[0].slice(-2) === "拥堵") {
                         arr.push({
                             street: e[0],
                             status: e[1]
                         })
                     } else if (k[1]) {
-                        if (k[0].slice(-2) === "畅通") {
+                        if (k[0].slice(-2) === "拥堵") {
                             arr.push({
                                 street: e[0],
                                 status: e[1]
