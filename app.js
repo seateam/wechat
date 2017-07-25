@@ -8,14 +8,8 @@ App({
         // 开启罗盘
         // wx.startCompass()
     },
-    onShow() {
-        if (this.data.onShow === 'no') {
-        } else {
-            this.getLocation()
-        }
-    },
     onHide() {
-        this.data.onShow = undefined
+        wx.setStorageSync('onShow', true)
     },
     fail() {
         log('网络状态异常！')

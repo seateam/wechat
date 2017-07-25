@@ -236,6 +236,7 @@ Page({
       startColor: ""
     },
     onLoad(option) {
+        wx.setStorageSync('onShow', true)
         let that = this
         User.info = wx.getStorageSync('userInfo')
         User.location = wx.getStorageSync('userLocation')

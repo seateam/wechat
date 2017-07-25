@@ -104,11 +104,15 @@ Page({
     },
     onShow() {
         let that = this
-        app.getLocation(() => {
-            User.location = wx.getStorageSync('userLocation')
-            this.initJam()
-            that.initZero()
-        })
+        if (wx.getStorageSync('onShow') && !User.bindTop) {
+            app.getLocation(() => {
+                User.location = wx.getStorageSync('userLocation')
+                this.initJam()
+                that.initZero()
+            })
+        } else {
+            User.bindTop = false
+        }
         // User.cards = wx.getStorageSync('userCards')
         that.setData({
             // cards: User.cards,
@@ -360,6 +364,8 @@ Page({
         }
     },
     bindTop() {
+        wx.setStorageSync('onShow', false)
+        User.bindTop = true
         let that = this
         wx.chooseLocation({
             success: (res) => {
