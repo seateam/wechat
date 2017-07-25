@@ -99,7 +99,10 @@ Page({
     },
     onShow() {
         let that = this
-        User.location = wx.getStorageSync('userLocation')
+        app.getLocation(() => {
+            User.location = wx.getStorageSync('userLocation')
+            this.initJam()
+        })
         User.cards = wx.getStorageSync('userCards')
         that.setData({
             cards: User.cards,
@@ -208,7 +211,6 @@ Page({
                     // 去句号
                     let e = i.replace('。','').split('：')
                     let k = e[1].split('，')
-                    log(e, k)
                     if (k[0].slice(-2) === "拥堵") {
                         arr.push({
                             street: e[0],
@@ -323,7 +325,10 @@ Page({
     bindRefresh(e) {
         let id = e.currentTarget.dataset.id
         // log('刷新', id)
-        this.initJam()
+        app.getLocation(() => {
+            User.location = wx.getStorageSync('userLocation')
+            this.initJam()
+        })
     },
     bindRefreshZero() {
         this.initZero()
