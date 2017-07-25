@@ -182,6 +182,7 @@ const startRatio = (res, i) => {
 let User = {}
 Page({
     onPullDownRefresh: function() {
+        User.Refresh = true
         this.onLoad({id:User.card.id})
         wx.stopPullDownRefresh()
     },
@@ -287,6 +288,16 @@ Page({
             success: function(res) {
                 if (Number(res.data.code) === 200) {
                     app.res = res
+                    // 新时间距离
+                    // if (User.Refresh) {
+                    //     User.card.time = Math.round(res.data.info.trafficData.duration / 60 * 10) / 10
+                    //     User.card.km = Math.round(res.data.info.trafficData.distance / 1000 * 10) / 10
+                    //     User.cards[User.card.id] = User.card
+                    //     wx.setStorageSync('userCards', User.cards)
+                    //     that.setData({
+                    //         card: User.card
+                    //     })
+                    // }
                     // 画
                     let draw = function() {
                         let steps = res.data.info.trafficData.steps
@@ -304,11 +315,15 @@ Page({
                         } else {
                             startIndex = 0
                         }
-                        // User.card.time = Math.round(res.data.info.trafficData.duration / 60 * 10) / 10
-                        // User.card.km = Math.round(res.data.info.trafficData.distance / 1000 * 10) / 10
-                        // that.setData({
-                        //     card: User.card
-                        // })
+                        // 新时间距离
+                        if (User.Refresh) {
+                            User.card.time = Math.round(res.data.info.trafficData.duration / 60 * 10) / 10
+                            User.card.km = Math.round(res.data.info.trafficData.distance / 1000 * 10) / 10
+                            that.setData({
+                                card: User.card
+                            })
+                            User.Refresh = false
+                        }
                         // 路线上的点 points
                         // 我周围的点 arounds
                         if (Number(res.data.code) !== 200) {

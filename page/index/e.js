@@ -109,9 +109,9 @@ Page({
             this.initJam()
             that.initZero()
         })
-        User.cards = wx.getStorageSync('userCards')
+        // User.cards = wx.getStorageSync('userCards')
         that.setData({
-            cards: User.cards,
+            // cards: User.cards,
             township: User.location.street_number || "未知道路"
         })
     },
@@ -186,6 +186,7 @@ Page({
                     }
                 })
                 that.setData({
+                    township: User.location.street_number || "未知道路",
                     cards: User.cards
                 })
                 wx.setStorageSync('userCards', User.cards)
