@@ -57,9 +57,16 @@ Page({
         // bigcNoSwiper: 'none'
     },
     onPullDownRefresh() {
-        this.initJam()
-        this.initZero()
-        wx.stopPullDownRefresh()
+        let that = this
+        app.getLocation(() => {
+            User.location = wx.getStorageSync('userLocation')
+            that.setData({
+                township: User.location.street_number
+            })
+            this.initJam()
+            this.initZero()
+            wx.stopPullDownRefresh()
+        })
     },
     onShareAppMessage() {
         return {
@@ -92,8 +99,6 @@ Page({
                 cards: User.cards
             })
             that.init()
-            that.initJam()
-            that.initZero()
             // wx.hideLoading()
         })
     },
@@ -102,6 +107,7 @@ Page({
         app.getLocation(() => {
             User.location = wx.getStorageSync('userLocation')
             this.initJam()
+            that.initZero()
         })
         User.cards = wx.getStorageSync('userCards')
         that.setData({
@@ -145,6 +151,11 @@ Page({
     initJam() {
         // 启程与否
         User.cards = wx.getStorageSync('userCards')
+        for (var i = 0; i < User.cards.length; i++) {
+            let e = User.cards[i]
+            e.origin = User.location.origin
+            e.myorigin = User.location.origin
+        }
         let that = this
         let deStatus = function(s) {
             if (s <= 0) {
@@ -322,13 +333,8 @@ Page({
             url: "../report/e"
         })
     },
-    bindRefresh(e) {
-        let id = e.currentTarget.dataset.id
-        // log('刷新', id)
-        app.getLocation(() => {
-            User.location = wx.getStorageSync('userLocation')
-            this.initJam()
-        })
+    bindRefresh() {
+        this.onPullDownRefresh()
     },
     bindRefreshZero() {
         this.initZero()
@@ -360,16 +366,14 @@ Page({
                 User.location.longitude = res.longitude
                 User.location.latitude = res.latitude
                 User.location.now = [res.latitude, res.longitude].join(',')
+                User.location.origin = [res.longitude, res.latitude].join(',')
                 wx.setStorageSync('userLocation', User.location)
-                for (let e of User.cards) {
-                    e.origin = [res.longitude, res.latitude].join(',')
-                }
-                wx.setStorageSync('userCards', User.cards)
                 that.setData({
                     township: User.location.street_number
                 })
                 app.data.onShow = 'no'
-                that.onPullDownRefresh()
+                this.initJam()
+                this.initZero()
             }
         })
     },

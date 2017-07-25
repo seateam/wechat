@@ -69,12 +69,12 @@ App({
                 }
                 let location = res
                 location.now = [res.latitude, res.longitude].join(',')
-                let dot = [res.longitude ,res.latitude].join(',')
+                location.origin = [res.longitude, res.latitude].join(',')
                 wx.request({
                     url: 'https://restapi.amap.com/v3/geocode/regeo?parameters',
                     data: {
                         key: config.web,
-                        location: dot,
+                        location: location.origin,
                     },
                     method: "GET",
                     header: {
@@ -124,7 +124,6 @@ App({
             })
         }
     },
-    // 暂时不用
     direction(du) {
         // 360 / 8 = 45
         if (du >= 338 || du < 23) {
