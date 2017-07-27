@@ -310,7 +310,6 @@ Page({
                     status: "点击下方上报按钮参与分享吧"
                 }]
             }
-            log(arr)
             that.setData({
                 share: arr.slice(0, 3)
             })
