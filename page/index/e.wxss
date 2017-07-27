@@ -68,6 +68,8 @@
     color: #808080;
 }
 .zero-main .circle {
+    vertical-align: middle;
+
     display: inline-block;
     margin-right: 16rpx;
     width: 12rpx;
@@ -81,10 +83,12 @@
     border-bottom: 2rpx solid #d8d8d8;
 }
 .smooth, .share {
-    display: flex;
-    align-items: center;
 }
 .share-box text, .smooth-box text {
+    vertical-align: middle;
+
+    display: inline-block;
+    width:calc(100% - 28rpx);
     font-size: 30rpx;
     color: #343434;
 }
@@ -248,6 +252,7 @@
     background-color: #FFF;
     border-radius: 10rpx;
     box-shadow: 0 9rpx 12rpx 3rpx rgba(0,0,0,0.1);
+    overflow:hidden;
 }
 .we-slide:nth-child(1) {
     margin-left: 94rpx;

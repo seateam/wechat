@@ -226,29 +226,30 @@ Page({
                 for (let i of arounds) {
                     // 去句号
                     let e = i.replace('。','').split('：')
-                    let k = e[1].split('，')
-                    if (k[0].slice(-2) === "拥堵") {
-                        arr.push({
-                            street: e[0],
-                            status: e[1]
-                        })
-                    } else if (k[1]) {
-                        if (k[0].slice(-2) === "拥堵") {
+                    if (e[1].includes('从') && e[1].includes('到')) {
+                    } else if (e[1].includes('附近')) {
+                        if (e[1].split('，').length === 1) {
                             arr.push({
                                 street: e[0],
                                 status: e[1]
                             })
                         }
+                    } else {
+                        arr.push({
+                            street: e[0],
+                            status: e[1]
+                        })
                     }
+
                 }
                 if (arr.length === 0) {
                     arr = [{
-                        street: "",
-                        status: ""
+                        street: "附近的道路看起来比较畅通哦，",
+                        status: "请务必安全驾驶~~~"
                     }]
                 }
                 that.setData({
-                    smooth: arr.slice(0, 3)
+                    smooth: arr
                 })
             }()
             // 畅缓慢挤
@@ -303,6 +304,13 @@ Page({
                     })
                 }
             }
+            if (arr.length === 0) {
+                arr = [{
+                    street: "附近暂时没有用户分享路况，",
+                    status: "点击下方上报按钮参与分享吧"
+                }]
+            }
+            log(arr)
             that.setData({
                 share: arr.slice(0, 3)
             })
