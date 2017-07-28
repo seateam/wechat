@@ -85,7 +85,9 @@ Page({
             })
         } else {
             if (result.name) {
-                result.jam = "未知"
+                result.jam = "畅"
+                result.km = '0'
+                result.time = '0'
                 result.start = ""
                 wx.request({
                     url: config.url + '/cards/add',
@@ -107,6 +109,19 @@ Page({
                             wx.reLaunch({
                                 url: "../index/e"
                             })
+                        } else {
+                            log(res)
+                            wx.showModal({
+                                title: res.data.message,
+                                showCancel: false,
+                                confirmText: "确定",
+                                confirmColor: "#7878FF",
+                                success: function(res) {
+                                    if (res.confirm) {
+
+                                    }
+                                }
+                            })
                         }
                     },
                     fail: function(err) {
@@ -121,7 +136,3 @@ Page({
         }
     }
 })
-
-// 已经超过10张卡片啦，请删除您不常用的地址卡片后再继续添加吧
-
-// 该地址已存在

@@ -427,17 +427,15 @@ Page({
     },
     // 用户分享
     initJam() {
-        let arounds = app.around
+        let points = app.around
         let arr = []
-        for (let e of arounds) {
+        for (let e of points) {
             let name = e.street_number
             let reasons = e.reason.split(',')
-            let time = Math.round((Date.now() - e.date) / 1000 / 60)
             for (let i of reasons) {
                 arr.push({
                     street: name,
-                    around: lineIcon[Number(i) + 1].text,
-                    time: time
+                    status: zeroReason[Number(i) + 1]
                 })
             }
         }

@@ -219,7 +219,7 @@ Page({
         let callback = function(res) {
             app.around = res.data.around
             let description = res.data.situation.description
-            // 畅通道路
+            // 周围路况
             let smooth = function() {
                 let arounds = description.length ? description.split("；") : []
                 let arr = []
@@ -234,7 +234,7 @@ Page({
                                 status: e[1]
                             })
                         }
-                    } else {
+                    } else if ((e[0] + e[1]).length <= 30) {
                         arr.push({
                             street: e[0],
                             status: e[1]
@@ -249,7 +249,7 @@ Page({
                     }]
                 }
                 that.setData({
-                    smooth: arr
+                    smooth: arr.slice(0, 4)
                 })
             }()
             // 畅缓慢挤
