@@ -39,12 +39,12 @@ Page({
                 color: "#207ab6",
                 id: "3"
             },
-            "未知" : {
-                color: "transparent",
-                id: "4"
-            }
+            // "未知" : {
+            //     color: "transparent",
+            //     id: "4"
+            // }
         },
-        status: "未知",
+        status: "畅",
         statusColor: "#207ab6",
         share: [{
             street: "",
