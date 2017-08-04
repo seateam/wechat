@@ -183,8 +183,11 @@ let User = {}
 Page({
     onPullDownRefresh: function() {
         User.Refresh = true
-        this.onLoad({id:User.card.id})
-        wx.stopPullDownRefresh()
+        app.getLocation(() => {
+            User.location = wx.getStorageSync('userLocation')
+            this.onLoad({id:User.card.id})
+            wx.stopPullDownRefresh()
+        })
     },
     onReachBottom() {
         //

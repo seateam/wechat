@@ -11,12 +11,12 @@ polyline 路线
          <image src="img/iconShare@3x.png" />
      </button>
      <map id="topMap"
-         latitude="{{User.location.latitude}}"
-         longitude="{{User.location.longitude}}"
-         scale="16"
-         show-location
-         controls="{{controls}}"
-         bindcontroltap="bindControls"
+        longitude=""
+        latitude=""
+        scale="16"
+        show-location
+        controls="{{controls}}"
+        bindcontroltap="bindControls"
      />
 
      <view class="feel">

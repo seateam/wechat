@@ -25,7 +25,7 @@ Page({
     },
     onShareAppMessage() {
         return {
-            title: '自定义标题',
+            title: '上报路况',
             // path: '/pages/map_route/e',
             success: function(res) {
             // 转发成功
@@ -86,10 +86,17 @@ Page({
         }
     },
     onLoad() {
+        let that = this
+        app.login(function(userInfo) {
+            User.info = userInfo.info
+            User.location = userInfo.location
+            // 使用 wx.createMapContext 获取 map 上下文
+            User.mapCtx = wx.createMapContext('topMap')
+            User.mapCtx.moveToLocation()
+        })
     },
     onReady() {
-        // 使用 wx.createMapContext 获取 map 上下文
-        User.mapCtx = wx.createMapContext('topMap')
+
     },
     bindControls(e) {
         let that = this
@@ -114,8 +121,6 @@ Page({
         })
     },
     bindSend(e) {
-        User.info = wx.getStorageSync('userInfo')
-        User.location = wx.getStorageSync('userLocation')
         // 公司 104.066541,30.572269 -> 升仙湖 104.08171,30.70775
         let that = this
         let dot = {
