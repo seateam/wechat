@@ -1,4 +1,4 @@
-.tan {
+page {
     background-color: rgb(235, 235, 235);
     /*background: rgb(242, 242, 242) url('https://bigc.cc/md/ku/bg.png');*/
 }
@@ -98,7 +98,7 @@
 
 /* 卡片 */
 .card {
-    height: 870rpx;
+    height: 902rpx;
 }
 .card .bg {
     width: 562rpx;
@@ -107,7 +107,7 @@
 .card .refresh {
     position: absolute;
     top: 0;
-    right: 0;
+    right: 94rpx;
     padding:30rpx 32rpx 30rpx 30rpx;
     width: 36rpx;
     height: 40rpx;
@@ -115,7 +115,7 @@
 .card .set {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 94rpx;
     padding: 30rpx 30rpx 30rpx 32rpx;
     width: 40rpx;
     height: 40rpx;
@@ -204,7 +204,7 @@
     justify-content: center;
     align-items: center;
     height: 14rpx;
-    margin-top: 32rpx;
+    /*margin-top: 32rpx;*/
 }
 .dot {
     width: 10rpx;
@@ -232,7 +232,6 @@
 }
 
 /* 卡片样式 */
-@import "../../ku/we_swiper/dist/weSwiper.wxss";
 .we-container {
     overflow: inherit;
 }
@@ -246,7 +245,7 @@
     flex-direction: column;
     align-content: flex-start;
     width: 562rpx;
-    height: 100%;
+    height: 870rpx;
     margin: 0 30rpx;
     box-sizing: border-box;
     background-color: #FFF;

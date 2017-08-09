@@ -95,11 +95,7 @@ Page({
             User.info = userInfo.info
             User.location = userInfo.location
             User.cards = userInfo.cards
-            that.setData({
-                cards: User.cards
-            })
             that.init()
-            // wx.hideLoading()
         })
     },
     onShow() {
@@ -121,35 +117,10 @@ Page({
     },
     init() {
         let that = this
-        // 10.3 以下
-        // let noSwiper = 'none'
-        // if (wx.getStorageSync('bigcNoSwiper')) {
-        //     noSwiper = ''
-        // }
-        //
         that.setData({
-            // bigcNoSwiper: noSwiper,
-            township: User.location.street_number || "未知道路"
-        })
-        let l = that.data.cards.length
-        let slideLength, initialSlide
-        if (l > 3) {
-            slideLength = l + 3
-            initialSlide = 2
-        } else {
-            slideLength = l + 2
-            initialSlide = 1
-        }
-        User.weSwiper = new weSwiper({
-            animationViewName: 'animationData',
-            slideLength: slideLength,
-            initialSlide: initialSlide,
-            width: Math.floor(device(281)) + Math.floor(device(15)) + Math.floor(device(15)),
-            onSlideChangeEnd(weswiper) {
-                that.setData({
-                    dotNow: weswiper.activeIndex
-                })
-            }
+            cards: User.cards,
+            township: User.location.street_number || "未知道路",
+            dotNow: User.cards.length > 3 ? 1 : 0,
         })
     },
     initJam() {
@@ -331,15 +302,6 @@ Page({
             }
         })
     },
-    touchstart(e) {
-        this.weswiper.touchstart(e)
-    },
-    touchmove(e) {
-        this.weswiper.touchmove(e)
-    },
-    touchend(e) {
-        this.weswiper.touchend(e)
-    },
     bindReport() {
         wx.navigateTo({
             url: "../report/e"
@@ -391,24 +353,9 @@ Page({
             }
         })
     },
-    bindIOSLeft() {
-        let index = User.weSwiper.activeIndex - 1
-        // 切换至上一个slide slidePrev
-        if (index >= 0) {
-            User.weSwiper.slideTo(index)
-            this.setData({
-                dotNow: User.weSwiper.activeIndex
-            })
-        }
+    bindChange(e) {
+        this.setData({
+            dotNow: e.detail.current
+        })
     },
-    bindIOSRight() {
-        let index = User.weSwiper.activeIndex + 1
-        // 切换至下一个slide slideNext
-        if (index < User.weSwiper.slideLength) {
-            User.weSwiper.slideTo(index)
-            this.setData({
-                dotNow: User.weSwiper.activeIndex
-            })
-        }
-    }
 })

@@ -90,10 +90,12 @@ Page({
         app.login(function(userInfo) {
             User.info = userInfo.info
             User.location = userInfo.location
-            // 使用 wx.createMapContext 获取 map 上下文
-            User.mapCtx = wx.createMapContext('topMap')
-            User.mapCtx.moveToLocation()
+            that.setData({
+                User: User
+            })
         })
+        // 使用 wx.createMapContext 获取 map 上下文
+        User.mapCtx = wx.createMapContext('topMap')
     },
     onReady() {
 

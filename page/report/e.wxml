@@ -8,11 +8,11 @@ polyline 路线
      <button id="share"
         plain
         open-type="share" >
-         <image src="img/iconShare@3x.png" />
+        <image src="img/iconShare@3x.png" />
      </button>
      <map id="topMap"
-        longitude=""
-        latitude=""
+        latitude="{{User.location.latitude}}"
+        longitude="{{User.location.longitude}}"
         scale="16"
         show-location
         controls="{{controls}}"
