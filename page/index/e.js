@@ -17,7 +17,7 @@ Page({
     data: {
         cards: User.cards,
         township: '定位中…',
-        dotNow: 1,
+        dotNow: 0,
         jam: {
             "畅": {
                 color: "#e9585c",
@@ -120,7 +120,7 @@ Page({
         that.setData({
             cards: User.cards,
             township: User.location.street_number || "未知道路",
-            dotNow: User.cards.length > 3 ? 1 : 0,
+            dotNow: User.cards.length > 3 ? 2 : 1,
         })
     },
     initJam() {
