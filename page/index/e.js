@@ -1,4 +1,3 @@
-import weSwiper from '../../ku/we_swiper/dist/weSwiper'
 const log = console.log.bind(console, '>>>')
 const config = require('../../ku/js/config.js')
 const app = getApp()
@@ -11,7 +10,6 @@ let User = {
     info: null,
     location: null,
     cards: [],
-    weSwiper: null
 }
 Page({
     data: {
