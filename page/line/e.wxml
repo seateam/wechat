@@ -58,8 +58,8 @@
         <block wx:for="{{arounds}}" wx:for-item="e" wx:key="key" >
             <view class="new">
                 <view class="dot"></view>
-                <text> {{e.street}}{{e.around}} </text>
-                <text> {{e.time}}分钟前 </text>
+                <text> {{e.street}}{{e.status}} </text>
+                <text> {{e.mins}} 分钟前 </text>
             </view>
         </block>
     </view>

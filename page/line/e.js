@@ -436,10 +436,12 @@ Page({
         for (let e of points) {
             let name = e.street_number
             let reasons = e.reason.split(',')
+            let mins = parseInt((Date.now() - e.date) / 1000 / 60)
             for (let i of reasons) {
                 arr.push({
                     street: name,
-                    status: zeroReason[Number(i) + 1]
+                    status: zeroReason[Number(i) + 1],
+                    mins: mins
                 })
             }
         }
