@@ -9,6 +9,7 @@ const deviceInfo = wx.getSystemInfoSync().windowWidth
 const device = function(number) {
     return number * 2 * deviceInfo / 750
 }
+const zeroReason = ["出现拥堵", "出现交通事故", "积水", "封路", "正在施工", "道路故障", "出现不文明驾驶"]
 // 贝赛尔曲线
 const getBezier = function() {
     // 新算法

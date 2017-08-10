@@ -199,7 +199,15 @@ Page({
                         latitude: i.lat,
                         longitude: i.lon,
                         width: device(44),
-                        height: device(50)
+                        height: device(50),
+                        callout: {
+                            display: 'BYCLICK',
+                            borderRadius: 5,
+                            padding: 8,
+                            bgColor: '#333',
+                            content: '上报用户：大海\r\n地址：移动互联网创业大厦\r\n路况：拥堵\r\n时间：30分钟前',
+                            color: '#FFF',
+                        },
                     })
                 }
                 that.setData({
