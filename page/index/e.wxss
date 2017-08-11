@@ -256,3 +256,24 @@ page {
 .we-slide:nth-child(1) {
     margin-left: 94rpx;
 }
+
+.ios {
+    z-index: 2;
+    position: fixed;
+    top: 100rpx;
+    width: 34rpx;
+    height: 870rpx;
+    box-shadow: 0 9rpx 12rpx 3rpx rgba(0,0,0,0.1);
+    overflow: hidden;
+    background-color:#FFF;
+}
+.iosLeft {
+    left: 0;
+    border-top-right-radius: 10rpx;
+    border-bottom-right-radius: 10rpx;
+}
+.iosRight {
+    right: 0;
+    border-top-left-radius: 10rpx;
+    border-bottom-left-radius: 10rpx;
+}

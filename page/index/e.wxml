@@ -8,7 +8,10 @@
     <swiper class="card"
         duration="300"
         current="{{dotNow}}"
-        bindchange="bindChange">
+        bindchange="bindChange"
+        bindtouchstart="bindTouchStart"
+        bindtouchend="bindTouchEnd"
+        >
         <!-- 首部添加 -->
         <view wx:if="{{cards.length > 3}}">
             <swiper-item>
@@ -104,3 +107,6 @@
         <image bindtap="bindReport" class="report" src="img/iconShangbao@3x.png" />
     </view>
 </view>
+<!-- 卡片白条 -->
+<view class="ios iosLeft" ></view>
+<view class="ios iosRight"></view>

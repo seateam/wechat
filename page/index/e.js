@@ -52,7 +52,6 @@ Page({
             street: "",
             status: ""
         }],
-        // bigcNoSwiper: 'none'
     },
     onPullDownRefresh() {
         let that = this
@@ -355,5 +354,11 @@ Page({
         this.setData({
             dotNow: e.detail.current
         })
+    },
+    bindTouchStart(e) {
+        // log('滑动开始')
+    },
+    bindTouchEnd(e) {
+        // log('滑动结束')
     },
 })
