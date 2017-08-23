@@ -108,5 +108,5 @@
     </view>
 </view>
 <!-- 卡片白条 -->
-<view class="ios iosLeft" ></view>
-<view class="ios iosRight"></view>
+<view class="ios iosLeft"  style="display:{{iosLeft}}" ></view>
+<view class="ios iosRight" style="display:{{iosRight}}"></view>

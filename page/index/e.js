@@ -13,6 +13,8 @@ let User = {
 }
 Page({
     data: {
+        iosLeft: 'block',
+        iosRight: 'block',
         cards: User.cards,
         township: '定位中…',
         dotNow: 0,
@@ -353,9 +355,32 @@ Page({
         })
     },
     bindChange(e) {
-        this.setData({
-            dotNow: e.detail.current
-        })
+        let that = this
+        let index = e.detail.current
+        let cards = User.cards
+        let length = cards.length > 3 ? cards.length + 2 : cards.length + 1
+        let o = {}
+        o['0'] = function() {
+            that.setData({
+                iosLeft: 'none',
+                dotNow: e.detail.current,
+            })
+        }
+        o[length] = function() {
+            that.setData({
+                iosRight: 'none',
+                dotNow: e.detail.current,
+            })
+        }
+        if (o[index]) {
+            o[index]()
+        } else {
+            that.setData({
+                iosLeft: 'block',
+                iosRight: 'block',
+                dotNow: e.detail.current,
+            })
+        }
     },
     bindTouchStart(e) {
         // log('滑动开始')
