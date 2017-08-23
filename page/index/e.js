@@ -93,6 +93,8 @@ Page({
             User.location = userInfo.location
             User.cards = userInfo.cards
             that.init()
+            that.initJam()
+            that.initZero()
         })
     },
     onShow() {
