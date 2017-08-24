@@ -4,14 +4,14 @@ page {
 }
 /* 地址 */
 .location {
-    padding-bottom: 60rpx;
+    padding-bottom: 40rpx;
 }
 .location-box {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     box-sizing: border-box;
-    height: 40rpx;
+    height: 48rpx;
     background-color: rgb(248, 248, 248);
 }
 .location text {
@@ -41,8 +41,8 @@ page {
     padding: 30rpx;
     box-sizing: border-box;
     height: 150rpx;
-    border-top-right-radius: 10rpx;
-    border-top-left-radius: 10rpx;
+    border-top-right-radius: 14rpx;
+    border-top-left-radius: 14rpx;
     color: rgba(255, 255, 255, 0.85);
 }
 .zero-top text {
@@ -98,11 +98,12 @@ page {
 
 /* 卡片 */
 .card {
-    height: 902rpx;
+    height: 926rpx;
 }
 .card .bg {
-    width: 562rpx;
-    height: 662rpx;
+    position: absolute;
+    width: 590rpx;
+    height: 892rpx;
 }
 .card .refresh {
     position: absolute;
@@ -224,7 +225,7 @@ page {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 34rpx;
+    margin-top: 30rpx;
 }
 .bottom image {
     width: 122rpx;
@@ -244,36 +245,36 @@ page {
     display: flex;
     flex-direction: column;
     align-content: flex-start;
-    width: 562rpx;
-    height: 870rpx;
+    width: 590rpx;
+    height: 892rpx;
     margin: 0 30rpx;
     box-sizing: border-box;
     background-color: #FFF;
-    border-radius: 10rpx;
+    border-radius: 14rpx;
     box-shadow: 0 9rpx 12rpx 3rpx rgba(0,0,0,0.1);
     overflow:hidden;
 }
 .we-slide:nth-child(1) {
-    margin-left: 94rpx;
+    margin-left: 80rpx;
 }
 
 .ios {
     z-index: 2;
     position: fixed;
-    top: 100rpx;
+    top: 88rpx;
     width: 34rpx;
-    height: 870rpx;
+    height: 892rpx;
     box-shadow: 0 9rpx 12rpx 3rpx rgba(0,0,0,0.1);
     overflow: hidden;
     background-color:#FFF;
 }
 .iosLeft {
     left: 0;
-    border-top-right-radius: 10rpx;
-    border-bottom-right-radius: 10rpx;
+    border-top-right-radius: 14rpx;
+    border-bottom-right-radius: 14rpx;
 }
 .iosRight {
     right: 0;
-    border-top-left-radius: 10rpx;
-    border-bottom-left-radius: 10rpx;
+    border-top-left-radius: 14rpx;
+    border-bottom-left-radius: 14rpx;
 }
