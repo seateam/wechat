@@ -99,29 +99,30 @@ page {
 /* 卡片 */
 .card {
     height: 926rpx;
+    color: white;
+    font-size: 40rpx;
 }
 .card .bg {
     position: absolute;
     width: 590rpx;
     height: 892rpx;
 }
-.card .refresh {
-    position: absolute;
-    top: 0;
-    right: 94rpx;
-    padding:30rpx 32rpx 30rpx 30rpx;
-    width: 36rpx;
-    height: 40rpx;
-}
 .card .set {
-    position: absolute;
-    top: 0;
-    left: 94rpx;
-    padding: 30rpx 30rpx 30rpx 32rpx;
     width: 40rpx;
     height: 40rpx;
 }
-.card .jam {
+.card .name {
+    margin-left: 48rpx;
+    margin-top: 40rpx;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 1;
+}
+.name text {
+    width: 412rpx;
+}
+/*.card .jam {
     display: flex;
     justify-content: center;
     height: 80rpx;
@@ -152,12 +153,6 @@ page {
 .more image ~ text {
     font-size: 28rpx;
     width: 116rpx;
-    /* 禁止 换行 */
-    white-space: nowrap;
-    /* 隐藏 超出部分 */
-    overflow: hidden;
-    /* 省略号 替代 */
-    text-overflow: ellipsis;
 }
 .more .time {
     box-sizing: border-box;
@@ -171,7 +166,6 @@ page {
 .more .name {
     display: flex;
     align-items: center;
-    /*justify-content: center;*/
     box-sizing: border-box;
     text-align: left;
     padding-left: 20rpx;
@@ -184,7 +178,7 @@ page {
     width: 2rpx;
     height: 20rpx;
     background-color: rgb(200,200,200);
-}
+}*/
 
 .ios {
     position: fixed;
@@ -251,7 +245,7 @@ page {
     box-sizing: border-box;
     background-color: #FFF;
     border-radius: 14rpx;
-    box-shadow: 0 9rpx 12rpx 3rpx rgba(0,0,0,0.1);
+    box-shadow: 0 9rpx 12rpx 3rpx rgba(0,0,0,0.14);
     overflow:hidden;
 }
 .we-slide:nth-child(1) {
