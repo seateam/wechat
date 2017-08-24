@@ -46,6 +46,7 @@ Page({
         },
         status: "畅",
         statusColor: "#207ab6",
+        weather: '',
         share: [{
             street: "",
             status: ""
@@ -191,6 +192,8 @@ Page({
         let callback = function(res) {
             app.around = res.data.around
             let description = res.data.situation.description
+            let wt = res.data.weather[0]
+            let weather = `${wt.weather} / ${wt.temperature}°C`
             // 周围路况
             let smooth = function() {
                 let arounds = description.length ? description.split("；") : []
@@ -245,6 +248,7 @@ Page({
                 let color = traffic[evaluation].color
                 if (result) {
                     that.setData({
+                        weather: weather,
                         status: result,
                         statusColor: color
                     })
@@ -258,6 +262,7 @@ Page({
                         color = "#2eada3"
                     }
                     that.setData({
+                        weather: weather,
                         status: str,
                         statusColor: color
                     })

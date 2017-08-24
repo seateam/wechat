@@ -38,21 +38,33 @@ page {
 
 .zero-top {
     text-align: left;
-    padding: 30rpx;
     box-sizing: border-box;
-    height: 150rpx;
-    border-top-right-radius: 14rpx;
-    border-top-left-radius: 14rpx;
+    height: 180rpx;
+    border-top-right-radius: 10rpx;
+    border-top-left-radius: 10rpx;
     color: rgba(255, 255, 255, 0.85);
 }
-.zero-top text {
-    font-size: 28rpx;
+.zero-top .weather {
+    margin-top: 16rpx;
+    font-size: 24rpx;
+    line-height: 36rpx;
+    display: flex;
+    justify-content: center;
 }
 .zero-top .bigFont {
     display: block;
+    margin-top: 32rpx;
     text-align: center;
-    font-size: 60rpx;
-    margin-top: -20rpx;
+    font-size: 72rpx;
+    line-height: 80rpx;
+}
+.zero-top .refresh {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 36rpx;
+    height: 40rpx;
+    padding: 36rpx 40rpx;
 }
 
 .zero-main {

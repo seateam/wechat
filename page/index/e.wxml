@@ -25,9 +25,9 @@
         <swiper-item>
             <view class="we-slide">
                 <view class="zero-top" style="background-color:{{statusColor}}">
-                    <text> 周围路况 </text>
                     <image bindtap="bindRefreshZero" class="refresh" src="img/iconRefresh@3x.png" />
-                    <text class="bigFont" > {{status}} </text>
+                    <text class="bigFont">{{status}}</text>
+                    <text class="weather">{{weather}}</text>
                 </view>
                 <view class="zero-main">
                     <text class="tittle"> 用户分享 </text>
