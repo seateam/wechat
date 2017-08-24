@@ -120,55 +120,55 @@ const getRatio = function(res) {
 // 曲线图标
 const lineIcon = [
     {
-        icon: "iconYongdu@3x.png",
+        icon: "iconYongdu.png",
         text: "出现拥堵"
     },
     {
 
-        icon: "iconAccident@3x.png",
+        icon: "iconAccident.png",
         text: "出现交通事故"
     },
     {
 
-        icon: "iconWater@3x.png",
+        icon: "iconWater.png",
         text: "积水"
     },
     {
 
-        icon: "iconFenglu@3x.png",
+        icon: "iconFenglu.png",
         text: "封路"
     },
     {
 
-        icon: "iconShigong@3x.png",
+        icon: "iconShigong.png",
         text: "正在施工"
     },
     {
 
-        icon: "iconHonglvdeng@3x.png",
+        icon: "iconHonglvdeng.png",
         text: "道路故障"
     },
     {
 
-        icon: "iconBuwenmGrey@3x.png",
+        icon: "iconBuwenmGrey.png",
         text: "出现不文明驾驶"
     },
 ]
 const goIcon = {
-    "左转": "iconLeft@3x.png",
-    "右转": "iconRight@3x.png",
-    "向左前方行驶": "iconNearleft@3x.png",
-    "向右前方行驶": "iconNearright@3x.png",
-    "左转调头": "iconTurn@3x.png",
-    "向左后方行驶": "iconTurn@3x.png",
-    "向右后方行驶": "iconTurn@3x.png",
-    "直行": "iconUp@3x.png",
-    "靠左": "iconNearleft@3x.png",
-    "靠右": "iconNearright@3x.png",
-    "进入环岛": "iconHuandao@3x.png",
-    "离开环岛": "iconHuandao@3x.png",
-    "减速行驶": "iconHuandao@3x.png",
-    "插入直行": "iconUp@3x.png",
+    "左转": "iconLeft.png",
+    "右转": "iconRight.png",
+    "向左前方行驶": "iconNearleft.png",
+    "向右前方行驶": "iconNearright.png",
+    "左转调头": "iconTurn.png",
+    "向左后方行驶": "iconTurn.png",
+    "向右后方行驶": "iconTurn.png",
+    "直行": "iconUp.png",
+    "靠左": "iconNearleft.png",
+    "靠右": "iconNearright.png",
+    "进入环岛": "iconHuandao.png",
+    "离开环岛": "iconHuandao.png",
+    "减速行驶": "iconHuandao.png",
+    "插入直行": "iconUp.png",
 }
 // 到达途经地
 const startRatio = (res, i) => {
@@ -399,7 +399,7 @@ Page({
         }
         // 画起点 ( 起点不变
         let e = Bezier[startIndex]
-        ctx.drawImage('img/iconOLoca@3x.png', e.x - device(8), e.y - device(8), device(16), device(16))
+        ctx.drawImage('img/iconOLoca.png', e.x - device(8), e.y - device(8), device(16), device(16))
     },
     // 出行建议
     initTrip(res) {

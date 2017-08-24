@@ -16,7 +16,7 @@
         <view wx:if="{{cards.length > 3}}">
             <swiper-item>
                 <view class="we-slide add" bindtap="bindAdd">
-                    <image src="img/add@3x.png" />
+                    <image src="img/add.png" />
                     <text> 添加目的地 </text>
                 </view>
             </swiper-item>
@@ -25,7 +25,7 @@
         <swiper-item>
             <view class="we-slide">
                 <view class="zero-top" style="background-color:{{statusColor}}">
-                    <image bindtap="bindRefreshZero" class="refresh" src="img/iconRefresh@3x.png" />
+                    <image bindtap="bindRefreshZero" class="refresh" src="img/iconRefresh.png" />
                     <text class="bigFont">{{status}}</text>
                     <text class="weather">{{weather}}</text>
                 </view>
@@ -56,9 +56,9 @@
             <swiper-item>
                 <view class="we-slide" data-id="{{index}}" bindtap="bindCard">
                     <!-- 第三版 -->
-                    <image class="bg" src="img/{{jam[e.jam].id}}/bg@3x.png" />
+                    <image class="bg" src="img/{{jam[e.jam].id}}/bg.png" />
                     <view class="name">
-                        <image data-id="{{index}}" data-btn="true" bindtap="bindSet" class="set" src="img/set@3x.png" />
+                        <image data-id="{{index}}" data-btn="true" bindtap="bindSet" class="set" src="img/set.png" />
                         <text> {{e.name}} </text>
                     </view>
                     <view class="more">
@@ -79,7 +79,7 @@
         <swiper-item>
             <view class="we-slide" bindtap="bindAdd">
                 <view class="add">
-                    <image src="img/add@3x.png" />
+                    <image src="img/add.png" />
                     <text> 添加目的地 </text>
                 </view>
             </view>
@@ -98,7 +98,7 @@
     </view>
 
     <view class="bottom">
-        <image bindtap="bindReport" class="report" src="img/iconShangbao@3x.png" />
+        <image bindtap="bindReport" class="report" src="img/iconShangbao.png" />
     </view>
 </view>
 <!-- 卡片白条 -->

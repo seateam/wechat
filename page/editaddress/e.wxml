@@ -1,10 +1,10 @@
 <view class="location"
     bindtap="bindChoose" >
-    <image src="img/iocnLocation@3x.png" />
+    <image src="img/iocnLocation.png" />
     <text> {{location}} </text>
 </view>
 <view class="location-name">
-    <image src="img/iconName@3x.png" />
+    <image src="img/iconName.png" />
     <input bindblur="bindInputBlur" focus="{{focus}}" value="{{name}}" placeholder="取个名字吧，如：公司" placeholder-style="color:rgb(216, 216, 216)" />
 </view>
 

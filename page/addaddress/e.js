@@ -20,11 +20,11 @@ Page({
         focus: false,
         icon: {
             url: [
-                "iconOriginal@3x.png",
-                "iconHome@3x.png",
-                "iconOffice@3x.png",
-                "iconSchool@3x.png",
-                "iconMarket@3x.png"
+                "iconOriginal.png",
+                "iconHome.png",
+                "iconOffice.png",
+                "iconSchool.png",
+                "iconMarket.png"
             ]
         }
     },

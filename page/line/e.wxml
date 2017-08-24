@@ -1,6 +1,7 @@
 <!-- 简介 -->
 <view class="top">
-    <image class="bg" src="../index/img/{{jam[card.jam].id}}/minibg@3x.png" />
+    <!-- <image class="bg" src="../index/img/{{jam[card.jam].id}}/minibg.png" /> -->
+    <image class="bg" src="../index/img/4/minibg.png" />
     <view class="more" style="color: {{jam[card.jam].color}}">
         <view class="time">
             <text> {{card.time}} </text>
@@ -23,7 +24,7 @@
     <text class="tittle"> 行程概览 </text>
     <view class="btn {{startColor}}" bindtap="bindStart"> {{start}} </view>
     <view class="dot">
-        <image src="img/dot@3x.png" />
+        <image src="img/dot.png" />
         <view class="text">
             <text> {{trip.startS}} </text>
             <text> {{trip.endS}} </text>
@@ -53,7 +54,7 @@
 <!-- 用户分享 -->
 <view class="around">
     <text class="tittle"> 用户分享 </text>
-    <image bindtap="bindMap" src="img/iconMap@3x.png" />
+    <image bindtap="bindMap" src="img/iconMap.png" />
     <view class="news">
         <block wx:for="{{arounds}}" wx:for-item="e" wx:key="key" >
             <view class="new">
@@ -66,5 +67,5 @@
 </view>
 <!-- 上报 -->
 <view class="report">
-    <image bindtap="bindReport" src="../index/img/iconShangbao@3x.png" />
+    <image bindtap="bindReport" src="../index/img/iconShangbao.png" />
 </view>

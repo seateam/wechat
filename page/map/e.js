@@ -17,14 +17,14 @@ let db = {
     myAmapFun: null, // 高德API实例
     mapCtx: null,    // 地图实例
     markers: [{
-        iconPath: 'img/iconQi@3x.png',
+        iconPath: 'img/iconQi.png',
         id: 0,
         latitude:  null,
         longitude: null,
         width: device(30),
         height: device(38)
     }, {
-        iconPath: 'img/iconZhong@3x.png',
+        iconPath: 'img/iconZhong.png',
         id: 1,
         latitude: null,
         longitude: null,
@@ -33,7 +33,7 @@ let db = {
     }],
     controls: [{
             id: 1,
-            iconPath: 'img/iconRelocation@3x.png',
+            iconPath: 'img/iconRelocation.png',
             clickable: true,
             position: {
                 left: device(10),
@@ -43,7 +43,7 @@ let db = {
             }
         }, {
             id: 2,
-            iconPath: 'img/invalidName@3x.png',
+            iconPath: 'img/invalidName.png',
             clickable: true,
             position: {
                 left:device(375 / 2 - 25.5),
@@ -71,37 +71,37 @@ const mapButton = {
 // 曲线图标
 const lineIcon = [
     {
-        icon: "iconYongdu@3x.png",
+        icon: "iconYongdu.png",
         text: "出现拥堵"
     },
     {
 
-        icon: "iconAccident@3x.png",
+        icon: "iconAccident.png",
         text: "出现交通事故"
     },
     {
 
-        icon: "iconWater@3x.png",
+        icon: "iconWater.png",
         text: "积水"
     },
     {
 
-        icon: "iconFenglu@3x.png",
+        icon: "iconFenglu.png",
         text: "封路"
     },
     {
 
-        icon: "iconShigong@3x.png",
+        icon: "iconShigong.png",
         text: "正在施工"
     },
     {
 
-        icon: "iconHonglvdeng@3x.png",
+        icon: "iconHonglvdeng.png",
         text: "道路故障"
     },
     {
 
-        icon: "iconBuwenmGrey@3x.png",
+        icon: "iconBuwenmGrey.png",
         text: "出现不文明驾驶"
     },
 ]

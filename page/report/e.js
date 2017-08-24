@@ -39,7 +39,7 @@ Page({
         User: User,
         controls: [{
             id: 1,
-            iconPath: 'img/iconRelocation@3x.png',
+            iconPath: 'img/iconRelocation.png',
             clickable: true,
             position: {
                 left:device(15),
@@ -51,32 +51,32 @@ Page({
         jam: [
             {
                 checked: false,
-                icon: "iconAccident@3x.png",
+                icon: "iconAccident.png",
                 text: "交通事故"
             },
             {
                 checked: false,
-                icon: "iconWater@3x.png",
+                icon: "iconWater.png",
                 text: "积水"
             },
             {
                 checked: false,
-                icon: "iconFenglu@3x.png",
+                icon: "iconFenglu.png",
                 text: "封路"
             },
             {
                 checked: false,
-                icon: "iconShigong@3x.png",
+                icon: "iconShigong.png",
                 text: "施工"
             },
             {
                 checked: false,
-                icon: "iconHonglvdeng@3x.png",
+                icon: "iconHonglvdeng.png",
                 text: "道路故障"
             },
             {
                 checked: false,
-                icon: "iconBuwenmGrey@3x.png",
+                icon: "iconBuwenmGrey.png",
                 text: "不文明驾驶"
             },
         ],
