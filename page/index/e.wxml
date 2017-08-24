@@ -61,29 +61,17 @@
                         <image data-id="{{index}}" data-btn="true" bindtap="bindSet" class="set" src="img/set@3x.png" />
                         <text> {{e.name}} </text>
                     </view>
-                <!--
-                    <image data-id="{{index}}" data-btn="true" bindtap="bindRefresh"  class="refresh" src="img/iconRefresh@3x.png" />
-                    <view class="jam"  style="color: {{jam[e.jam].color}}">
-                        <text wx:if="{{e.jam.length > 1}}" class="tooLong"> {{e.jam}} </text>
-                        <text wx:else class="text"> {{e.jam}} </text>
-                    </view>
-                    <view class="more" style="color: {{jam[e.jam].color}}">
-                        <view class="time">
-                            <text> {{e.time}} </text>
-                            <text> min </text>
-                        </view>
-                        <view class="division"></view>
+                    <view class="more">
                         <view class="km">
-                            <text> {{e.km}} </text>
-                            <text> km </text>
+                            <text> {{e.km}}公里 </text>
                         </view>
-                        <view class="division"></view>
-                        <view class="name">
-                            <image src="img/{{jam[e.jam].id}}/icon-{{e.icon}}.svg" />
-                            <text> {{e.name}} </text>
+                        <view class="jam">
+                            <text> {{e.jam}} </text>
+                        </view>
+                        <view class="time">
+                            <text> {{e.time}}分钟 </text>
                         </view>
                     </view>
-                -->
                 </view>
             </swiper-item>
         </block>
