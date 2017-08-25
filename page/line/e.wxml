@@ -11,8 +11,9 @@
         </view>
     </view>
 </view>
+
 <!-- 行程概览 -->
-<view class="trip">
+<!-- <view class="trip">
     <text class="tittle"> 行程概览 </text>
     <view class="btn {{startColor}}" bindtap="bindStart"> {{start}} </view>
     <view class="dot">
@@ -22,11 +23,11 @@
             <text> {{trip.endS}} </text>
         </view>
     </view>
-    <!-- 贝塞尔曲线 -->
     <canvas canvas-id="myCanvas" class="line" />
-</view>
+</view> -->
+
 <!-- 出行建议 -->
-<view class="suggest">
+<!-- <view class="suggest">
     <text class="tittle"> 出行建议 </text>
     <view class="btn btnHover" bindtap="bindSuggest"> 避堵 </view>
     <view class="sugs">
@@ -42,9 +43,10 @@
             </view>
         </block>
     </view>
-</view>
+</view> -->
+
 <!-- 用户分享 -->
-<view class="around">
+<!-- <view class="around">
     <text class="tittle"> 用户分享 </text>
     <image bindtap="bindMap" src="img/iconMap.png" />
     <view class="news">
@@ -56,8 +58,9 @@
             </view>
         </block>
     </view>
-</view>
+</view> -->
+
 <!-- 上报 -->
-<view class="report">
-    <image bindtap="bindReport" src="../index/img/iconShangbao.png" />
+<view class="share">
+    <image bindtap="bindShare" src="../index/img/iconShare.png" />
 </view>
