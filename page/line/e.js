@@ -10,113 +10,6 @@ const device = function(number) {
     return number * 2 * deviceInfo / 750
 }
 const zeroReason = ["出现拥堵", "出现交通事故", "积水", "封路", "正在施工", "道路故障", "出现不文明驾驶"]
-// 贝赛尔曲线
-const getBezier = function() {
-    // 新算法
-    // anchorpoints：贝塞尔基点
-    // pointsAmount：生成的点数
-    let CreateBezierPoints = function (anchorpoints, pointsAmount) {
-        var points = [];
-        for (var i = 0; i < pointsAmount; i++) {
-            var point = MultiPointBezier(anchorpoints, i / pointsAmount);
-            points.push(point);
-        }
-        return points;
-    }
-    let MultiPointBezier = function (points, t) {
-        var len = points.length;
-        var x = 0,
-            y = 0;
-        var erxiangshi = function(start, end) {
-            var cs = 1,
-                bcs = 1;
-            while (end > 0) {
-                cs *= start;
-                bcs *= end;
-                start--;
-                end--;
-            }
-            return (cs / bcs);
-        };
-        for (var i = 0; i < len; i++) {
-            var point = points[i];
-            x += point.x * Math.pow((1 - t), (len - 1 - i)) * Math.pow(t, i) * (erxiangshi(len - 1, i));
-            y += point.y * Math.pow((1 - t), (len - 1 - i)) * Math.pow(t, i) * (erxiangshi(len - 1, i));
-        }
-        return {
-            x: x,
-            y: y
-        }
-    }
-    // 实例
-    let arr1 = CreateBezierPoints([
-        {x: device(35.5) ,y: device(119.5)},
-        {x: device(40.5) ,y: device(115)},
-        {x: device(76)   ,y: device(72.5)},
-        {x: device(130.5),y: device(71.5)}
-    ], 100)
-    let arr2 = CreateBezierPoints([
-        {x: device(130.5),y: device(71.5)},
-        {x: device(185)  ,y: device(70.5)},
-        {x: device(203.5),y: device(99.5)},
-        {x: device(251)  ,y: device(101)}
-    ], 100)
-    let arr3 = CreateBezierPoints([
-        {x: device(251)  ,y: device(101)},
-        {x: device(298.5),y: device(102.5)},
-        {x: device(333)  ,y: device(71)},
-        {x: device(339.5),y: device(65.5)}
-    ], 100)
-    let arr = arr1.concat(arr2, arr3)
-    return arr
-}
-const getRatio = function(res) {
-    let steps = Array.from( new Set( res.data.info.trafficData.steps ) )
-    let points = Array.from( new Set( res.data.points ) )
-    let meters = function(i1, i2) {
-        let meter = 0
-        let step = steps.slice(0, i1)
-        // 大路段
-        for (let i of step) {
-            meter += Number(i.distance)
-        }
-        // 子路段
-        let tmcs = steps[i1].tmcs.slice(0, i2)
-        for (let i of tmcs) {
-            meter += Number(i.distance)
-        }
-        return meter
-    }
-    // 去重
-    let dotArr = Array.from( new Set( points ) )
-    for (var i = 0; i < dotArr.length; i++) {
-        let e = dotArr[i]
-        dotArr[i].point = [e.lon,e.lat].join(',')
-    }
-    // 总长
-    let meterAll = Number(res.data.info.trafficData.distance)
-    let temp = ''
-    // 相对位置
-    let arr = []
-    for (var i = 0; i < dotArr.length; i++) {
-        let dot = dotArr[i]
-        // let point = dot.point
-        let point = [dot.tms.lon, dot.tms.lat].join(',')
-        steps.forEach((step, i1) => {
-            step.tmcs.forEach((e, i2) => {
-                // 查找点是否在路径上 （后可扩大范围）
-                if (e.polyline.includes(point) && temp !== point){
-                    temp = point
-                    let meter = meters(i1, i2)
-                    let bili = Math.round(meter / meterAll * 100) / 100
-                    dot.ratio = bili
-                    arr.push(dot)
-                }
-            })
-        })
-    }
-    return arr
-}
 // 曲线图标
 const lineIcon = [
     {
@@ -194,7 +87,6 @@ Page({
         //
     },
     data: {
-      Bezier: null,
       card: {
           km: "0",
           time: "0",
@@ -237,7 +129,8 @@ Page({
       }],
       goIcon: goIcon,
       start: "启程",
-      startColor: ""
+      startColor: "",
+      userImg: "",
     },
     onLoad(option) {
         wx.setStorageSync('onShow', true)
@@ -253,7 +146,8 @@ Page({
             trip: {
                 startS: User.location.street_number || "当前位置",
                 endS: User.card.street
-            }
+            },
+            userImg: User.info.avatarUrl,
         })
         // 起点 终点
         let start = [User.location.longitude, User.location.latitude].join(',')
@@ -263,7 +157,6 @@ Page({
     init(start, end) {
         // log("启程与否", User.card.start)
         let that = this
-        let Bezier = getBezier() // 取点
         let origin = User.card.start
         if (User.card.start === '') {
             origin = start
@@ -293,81 +186,6 @@ Page({
             success: function(res) {
                 if (Number(res.data.code) === 200) {
                     app.res = res
-                    // 新时间距离
-                    // if (User.Refresh) {
-                    //     User.card.time = Math.round(res.data.info.trafficData.duration / 60 * 10) / 10
-                    //     User.card.km = Math.round(res.data.info.trafficData.distance / 1000 * 10) / 10
-                    //     User.cards[User.card.id] = User.card
-                    //     wx.setStorageSync('userCards', User.cards)
-                    //     that.setData({
-                    //         card: User.card
-                    //     })
-                    // }
-                    // 画
-                    let draw = function() {
-                        let steps = res.data.info.trafficData.steps
-                        let radio
-                        for(var i = 0; i < steps.length; i++) {
-                            let e = steps[i]
-                            if (e.assistant_action === '到达途经地') {
-                                radio = startRatio(res, i)
-                                break
-                            }
-                        }
-                        let startIndex
-                        if (radio) {
-                            startIndex = parseInt( radio * Bezier.length )
-                        } else {
-                            startIndex = 0
-                        }
-                        // 新时间距离
-                        if (User.Refresh) {
-                            User.card.time = Math.round(res.data.info.trafficData.duration / 60 * 10) / 10
-                            User.card.km = Math.round(res.data.info.trafficData.distance / 1000 * 10) / 10
-                            that.setData({
-                                card: User.card
-                            })
-                            User.Refresh = false
-                        }
-                        // 路线上的点 points
-                        // 我周围的点 arounds
-                        if (Number(res.data.code) !== 200) {
-                            return;
-                        }
-                        // 去重 取比例
-                        let ratioArr = getRatio(res)
-                        // 坐标点
-                        let indexArr = []
-                        ratioArr.forEach((e, i) => {
-                            e.index = parseInt( Bezier.length * e.ratio )
-                            indexArr.push(e)
-                        })
-                        // 画线
-                        const ctx = wx.createCanvasContext('myCanvas')
-                        ctx.setLineCap('round')
-                        ctx.setLineWidth(2)
-                        ctx.setStrokeStyle('#4990e2')
-                        let drawBezierPoints = function(arr) {
-                            ctx.moveTo(arr[0].x, arr[0].y)
-                            for (let i of arr) {
-                                ctx.lineTo(i.x, i.y)
-                            }
-                            ctx.stroke()
-                        }(Bezier)
-                        // 画圆点
-                        ctx.beginPath()
-                        ctx.arc(device(35.5), device(119.5), device(4), 0, 2 * Math.PI)
-                        ctx.setFillStyle('#7ed321')
-                        ctx.fill()
-                        ctx.beginPath()
-                        ctx.arc(device(339.5),device(65.5), device(4), 0, 2 * Math.PI)
-                        ctx.setFillStyle('#ff2c46')
-                        ctx.fill()
-                        // 贴图片
-                        that.initImage(startIndex, indexArr, Bezier, ctx)
-                        // over
-                        ctx.draw()
-                    }()
                     // 出行建议
                     that.initTrip(res)
                     that.initJam(res)
@@ -379,27 +197,6 @@ Page({
                 console.log('err',err);
             }
         })
-    },
-    initImage(startIndex, indexArr, Bezier, ctx) {
-        // 画气泡
-        for (let i of indexArr) {
-            let index = i.index
-            if (index > 0) {
-                index = index - 1
-            }
-            let e = Bezier[index]
-            let x = Math.round(e.x - device(22))
-            let y = Math.round(e.y - device(50))
-            let icon = lineIcon[0].icon
-            if (i.reason) {
-                let index = i.reason.split(',')[0]
-                icon = lineIcon[Number(index) + 1].icon
-            }
-            ctx.drawImage('img/line/' + icon, x, y, device(44), device(50))
-        }
-        // 画起点 ( 起点不变
-        let e = Bezier[startIndex]
-        ctx.drawImage('img/iconOLoca.png', e.x - device(8), e.y - device(8), device(16), device(16))
     },
     // 出行建议
     initTrip(res) {
@@ -434,20 +231,30 @@ Page({
         let points = app.around
         let arr = []
         for (let e of points) {
-            let name = e.street_number
             let reasons = e.reason.split(',')
             let mins = parseInt((Date.now() - e.date) / 1000 / 60)
+            let uname = User.info.nickName
+            if (uname.length > 5) {
+                uname = uname.slice(0, 5) +  '...'
+            }
             for (let i of reasons) {
+                let sname = e.street_number + '有' + zeroReason[Number(i) + 1]
+                if (sname.length > 19) {
+                    sname = uname.slice(0, 19) +  '...'
+                }
+                if ((uname + sname).length < 16) {
+                    sname += '\n'
+                }
                 arr.push({
-                    street: name,
-                    status: zeroReason[Number(i) + 1],
+                    user: uname,
+                    street: sname,
                     mins: mins
                 })
             }
         }
         if (arr.length) {
             this.setData({
-                arounds: arr.slice(0, 5)
+                arounds: arr
             })
         }
     },
@@ -526,7 +333,6 @@ Page({
         })
         // log("启程与否", User.card.start)
         let that = this
-        let Bezier = getBezier() // 取点
         let origin = User.card.start
         if (User.card.start === '') {
             origin = start
@@ -551,49 +357,6 @@ Page({
                 that.setData({
                     card: User.card
                 })
-                // 画
-                let draw = function() {
-                    let steps = res.data.info.trafficData.steps
-                    let startIndex = 0
-                    // 路线上的点 points
-                    // 我周围的点 arounds
-                    if (Number(res.data.code) !== 200) {
-                        return;
-                    }
-                    // 去重 取比例
-                    let ratioArr = getRatio(res)
-                    // 坐标点
-                    let indexArr = []
-                    ratioArr.forEach((e, i) => {
-                        e.index = parseInt( Bezier.length * e.ratio )
-                        indexArr.push(e)
-                    })
-                    // 画线
-                    const ctx = wx.createCanvasContext('myCanvas')
-                    ctx.setLineCap('round')
-                    ctx.setLineWidth(2)
-                    ctx.setStrokeStyle('#4990e2')
-                    let drawBezierPoints = function(arr) {
-                        ctx.moveTo(arr[0].x, arr[0].y)
-                        for (let i of arr) {
-                            ctx.lineTo(i.x, i.y)
-                        }
-                        ctx.stroke()
-                    }(Bezier)
-                    // 画圆点
-                    ctx.beginPath()
-                    ctx.arc(device(35.5), device(119.5), device(4), 0, 2 * Math.PI)
-                    ctx.setFillStyle('#7ed321')
-                    ctx.fill()
-                    ctx.beginPath()
-                    ctx.arc(device(339.5),device(65.5), device(4), 0, 2 * Math.PI)
-                    ctx.setFillStyle('#ff2c46')
-                    ctx.fill()
-                    // 贴图片
-                    that.initImage(startIndex, indexArr, Bezier, ctx)
-                    // over
-                    ctx.draw()
-                }()
                 // 出行建议
                 that.initTrip(res)
                 that.initJam(res)

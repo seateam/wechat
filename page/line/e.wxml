@@ -12,8 +12,20 @@
     </view>
 </view>
 
+<!-- 用户分享 -->
+<view class="around">
+    <image class="head" src="{{userImg}}" />
+    <view class="new">
+        <text class="new-name">{{arounds[0].user}}</text>
+        <text class="new-location"> 发现{{arounds[0].street}}</text>
+        <text class="new-time">{{arounds[0].mins}}分钟前</text>
+    </view>
+    <image class="more" src="img/more.png" />
+</view>
+
 <!-- 行程概览 -->
 <!-- <view class="trip">
+    <image bindtap="bindMap" src="img/iconMap.png" />
     <text class="tittle"> 行程概览 </text>
     <view class="btn {{startColor}}" bindtap="bindStart"> {{start}} </view>
     <view class="dot">
@@ -40,21 +52,6 @@
                     <text> {{e.road}} </text>
                     <text> ，然后 </text>
                 </view>
-            </view>
-        </block>
-    </view>
-</view> -->
-
-<!-- 用户分享 -->
-<!-- <view class="around">
-    <text class="tittle"> 用户分享 </text>
-    <image bindtap="bindMap" src="img/iconMap.png" />
-    <view class="news">
-        <block wx:for="{{arounds}}" wx:for-item="e" wx:key="key" >
-            <view class="new">
-                <view class="dot"></view>
-                <text> {{e.street}}{{e.status}} </text>
-                <text> {{e.mins}} 分钟前 </text>
             </view>
         </block>
     </view>
