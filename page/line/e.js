@@ -232,7 +232,7 @@ Page({
         let arr = []
         for (let e of points) {
             let reasons = e.reason.split(',')
-            let mins = parseInt((Date.now() - e.date) / 1000 / 60)
+            let mins = String(parseInt((Date.now() - e.date) / 1000 / 60))
             let uname = User.info.nickName
             if (uname.length > 5) {
                 uname = uname.slice(0, 5) +  '...'

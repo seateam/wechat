@@ -38,10 +38,14 @@ page {
     margin: 16rpx 0;
     width: 100%;
     height: 128rpx;
+    background: #fcfcfc;
+}
+.around swiper-item {
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #fcfcfc;
 }
 .around .head {
     border-radius: 50%;

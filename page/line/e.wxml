@@ -13,15 +13,22 @@
 </view>
 
 <!-- 用户分享 -->
-<view class="around">
-    <image class="head" src="{{userImg}}" />
-    <view class="new">
-        <text class="new-name">{{arounds[0].user}}</text>
-        <text class="new-location"> 发现{{arounds[0].street}}</text>
-        <text class="new-time">{{arounds[0].mins}}分钟前</text>
-    </view>
-    <image class="more" src="img/more.png" />
-</view>
+<swiper class="around"
+    vertical
+    autoplay
+    duration="300" >
+    <block wx:for="{{arounds}}" wx:for-item="e" wx:key="key" >
+        <swiper-item>
+            <image class="head" src="{{userImg}}" />
+            <view class="new">
+                <text class="new-name">{{e.user}}</text>
+                <text class="new-location"> 发现{{e.street}}</text>
+                <text class="new-time"> {{e.mins}}分钟前</text>
+            </view>
+            <image class="more" src="img/more.png" />
+        </swiper-item>
+    </block>
+</swiper>
 
 <!-- 行程概览 -->
 <!-- <view class="trip">
