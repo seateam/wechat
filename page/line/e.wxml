@@ -1,21 +1,13 @@
 <!-- 简介 -->
 <view class="top">
-    <!-- <image class="bg" src="../index/img/{{jam[card.jam].id}}/minibg.png" /> -->
-    <image class="bg" src="../index/img/4/minibg.png" />
-    <view class="more" style="color: {{jam[card.jam].color}}">
-        <view class="time">
-            <text> {{card.time}} </text>
-            <text> min </text>
-        </view>
-        <view class="viewision"></view>
-        <view class="km">
-            <text> {{card.km}} </text>
-            <text> km </text>
-        </view>
-        <view class="viewision"></view>
-        <view class="name">
-            <image src="../index/img/{{jam[card.jam].id}}/icon-{{card.icon}}.svg" />
+    <image src="../index/img/{{jam[card.jam].id}}/more.png" />
+    <view class="top-box">
+        <view class="top-name">
             <text> {{card.name}} </text>
+        </view>
+        <view class="top-more">
+            <text class="time">{{card.time}}分钟</text>
+            <text class="km">{{card.km}}公里</text>
         </view>
     </view>
 </view>
