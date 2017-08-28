@@ -3,12 +3,10 @@ page {
 }
 /* 简介 */
 .top {
-    width: 100%;
-    height: 208rpx;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #fcfcfc;
+    height: 208rpx;
 }
 .top image {
     width: 144rpx;
@@ -33,12 +31,28 @@ page {
     margin-right: 40rpx;
 }
 
+.div {
+    margin-top: 16rpx;
+    width: 100%;
+    background: #fcfcfc;
+}
+.div:first-child {
+    margin-top: 0;
+}
 /* 路况播报 */
 .around {
-    margin: 16rpx 0;
-    width: 100%;
     height: 128rpx;
-    background: #fcfcfc;
+}
+.around .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 336rpx;
+    height: 80rpx;
+    border: 2rpx solid #648cff;
+    border-radius: 8rpx;
+    font-size: 32rpx;
+    color: #648cff;
 }
 .around swiper-item {
     width: 100%;

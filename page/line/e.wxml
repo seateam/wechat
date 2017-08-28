@@ -1,5 +1,5 @@
 <!-- 简介 -->
-<view class="top">
+<view class="div top">
     <image src="../index/img/{{jam[card.jam].id}}/more.png" />
     <view class="top-box">
         <view class="top-name">
@@ -13,10 +13,17 @@
 </view>
 
 <!-- 用户分享 -->
-<swiper class="around"
+<swiper class="div around"
     vertical
     autoplay
     duration="300" >
+    <view wx:if="{{arounds.length === 0}}">
+        <swiper-item>
+            <view class="btn">
+                用户分享路况 +
+            </view>
+        </swiper-item>
+    </view>
     <block wx:for="{{arounds}}" wx:for-item="e" wx:key="key" >
         <swiper-item>
             <image class="head" src="{{userImg}}" />
