@@ -8,7 +8,7 @@ const device = function(number) {
     return number * 2 * deviceInfo / 750
 }
 const zeroReason = ["出现拥堵", "出现交通事故", "积水", "封路", "正在施工", "道路故障", "出现不文明驾驶"]
-// 曲线图标
+// 直线图标
 const lineIcon = [
     {
         icon: "iconYongdu.png",
@@ -73,17 +73,6 @@ const startRatio = (res, i) => {
 }
 let User = {}
 Page({
-    onPullDownRefresh: function() {
-        User.Refresh = true
-        app.getLocation(() => {
-            User.location = wx.getStorageSync('userLocation')
-            this.onLoad({id:User.card.id})
-            wx.stopPullDownRefresh()
-        })
-    },
-    onReachBottom() {
-        //
-    },
     data: {
       card: {
           km: "0",
@@ -130,6 +119,17 @@ Page({
       startColor: "",
       userImg: "",
     },
+    onPullDownRefresh: function() {
+        User.Refresh = true
+        app.getLocation(() => {
+            User.location = wx.getStorageSync('userLocation')
+            this.onLoad({id:User.card.id})
+            wx.stopPullDownRefresh()
+        })
+    },
+    onReachBottom() {
+        //
+    },
     onLoad(option) {
         wx.setStorageSync('onShow', true)
         let that = this
@@ -151,8 +151,6 @@ Page({
         let start = [User.location.longitude, User.location.latitude].join(',')
         let end = User.card.destination
         that.init(start, end)
-        let data = new $('#trip-info')
-        log(data)
     },
     init(start, end) {
         // log("启程与否", User.card.start)
@@ -186,9 +184,12 @@ Page({
             success: function(res) {
                 if (Number(res.data.code) === 200) {
                     app.res = res
+                    // 用户分享
+                    that.initJam()
+                    // 行程概览
+                    that.initTrip(res.data.points)
                     // 出行建议
-                    that.initTrip(res)
-                    that.initJam(res)
+                    that.initSuggest(res.data.info.trafficData.steps)
                 } else {
                     log("situation错误", res.data)
                 }
@@ -197,33 +198,8 @@ Page({
                 console.log('err',err);
             }
         })
-    },
-    // 出行建议
-    initTrip(res) {
-        let steps = res.data.info.trafficData.steps
-        let arr = []
-        for (let e of steps) {
-            // log(e.distance, e.action, e.road)
-            if (e.action.length) {
-                if (e.road) {
-                    arr.push({
-                        distance: e.distance,
-                        action: "进入",
-                        road: e.road,
-                        go: e.action
-                    })
-                } else {
-                    arr.push({
-                        distance: e.distance,
-                        action: e.action,
-                        road: "",
-                        go: e.action
-                    })
-                }
-            }
-        }
-        this.setData({
-            sugs: arr.slice(0, 3)
+        $.find('#trip-info').then(res => {
+            log(res)
         })
     },
     // 用户分享
@@ -257,6 +233,37 @@ Page({
                 arounds: arr
             })
         }
+    },
+    // 行程概览
+    initTrip(points) {
+        log(points)
+    },
+    // 出行建议
+    initSuggest(steps) {
+        let arr = []
+        for (let e of steps) {
+            // log(e.distance, e.action, e.road)
+            if (e.action.length) {
+                if (e.road) {
+                    arr.push({
+                        distance: e.distance,
+                        action: "进入",
+                        road: e.road,
+                        go: e.action
+                    })
+                } else {
+                    arr.push({
+                        distance: e.distance,
+                        action: e.action,
+                        road: "",
+                        go: e.action
+                    })
+                }
+            }
+        }
+        this.setData({
+            sugs: arr.slice(0, 3)
+        })
     },
     // 地图
     bindMap() {

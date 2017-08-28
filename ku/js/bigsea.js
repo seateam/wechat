@@ -1,5 +1,6 @@
 class $ {
     constructor(select) {
+        this.deviceInfo = wx.getSystemInfoSync().windowWidth
         this.res = new Promise(function(resolve, reject) {
             wx.createSelectorQuery().select(select).boundingClientRect(res => {
                 resolve(res)
