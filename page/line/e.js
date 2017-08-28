@@ -85,6 +85,20 @@ Page({
           startS: "起点",
           endS: "终点"
       },
+      lines: [
+          {
+              x: 220,
+              icon: "iconHonglvdeng.png",
+              info: '枪响了',
+              checked: true,
+          },
+          {
+              x: 40,
+              icon: "iconHonglvdeng.png",
+              info: '天府二街发生车祸',
+              checked: false,
+          },
+      ],
       jam: {
           "畅": {
               color: "#e9585c",
