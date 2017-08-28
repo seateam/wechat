@@ -1,9 +1,6 @@
 const log = console.log.bind(console)
 const config = require('../../ku/js/config.js')
-// 反转坐标
-const deitude = function(itude) {
-    return itude.split(',').reverse().join(',')
-}
+const $ = require('../../ku/js/bigsea.js')
 const iconArr = ["original", "home", "office", "school", "market"]
 const result = {
     name: null,
@@ -37,7 +34,7 @@ Page({
         User.cards = wx.getStorageSync('userCards')
         let card = User.cards[User.id]
         User.location = wx.getStorageSync('userLocation')
-        let now = deitude(User.location.now)
+        let now = $.deitude(User.location.now)
         // 目的地
         result.destination = card.destination
         result.origin = now
@@ -62,7 +59,7 @@ Page({
             success: (res) => {
                 let name = res.name || res.address
                 let dot = [res.latitude,res.longitude].join(',')
-                result.destination = deitude(dot)
+                result.destination = $.deitude(dot)
                 result.street = name
                 that.setData({
                     location: name

@@ -52,6 +52,12 @@
             <text> {{trip.endS}} </text>
         </view>
     </view>
+    <view class="trip-line">
+        <image class="big" style="left:220rpx" src="img/line/iconHonglvdeng.png" />
+        <image class="small" style="left:40rpx" src="img/line/iconYongdu.png" />
+        <view class="trip-triangle" style="left:90rpx"></view>
+        <text id="trip-info" style="left:90rpx">天府二街发生车祸</text>
+    </view>
 </view>
 
 <!-- 出行建议 -->

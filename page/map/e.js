@@ -2,10 +2,6 @@ const log = console.log.bind(console)
 const amapFile = require('../../ku/js/amap-wx.js')
 const config = require('../../ku/js/config.js')
 const app = getApp()
-// 反转坐标
-const deitude = function(itude) {
-    return itude.split(',').reverse().join(',')
-}
 // 自适应宽度
 const deviceInfo = wx.getSystemInfoSync().windowWidth
 const device = function(number) {

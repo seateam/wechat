@@ -1,6 +1,15 @@
 page {
     background: #e6e6e6;
 }
+.div {
+    margin-top: 16rpx;
+    width: 100%;
+    background: #fcfcfc;
+}
+.div:first-child {
+    margin-top: 0;
+}
+
 /* 简介 */
 .top {
     display: flex;
@@ -31,14 +40,6 @@ page {
     margin-right: 40rpx;
 }
 
-.div {
-    margin-top: 16rpx;
-    width: 100%;
-    background: #fcfcfc;
-}
-.div:first-child {
-    margin-top: 0;
-}
 /* 用户分享 */
 .around {
     height: 128rpx;
@@ -88,7 +89,8 @@ page {
     width: 21rpx;
     height: 36rpx;
 }
-/*行程概览*/
+
+/* 行程概览 */
 .trip-tittle {
     font-size: 32rpx;
     font-weight: bolder;
@@ -133,6 +135,48 @@ page {
 }
 .trip-dot text + text {
     margin-top: 20rpx;
+}
+
+.trip-line {
+    position: relative;
+    margin: 106rpx auto 84rpx;
+    padding: 0 12rpx;
+    width: 630rpx;
+    height: 16rpx;
+    border-radius: 12rpx;
+    background: #9bbcef;
+}
+.trip-line image {
+    position: absolute;
+    bottom: 8rpx;
+}
+.trip-line image.big {
+    margin-left: -44rpx;
+    width: 88rpx;
+    height: 100rpx;
+}
+.trip-line image.small {
+    margin-left: -22rpx;
+    width: 44rpx;
+    height: 50rpx;
+}
+.trip-triangle {
+    position: absolute;
+    top: 16rpx;
+    margin-left: -8rpx;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 8rpx 12rpx 8rpx;
+    border-color: transparent transparent #ff643d transparent;
+}
+#trip-info {
+    display: block;
+    position: absolute;
+    top: 36rpx;
+
+    text-align: center;
+    color: #ff643d;
 }
 
 /* 分享 */

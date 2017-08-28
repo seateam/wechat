@@ -1,9 +1,7 @@
 const log = console.log.bind(console)
 const config = require('../../ku/js/config.js')
+const $ = require('../../ku/js/bigsea.js')
 const app = getApp()
-const deitude = function(itude) {
-    return itude.split(',').reverse().join(',')
-}
 // 自适应宽度
 const deviceInfo = wx.getSystemInfoSync().windowWidth
 const device = function(number) {
@@ -153,6 +151,8 @@ Page({
         let start = [User.location.longitude, User.location.latitude].join(',')
         let end = User.card.destination
         that.init(start, end)
+        let data = new $('#trip-info')
+        log(data)
     },
     init(start, end) {
         // log("启程与否", User.card.start)

@@ -1,9 +1,6 @@
 const log = console.log.bind(console)
 const config = require('../../ku/js/config.js')
-// 反转坐标
-const deitude = function(itude) {
-    return itude.split(',').reverse().join(',')
-}
+const $ = require('../../ku/js/bigsea.js')
 const iconArr = ["original", "home", "office", "school", "market"]
 const result = {
     name: null,
