@@ -55,12 +55,12 @@
     <view class="trip-line">
         <block wx:for="{{lines}}" wx:for-item="e" wx:key="key">
             <view wx:if="{{e.checked}}">
-                <image class="big" style="left:{{e.x}}rpx" src="img/line/{{e.icon}}" />
-                <view class="trip-triangle" style="left:{{e.x}}rpx"></view>
-                <text id="trip-info" style="left:{{e.x}}rpx">天府二街发生车祸</text>
+                <image class="big" style="left:{{e.x}}px" src="img/line/{{e.icon}}" />
+                <view class="trip-triangle" style="left:{{e.x}}px"></view>
+                <text class="trip-info">{{e.messgae}}</text>
             </view>
             <view wx:else >
-                <image class="small" style="left:{{e.x}}rpx" src="img/line/{{e.icon}}" />
+                <image class="small" style="left:{{e.x}}px" src="img/line/{{e.icon}}" />
             </view>
         </block>
     </view>

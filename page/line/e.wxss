@@ -140,7 +140,6 @@ page {
 .trip-line {
     position: relative;
     margin: 106rpx auto 84rpx;
-    padding: 0 12rpx;
     width: 630rpx;
     height: 16rpx;
     border-radius: 12rpx;
@@ -151,31 +150,35 @@ page {
     bottom: 8rpx;
 }
 .trip-line image.big {
-    margin-left: -44rpx;
+    /* -44 + 12*/
+    margin-left: -32rpx;
     width: 88rpx;
     height: 100rpx;
 }
 .trip-line image.small {
-    margin-left: -22rpx;
+    /* -22 + 12*/
+    margin-left: -10rpx;
     width: 44rpx;
     height: 50rpx;
 }
 .trip-triangle {
+    /* -8 + 12*/
+    margin-left: 4rpx;
     position: absolute;
     top: 16rpx;
-    margin-left: -8rpx;
     width: 0;
     height: 0;
     border-style: solid;
     border-width: 0 8rpx 12rpx 8rpx;
     border-color: transparent transparent #ff643d transparent;
 }
-#trip-info {
-    display: block;
+.trip-info {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
     position: absolute;
     top: 36rpx;
-
-    text-align: center;
     color: #ff643d;
 }
 

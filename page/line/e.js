@@ -61,16 +61,6 @@ const goIcon = {
     "减速行驶": "iconHuandao.png",
     "插入直行": "iconUp.png",
 }
-// 到达途经地
-const startRatio = (res, i) => {
-    let meterAll = res.data.info.trafficData.distance
-    let steps = res.data.info.trafficData.steps.slice(0, i)
-    let meter = 0
-    for (let e of steps) {
-        meter += Number(e.distance)
-    }
-    return Math.round(meter / meterAll * 100) / 100
-}
 let User = {}
 Page({
     data: {
@@ -201,7 +191,7 @@ Page({
                     // 用户分享
                     that.initJam()
                     // 行程概览
-                    that.initTrip(res.data.points)
+                    that.initTrip(res)
                     // 出行建议
                     that.initSuggest(res.data.info.trafficData.steps)
                 } else {
@@ -211,9 +201,6 @@ Page({
             fail: function(err) {
                 console.log('err',err);
             }
-        })
-        $.find('#trip-info').then(res => {
-            log(res)
         })
     },
     // 用户分享
@@ -249,8 +236,82 @@ Page({
         }
     },
     // 行程概览
-    initTrip(points) {
-        log(points)
+    initTrip(res) {
+        let that = this
+        let lineWidth = 315
+        let getRatio = function(res) {
+            let steps = Array.from( new Set( res.data.info.trafficData.steps ) )
+            let points = Array.from( new Set( res.data.points ) )
+            let meters = function(i1, i2) {
+                let meter = 0
+                let step = steps.slice(0, i1)
+                // 大路段
+                for (let i of step) {
+                    meter += Number(i.distance)
+                }
+                // 子路段
+                let tmcs = steps[i1].tmcs.slice(0, i2)
+                for (let i of tmcs) {
+                    meter += Number(i.distance)
+                }
+                return meter
+            }
+            // 去重
+            let dotArr = Array.from( new Set( points ) )
+            for (var i = 0; i < dotArr.length; i++) {
+                let e = dotArr[i]
+                dotArr[i].point = [e.lon,e.lat].join(',')
+            }
+            // 总长
+            let meterAll = Number(res.data.info.trafficData.distance)
+            let temp = ''
+            // 相对位置
+            let arr = []
+            for (var i = 0; i < dotArr.length; i++) {
+                let dot = dotArr[i]
+                // let point = dot.point
+                let point = [dot.tms.lon, dot.tms.lat].join(',')
+                steps.forEach((step, i1) => {
+                    step.tmcs.forEach((e, i2) => {
+                        // 查找点是否在路径上 （后可扩大范围）
+                        if (e.polyline.includes(point) && temp !== point){
+                            temp = point
+                            let meter = meters(i1, i2)
+                            let bili = Math.round(meter / meterAll * 100) / 100
+                            dot.ratio = bili
+                            dot.x = Math.round(lineWidth * bili)
+                            arr.push(dot)
+                        }
+                    })
+                })
+            }
+            return arr
+        }
+        let lines = []
+        let first = true
+        for (let e of getRatio(res)) {
+            let index = Number(e.reason.split(',')[0]) + 1
+            let reason = lineIcon[index]
+            // 判断info坐标
+            if (e.x > 315 - 12) {
+                e.x = 315 - 12
+            }
+            let checked = false
+            if (first) {
+                checked = true
+                first = false
+            }
+            let o = {
+                messgae: e.street_number + '出现' + reason.text,
+                icon: reason.icon,
+                x: device(e.x),
+                checked: checked,
+            }
+            lines.push(o)
+        }
+        that.setData({
+            lines: lines
+        })
     },
     // 出行建议
     initSuggest(steps) {
@@ -291,127 +352,4 @@ Page({
             url: "../report/e"
         })
     },
-    // 启程
-    bindStart() {
-        let that = this
-        let isStart = User.card.start ? true : false
-        if (that.data.start === '启程') {
-            // 起点 终点
-            let start = [User.location.longitude, User.location.latitude].join(',')
-            let end = User.card.destination
-            let callback = function(res) {
-                if (Number(res.data.code) === 200) {
-                    User.card.start = start
-                    wx.setStorageSync('userCards', User.cards)
-                    log(start, "记录成功！")
-                } else {
-                    wx.showToast({
-                        title: res.data.message || '起点记录错误！',
-                        icon: 'loading',
-                        duration: 3000
-                    })
-                }
-            }
-            wx.request({
-                url: config.url + '/traffic/situation',
-                data: {
-                    // 我的位置
-                    myorigin: start,
-                    // 出发点
-                    origin: start,
-                    // 目的地
-                    destination: end,
-                    isGetRouts: false,
-                    isStart: isStart
-                },
-                method: "POST",
-                header: {
-                    "Content-Type": "application/json",
-                    "ucloudtech_3rd_key": User.info.session_key
-                },
-                success: callback,
-                fail: function(err) {
-                    console.log('err',err);
-                }
-            })
-            that.setData({
-                start: "结束",
-                startColor: "btn-blue"
-            })
-        } else {
-            User.cards[User.card.id].start = ''
-            wx.setStorageSync('userCards', User.cards)
-            that.setData({
-                start: "启程",
-                startColor: ""
-            })
-        }
-    },
-    // 避堵
-    bindSuggest() {
-        wx.showLoading({
-            title: '正在规划'
-        })
-        // log("启程与否", User.card.start)
-        let that = this
-        let origin = User.card.start
-        if (User.card.start === '') {
-            origin = start
-        } else {
-            that.setData({
-                start: "结束",
-                startColor: "btn-blue"
-            })
-        }
-        // 起点 终点
-        let start = [User.location.longitude, User.location.latitude].join(',')
-        let end = User.card.destination
-        let callback = function(res) {
-            wx.hideLoading()
-            if (Number(res.data.code) === 200) {
-                app.res = res
-                // 新时间距离
-                User.card.time = Math.round(res.data.info.trafficData.duration / 60 * 10) / 10
-                User.card.km = Math.round(res.data.info.trafficData.distance / 1000 * 10) / 10
-                User.cards[User.card.id] = User.card
-                wx.setStorageSync('userCards', User.cards)
-                that.setData({
-                    card: User.card
-                })
-                // 出行建议
-                that.initTrip(res)
-                that.initJam(res)
-            } else {
-                setTimeout(function(){
-                    wx.showToast({
-                        title: res.data.message || '距离太短',
-                        icon: 'loading',
-                        duration: 2200
-                    })
-                }, 300)
-            }
-        }
-        wx.request({
-            url: config.url + '/traffic/situation',
-            data: {
-                // 我的位置
-                myorigin: start,
-                // 出发点
-                origin: start,
-                // 目的地
-                destination: end,
-                isGetRouts: true,
-                isStart: false,
-            },
-            method: "POST",
-            header: {
-                "Content-Type": "application/json",
-                "ucloudtech_3rd_key": User.info.session_key
-            },
-            success: callback,
-            fail: function(err) {
-                console.log('err',err);
-            }
-        })
-    }
 })
