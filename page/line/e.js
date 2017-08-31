@@ -79,13 +79,19 @@ Page({
           {
               x: 220,
               icon: "iconHonglvdeng.png",
-              info: '枪响了',
+              messgae: '枪响了',
               checked: true,
           },
           {
               x: 40,
               icon: "iconHonglvdeng.png",
-              info: '天府二街发生车祸',
+              messgae: '天府二街发生车祸',
+              checked: false,
+          },
+          {
+              x: 90,
+              icon: "iconHonglvdeng.png",
+              messgae: '双拥路出现晚霞流光溢彩',
               checked: false,
           },
       ],
@@ -168,6 +174,15 @@ Page({
                 startColor: "btn-blue"
             })
         }
+        let callback = function(res) {
+            app.res = res
+            // 用户分享
+            that.initJam()
+            // 行程概览
+            // that.initTrip(res)
+            // 出行建议
+            that.initSuggest(res.data.info.trafficData.steps)
+        }
         wx.request({
             url: config.url + '/traffic/situation',
             data: {
@@ -187,13 +202,7 @@ Page({
             },
             success: function(res) {
                 if (Number(res.data.code) === 200) {
-                    app.res = res
-                    // 用户分享
-                    that.initJam()
-                    // 行程概览
-                    that.initTrip(res)
-                    // 出行建议
-                    that.initSuggest(res.data.info.trafficData.steps)
+                    callback(res)
                 } else {
                     log("situation错误", res.data)
                 }
@@ -350,6 +359,22 @@ Page({
     bindReport() {
         wx.navigateTo({
             url: "../report/e"
+        })
+    },
+    // Line
+    bindLine(event) {
+        let index = event.currentTarget.dataset.id
+        let arr = this.data.lines
+        for(let i = 0; i < arr.length; i++) {
+            let e = arr[i]
+            if (i === index) {
+                e.checked = true
+            } else {
+                e.checked = false
+            }
+        }
+        this.setData({
+            lines: arr
         })
     },
 })

@@ -59,7 +59,7 @@
                 <view class="trip-triangle" style="left:{{e.x}}px"></view>
                 <text class="trip-info">{{e.messgae}}</text>
             </view>
-            <view wx:else >
+            <view wx:else bindtap="bindLine" data-id="{{index}}">
                 <image class="small" style="left:{{e.x}}px" src="img/line/{{e.icon}}" />
             </view>
         </block>
