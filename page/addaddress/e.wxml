@@ -8,22 +8,6 @@
     <input bindblur="bindInputBlur" focus="{{focus}}" placeholder="取个名字吧，如：公司" placeholder-style="color:rgb(216, 216, 216)" />
 </view>
 
-<view class="location-icon">
-    <block wx:for="{{icon.url}}" wx:key="key" >
-        <view wx:if="{{checked === index}}"
-            bindtap="bindIcon"
-            data-index="{{index}}" >
-            <image src="img/1/{{item}}" />
-        </view>
-        <view wx:else
-            bindtap="bindIcon"
-            data-index="{{index}}" >
-            <image src="img/0/{{item}}" />
-        </view>
-
-    </block>
-</view>
-
 <view class="location-btn">
     <view class="btn" > 删除 </view>
     <view class="btn" bindtap="bindAdd"> 保存 </view>

@@ -39,18 +39,6 @@
     letter-spacing: 1rpx;
 }
 
-.location-icon {
-    display: flex;
-    justify-content: space-between;
-
-    margin-top: 90rpx;
-    width: 610rpx;
-}
-.location-icon image {
-    width: 90rpx;
-    height: 90rpx;
-}
-
 .location-btn {
     display: flex;
     justify-content: center;
