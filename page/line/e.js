@@ -168,7 +168,7 @@ Page({
         let end = User.card.destination
         that.init(start, end)
     },
-    init(start, end) {
+    init(start, end, isGetRouts) {
         // log("启程与否", User.card.start)
         let that = this
         let origin = User.card.start
@@ -185,9 +185,9 @@ Page({
             // 用户分享
             that.initJam()
             // 行程概览
-            that.initTrip(res)
+            that.initTrip()
             // 出行建议
-            that.initSuggest(res.data.info.trafficData.steps)
+            that.initSuggest()
         }
         wx.request({
             url: config.url + '/traffic/situation',
@@ -198,8 +198,8 @@ Page({
                 origin: origin,
                 // 目的地
                 destination: end,
-                isGetRouts: false,
-                isStart: Boolean(User.card.start),
+                isGetRouts: isGetRouts || false,
+                isStart: false,
             },
             method: "POST",
             header: {
@@ -211,6 +211,17 @@ Page({
                     callback(res)
                 } else {
                     log("situation错误", res.data)
+                    wx.showModal({
+                        title: res.data.message,
+                        showCancel: false,
+                        confirmText: "确定",
+                        confirmColor: "#7878FF",
+                        success: function(res) {
+                            if (res.confirm) {
+                                //
+                            }
+                        }
+                    })
                 }
             },
             fail: function(err) {
@@ -251,7 +262,8 @@ Page({
         }
     },
     // 行程概览
-    initTrip(res) {
+    initTrip() {
+        let res = app.res
         let that = this
         let lineWidth = 315
         let getRatio = function(res) {
@@ -334,7 +346,9 @@ Page({
         })
     },
     // 出行建议
-    initSuggest(steps) {
+    initSuggest() {
+        let res = app.res
+        let steps = res.data.info.trafficData.steps
         let arr = []
         for (let e of steps) {
             // log(e.distance, e.action, e.road)
@@ -356,9 +370,15 @@ Page({
                 }
             }
         }
+        log('出行建议')
         this.setData({
             sugs: arr.slice(0, 5)
         })
+    },
+    bindSuggest() {
+        let start = [User.location.longitude, User.location.latitude].join(',')
+        let end = User.card.destination
+        this.init(start, end, true)
     },
     // 地图
     bindMap() {

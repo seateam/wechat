@@ -33,7 +33,7 @@
                     <text class="new-location"> 发现{{e.street}}</text>
                     <text class="new-time"> {{e.mins}}分钟前</text>
                 </view>
-                <image class="more" src="img/more.png" />
+                <image class="more" bindtap="bindMap" src="img/more.png" />
             </swiper-item>
         </block>
     </view>
@@ -43,7 +43,7 @@
 <view class="div trip">
     <view class="trip-top">
         <text class="trip-tittle"> 行程概览 </text>
-        <image src="img/iconMap.png" />
+        <image bindtap="bindMap" src="img/iconMap.png" />
     </view>
     <view class="trip-dot">
         <image src="img/dot.png" />
