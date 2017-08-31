@@ -54,7 +54,7 @@
     </view>
     <view class="trip-line">
         <block wx:for="{{lines}}" wx:for-item="e" wx:key="key">
-            <view wx:if="{{e.checked}}">
+            <view wx:if="{{e.checked}}" bindtap="bindLine">
                 <image class="big" style="left:{{e.x}}px" src="img/line/{{e.icon}}" />
                 <view class="trip-triangle" style="left:{{e.x}}px"></view>
                 <text class="trip-info">{{e.messgae}}</text>

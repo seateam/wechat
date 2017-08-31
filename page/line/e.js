@@ -76,24 +76,30 @@ Page({
           endS: "终点"
       },
       lines: [
-          {
-              x: 220,
-              icon: "iconHonglvdeng.png",
-              messgae: '枪响了',
-              checked: true,
-          },
-          {
-              x: 40,
-              icon: "iconHonglvdeng.png",
-              messgae: '天府二街发生车祸',
-              checked: false,
-          },
-          {
-              x: 90,
-              icon: "iconHonglvdeng.png",
-              messgae: '双拥路出现晚霞流光溢彩',
-              checked: false,
-          },
+        //   {
+        //       x: 220,
+        //       icon: "iconFenglu.png",
+        //       messgae: '枪响了',
+        //       checked: true,
+        //   },
+        //   {
+        //       x: 40,
+        //       icon: "iconWater.png",
+        //       messgae: '天府二街发生车祸',
+        //       checked: false,
+        //   },
+        //   {
+        //       x: 90,
+        //       icon: "iconHonglvdeng.png",
+        //       messgae: '双拥路出现晚霞流光溢彩',
+        //       checked: false,
+        //   },
+        //   {
+        //       x: 44,
+        //       icon: "iconHonglvdeng.png",
+        //       messgae: '123',
+        //       checked: false,
+        //   },
       ],
       jam: {
           "畅": {
@@ -179,7 +185,7 @@ Page({
             // 用户分享
             that.initJam()
             // 行程概览
-            // that.initTrip(res)
+            that.initTrip(res)
             // 出行建议
             that.initSuggest(res.data.info.trafficData.steps)
         }
@@ -278,8 +284,7 @@ Page({
             let arr = []
             for (var i = 0; i < dotArr.length; i++) {
                 let dot = dotArr[i]
-                // let point = dot.point
-                let point = [dot.tms.lon, dot.tms.lat].join(',')
+                let point = [dot.tms.longitude, dot.tms.latitude].join(',')
                 steps.forEach((step, i1) => {
                     step.tmcs.forEach((e, i2) => {
                         // 查找点是否在路径上 （后可扩大范围）
@@ -297,26 +302,32 @@ Page({
             return arr
         }
         let lines = []
-        let first = true
-        for (let e of getRatio(res)) {
+        // x 最小
+        let minX = 315
+        let minIndex = 0
+        let arr = getRatio(res)
+        for(let i = 0; i < arr.length; i++) {
+            let e = arr[i]
             let index = Number(e.reason.split(',')[0]) + 1
             let reason = lineIcon[index]
             // 判断info坐标
             if (e.x > 315 - 12) {
                 e.x = 315 - 12
             }
-            let checked = false
-            if (first) {
-                checked = true
-                first = false
+            if (e.x < minX) {
+                minX = e.x
+                minIndex = i
             }
             let o = {
                 messgae: e.street_number + '出现' + reason.text,
                 icon: reason.icon,
                 x: device(e.x),
-                checked: checked,
+                checked: false,
             }
             lines.push(o)
+        }
+        if (lines[minIndex]) {
+            lines[minIndex].checked = true
         }
         that.setData({
             lines: lines
@@ -367,11 +378,16 @@ Page({
         let arr = this.data.lines
         for(let i = 0; i < arr.length; i++) {
             let e = arr[i]
-            if (i === index) {
-                e.checked = true
-            } else {
+            if (index === undefined) {
                 e.checked = false
+            } else {
+                if (i === index) {
+                    e.checked = true
+                } else {
+                    e.checked = false
+                }
             }
+
         }
         this.setData({
             lines: arr
