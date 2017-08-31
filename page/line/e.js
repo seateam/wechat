@@ -357,7 +357,7 @@ Page({
             }
         }
         this.setData({
-            sugs: arr.slice(0, 3)
+            sugs: arr.slice(0, 5)
         })
     },
     // 地图

@@ -196,15 +196,34 @@ page {
     height: 72rpx;
 }
 
-
-
 /* 出行建议 */
-/*.suggest {
+.suggest {
     text-align: left;
     width: 100%;
-    height: 398rpx;
     padding-top: 30rpx;
     box-sizing: border-box;
+}
+.suggest-tittle {
+    font-size: 32rpx;
+    font-weight: bolder;
+    color: #343434;
+    flex: 0 0 550rpx;
+}
+.suggest-top {
+    display: flex;
+    justify-content: center;
+}
+.suggest-btn {
+    display: inline-flex;
+    align-items: flex-end;
+    justify-content: center;
+    font-size: 36rpx;
+    color: #648cff;
+}
+.suggest-btn image {
+    width: 32rpx;
+    height: 38rpx;
+    margin-left: 16rpx;
 }
 .sugs {
     display: flex;
@@ -239,4 +258,4 @@ page {
 }
 .sug:last-child text:last-child {
     display: none;
-}*/
+}

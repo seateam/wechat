@@ -67,9 +67,14 @@
 </view>
 
 <!-- 出行建议 -->
-<!-- <view class="suggest">
-    <text class="tittle"> 出行建议 </text>
-    <view class="btn btnHover" bindtap="bindSuggest"> 避堵 </view>
+<view class="div suggest">
+    <view class="suggest-top">
+        <text class="suggest-tittle"> 出行建议 </text>
+        <view class="suggest-btn" bindtap="bindSuggest">
+            <text> 避堵 </text>
+            <image src="img/refresh.png" />
+        </view>
+    </view>
     <view class="sugs">
         <block wx:for="{{sugs}}" wx:for-item="e" wx:key="key">
             <view class="sug">
@@ -83,7 +88,7 @@
             </view>
         </block>
     </view>
-</view> -->
+</view>
 
 <!-- 上报 -->
 <view class="share">
