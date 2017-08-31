@@ -12,6 +12,8 @@ Page({
         //
     },
     data: {
+        location_css: "",
+        name_css: 'display: none;',
         location: "定位中…",
         checked: 0,
         focus: false,
@@ -36,8 +38,16 @@ Page({
         result.origin = now
         result.myorigin = now
         result.street = User.location.street_number
+
         this.setData({
             location: result.street
+            name_css: $.css({
+                display: "none",
+
+            }),
+            location_css: $.css({
+
+            }),
         })
     },
     bindChoose: function() {

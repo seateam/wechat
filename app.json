@@ -1,11 +1,11 @@
 {
     "pages": [
         "page/index/e",
+        "page/addaddress/e",
+        "page/editaddress/e",
         "page/line/e",
         "page/report/e",
-        "page/map/e",
-        "page/editaddress/e",
-        "page/addaddress/e"
+        "page/map/e"
     ],
     "window": {
         "enablePullDownRefresh": true,
