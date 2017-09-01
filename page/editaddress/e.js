@@ -1,7 +1,6 @@
 const log = console.log.bind(console)
 const config = require('../../ku/js/config.js')
 const $ = require('../../ku/js/bigsea.js')
-const iconArr = ["original", "home", "office", "school", "market"]
 const result = {
     name: null,
     destination: null
@@ -12,19 +11,9 @@ Page({
         //
     },
     data: {
-        location: "定位中…",
-        checked: 0,
+        location: "正在定位…",
         name: "",
         focus: false,
-        icon: {
-            url: [
-                "iconOriginal.png",
-                "iconHome.png",
-                "iconOffice.png",
-                "iconSchool.png",
-                "iconMarket.png"
-            ]
-        }
     },
     onPullDownRefresh: function() {
         wx.stopPullDownRefresh()
@@ -40,16 +29,8 @@ Page({
         result.origin = now
         result.myorigin = now
         result.street = card.street
-        // 图标
-        let checked = 0
-        for (var i = 0; i < iconArr.length; i++) {
-            if (card.icon === iconArr[i]) {
-                checked = i
-            }
-        }
         this.setData({
             location: card.street,
-            checked: checked,
             name: card.name
         })
     },
@@ -77,8 +58,7 @@ Page({
         })
     },
     bindSave: function() {
-        let i = this.data.checked
-        result.icon = iconArr[i]
+        result.icon = "home"
         if (result.name) {
             let card =  User.cards[User.id]
             card.olddestination = card.destination
