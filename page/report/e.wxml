@@ -40,7 +40,8 @@ polyline 路线
             <view class="jam-btn">
                 <view wx:if="{{e.checked}}"
                     bindtap="bindJam"
-                    data-index="{{index}}">
+                    data-index="{{index}}"
+                    class="jam-btn-checked" >
                     <image src="img/1/{{e.icon}}" />
                     <text> {{e.text}} </text>
                 </view>
