@@ -13,7 +13,7 @@ Page({
     },
     data: {
         location_css: "",
-        name_css: 'display: none;',
+        name_css: "",
         location: "定位中…",
         checked: 0,
         focus: false,
@@ -40,13 +40,13 @@ Page({
         result.street = User.location.street_number
 
         this.setData({
-            location: result.street
+            location: result.street,
             name_css: $.css({
                 display: "none",
 
             }),
             location_css: $.css({
-
+                "margin-top": "438rpx",
             }),
         })
     },

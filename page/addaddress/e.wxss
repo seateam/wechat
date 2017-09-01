@@ -11,7 +11,7 @@
 }
 
 .location {
-    margin-top: 304rpx;
+
 }
 .location image {
     margin: 0 6rpx;
@@ -26,7 +26,7 @@
     /* 省略号 替代 */
     text-overflow: ellipsis;
 
-    color: rgb(255, 99, 61);
+    color: #9b9b9b;
 }
 
 .location-name {
@@ -41,11 +41,12 @@
 }
 
 .location-btn {
+    position: absolute;
+    bottom: 240rpx;
     display: flex;
     justify-content: center;
 
     width: 100%;
-    margin-top: 212rpx;
 }
 .location-btn .btn {
     display: flex;
@@ -59,14 +60,9 @@
     border-width: 1px;
     border-style: solid;
     background-color: white;
-}
-.location-btn .btn:nth-child(1) {
     border-color: #d8d8d8;
-    background-color: #FFF;
     color: #d8d8d8;
 }
-.location-btn .btn:nth-child(2) {
-    margin-left: 90rpx;
-    border-color: #648cff;
-    color: #648cff;
+.location-btn .btn:nth-child(1) {
+    margin-right: 90rpx;
 }

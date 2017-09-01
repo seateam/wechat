@@ -200,7 +200,7 @@ page {
 .suggest {
     text-align: left;
     width: 100%;
-    padding-top: 30rpx;
+    padding: 30rpx 0 20rpx;
     box-sizing: border-box;
 }
 .suggest-tittle {
