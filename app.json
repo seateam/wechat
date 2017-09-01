@@ -1,7 +1,7 @@
 {
     "pages": [
-        "page/report/e",
         "page/index/e",
+        "page/report/e",
         "page/addaddress/e",
         "page/editaddress/e",
         "page/line/e",

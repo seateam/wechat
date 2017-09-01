@@ -79,14 +79,13 @@
 .jam-btn-checked {
     color:  #FF633D;
 }
-.report button {
+.report {
     width: 368rpx;
     height: 88rpx;
     line-height: 88rpx;
     font-size: 36rpx;
     border-radius: 8rpx;
-    border-style: none;
-    border-color: #d8d8d8;
+    border: 2rpx solid #d8d8d8;
     color: #d8d8d8;
     background-color: white;
 }

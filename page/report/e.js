@@ -1,5 +1,6 @@
 const log = console.log.bind(console)
 const config = require('../../ku/js/config.js')
+const $ = require('../../ku/js/bigsea.js')
 const app = getApp()
 const User = {
     info: null,
@@ -36,6 +37,7 @@ Page({
         }
     },
     data: {
+        report_css: "",
         User: User,
         controls: [{
             id: 1,
@@ -82,7 +84,7 @@ Page({
         ],
         feel: ["畅","缓","慢","挤"],
         checked: {
-            feel: 0
+            feel: false,
         }
     },
     onLoad() {
@@ -97,9 +99,6 @@ Page({
         // 使用 wx.createMapContext 获取 map 上下文
         User.mapCtx = wx.createMapContext('topMap')
     },
-    onReady() {
-
-    },
     bindControls(e) {
         let that = this
         mapButton[e.controlId](that)
@@ -110,7 +109,11 @@ Page({
         let checked = that.data.checked
         checked.feel = i
         that.setData({
-            checked: checked
+            checked: checked,
+            report_css: $.css({
+                color: "#648cff",
+                "border-color": "#648cff",
+            }),
         })
     },
     bindJam(e) {
@@ -118,8 +121,24 @@ Page({
         let i = e.currentTarget.dataset.index
         let jam = that.data.jam
         jam[i].checked = !jam[i].checked
+        let bool = true
+        for (let e of jam) {
+            if (e.checked) {
+                bool = false
+            }
+        }
+        let report_css
+        if (bool && !that.data.checked.feel) {
+            report_css = ""
+        } else {
+            report_css = $.css({
+                "color": "#648cff",
+                "border-color": "#648cff",
+            })
+        }
         that.setData({
-            jam: jam
+            jam: jam,
+            report_css: report_css,
         })
     },
     bindSend(e) {
@@ -136,64 +155,66 @@ Page({
                 arr.push(i)
             }
         })
-        let reason = arr.join(',') || '-1'
-        let callback = function(res) {
-            if (res.data.code === 200) {
-                wx.showModal({
-                    title: '恭喜您，上报成功！',
-                    content: '豁然交通感谢您的支持，期待给您更好的服务☺',
-                    showCancel: false,
-                    confirmText: "知道了",
-                    confirmColor: "#7878FF",
-                    success: function(res) {
-                        if (res.confirm) {
-                            wx.reLaunch({
-                                url: "../index/e"
-                            })
-                        } else if (res.cancel) {
-                            console.log('点击取消')
+        let reason = arr.join(',') || false
+        if (that.data.checked.feel || reason) {
+            let callback = function(res) {
+                if (res.data.code === 200) {
+                    wx.showModal({
+                        title: '恭喜您，上报成功！',
+                        content: '豁然交通感谢您的支持，期待给您更好的服务☺',
+                        showCancel: false,
+                        confirmText: "知道了",
+                        confirmColor: "#7878FF",
+                        success: function(res) {
+                            if (res.confirm) {
+                                wx.reLaunch({
+                                    url: "../index/e"
+                                })
+                            } else if (res.cancel) {
+                                console.log('点击取消')
+                            }
                         }
-                    }
-                })
-            } else {
-                wx.showModal({
-                    content: '上传失败！',
-                    showCancel: false,
-                    confirmText: "重试",
-                    confirmColor: "#7878FF",
-                    success: function(res) {
-                        if (res.confirm) {
-                            console.log('上报失败！')
+                    })
+                } else {
+                    wx.showModal({
+                        content: '上传失败！',
+                        showCancel: false,
+                        confirmText: "重试",
+                        confirmColor: "#7878FF",
+                        success: function(res) {
+                            if (res.confirm) {
+                                console.log('上报失败！')
+                            }
                         }
-                    }
-                })
+                    })
+                }
             }
+            wx.request({
+                url: config.url + '/info/save',
+                data: {
+                    // 道路名称
+                    street_number: User.location.street_number,
+                    // 拥堵程度 1 - 4 数字
+                    traffic: that.data.checked.feel || 1,
+                    // 拥堵原因
+                    reason: reason,
+                    // 当前时间
+                    date: Date.now(),
+                    // 经纬度
+                    location: JSON.stringify(dot),
+                    // session
+                    user_id: User.info.session_key
+                },
+                method: "POST",
+                header: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "ucloudtech_3rd_key": User.info.session_key
+                },
+                success: callback,
+                fail: (err) => {
+                    log('/info/save', err)
+                }
+            })
         }
-        wx.request({
-            url: config.url + '/info/save',
-            data: {
-                // 道路名称
-                street_number: User.location.street_number,
-                // 拥堵程度 1 - 4 数字
-                traffic: that.data.checked.feel,
-                // 拥堵原因
-                reason: reason,
-                // 当前时间
-                date: Date.now(),
-                // 经纬度
-                location: JSON.stringify(dot),
-                // session
-                user_id: User.info.session_key
-            },
-            method: "POST",
-            header: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "ucloudtech_3rd_key": User.info.session_key
-            },
-            success: callback,
-            fail: (err) => {
-                log(err)
-            }
-        })
     }
 })

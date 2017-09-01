@@ -56,6 +56,6 @@ polyline 路线
      </view>
  </view>
 
- <view class="report">
-     <button bindtap="bindSend">上报路况</button>
+ <view class="report" bindtap="bindSend" style="{{report_css}}">
+     <text>上报路况</text>
  </view>
