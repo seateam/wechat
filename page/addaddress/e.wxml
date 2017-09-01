@@ -1,13 +1,13 @@
 <view class="location" bindtap="bindChoose" style="{{location_css}}">
     <image src="img/iocnLocation.png" />
-    <text> 你想去 </text>
+    <text> {{location}} </text>
 </view>
 <view class="location-name" style="{{name_css}}">
     <image src="img/iconName.png" />
-    <input bindblur="bindInputBlur" focus="{{focus}}" placeholder="你想去" placeholder-style="color:rgb(216, 216, 216)" />
+    <input bindblur="bindInputBlur" placeholder="取个名字吧，如：公司" placeholder-style="color:rgb(216, 216, 216)" />
 </view>
 
 <view class="location-btn">
     <view class="btn" > 删除 </view>
-    <view class="btn" bindtap="bindAdd"> 保存 </view>
+    <view class="btn" bindtap="bindAdd" style="{{btnSave_css}}" > 保存 </view>
 </view>

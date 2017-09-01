@@ -11,7 +11,8 @@
 }
 
 .location {
-
+    margin-top: 438rpx;
+    color: #9b9b9b;
 }
 .location image {
     margin: 0 6rpx;
@@ -25,12 +26,11 @@
     overflow: hidden;
     /* 省略号 替代 */
     text-overflow: ellipsis;
-
-    color: #9b9b9b;
 }
 
 .location-name {
-    margin-top: 150rpx;
+    display: none;
+    margin-top: 161rpx;
 }
 .location-name image {
     width: 56rpx;
