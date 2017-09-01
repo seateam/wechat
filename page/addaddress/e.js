@@ -1,10 +1,7 @@
 const log = console.log.bind(console)
 const config = require('../../ku/js/config.js')
 const $ = require('../../ku/js/bigsea.js')
-const result = {
-    name: null,
-    destination: null
-}
+let result = {}
 let User = {}
 Page({
     onReachBottom() {
@@ -21,6 +18,7 @@ Page({
         wx.stopPullDownRefresh()
     },
     onLoad: function() {
+        result = {}
         User.location = wx.getStorageSync('userLocation')
         let now = [User.location.longitude, User.location.latitude].join(',')
         // 目的地
@@ -55,7 +53,7 @@ Page({
         })
     },
     bindInputBlur: function(e) {
-        result.name = e.detail.value
+        result.name = e.detail.value || result.street
     },
     bindAdd: function() {
         let that = this
@@ -76,9 +74,7 @@ Page({
             //         }
             //     })
             // }
-            if (result.name === null) {
-                result.name = result.street
-            }
+            result.name = result.name || result.street
             result.jam = "畅"
             result.km = '0'
             result.time = '0'
