@@ -4,64 +4,57 @@ controls 按钮
 markers 标记
 polyline 路线
  -->
- <!-- <view class="box"> -->
-     <button id="share"
-        plain
-        open-type="share" >
-        <image src="img/iconShare.png" />
-     </button>
-     <map id="topMap"
-        latitude="{{User.location.latitude}}"
-        longitude="{{User.location.longitude}}"
-        scale="16"
-        show-location
-        controls="{{controls}}"
-        bindcontroltap="bindControls"
-     />
+ <map id="topMap"
+    latitude="{{User.location.latitude}}"
+    longitude="{{User.location.longitude}}"
+    scale="16"
+    show-location
+    controls="{{controls}}"
+    bindcontroltap="bindControls"
+ />
 
-     <view class="feel">
-         <text class="title"> 驾驶体验 </text>
-         <view class="feel-box">
-             <block wx:for="{{feel}}" wx:key="key" >
-                <view wx:if="{{checked.feel === index}}"
-                    class="feel-btn feel-btn-checked"
-                    bindtap="bindFeel"
-                    data-index="{{index}}" >
-                    {{item}}
+ <view class="feel">
+     <text class="title"> 驾驶体验 </text>
+     <view class="feel-box">
+         <block wx:for="{{feel}}" wx:key="key" >
+            <view wx:if="{{checked.feel === index}}"
+                class="feel-btn feel-btn-checked"
+                bindtap="bindFeel"
+                data-index="{{index}}" >
+                {{item}}
+            </view>
+            <view wx:else
+                class="feel-btn"
+                bindtap="bindFeel"
+                data-index="{{index}}" >
+                {{item}}
+            </view>
+         </block>
+     </view>
+ </view>
+
+ <view class="jam">
+     <text class="title"> 堵车原因 </text>
+     <view class="jam-box">
+        <block wx:for="{{jam}}" wx:for-item="e" wx:key="key">
+            <view class="jam-btn">
+                <view wx:if="{{e.checked}}"
+                    bindtap="bindJam"
+                    data-index="{{index}}">
+                    <image src="img/1/{{e.icon}}" />
+                    <text> {{e.text}} </text>
                 </view>
                 <view wx:else
-                    class="feel-btn"
-                    bindtap="bindFeel"
-                    data-index="{{index}}" >
-                    {{item}}
+                    bindtap="bindJam"
+                    data-index="{{index}}">
+                    <image src="img/0/{{e.icon}}" />
+                    <text> {{e.text}} </text>
                 </view>
-             </block>
-         </view>
+            </view>
+        </block>
      </view>
+ </view>
 
-     <view class="jam">
-         <text class="title"> 堵车原因 </text>
-         <view class="jam-box">
-            <block wx:for="{{jam}}" wx:for-item="e" wx:key="key">
-                <view class="jam-btn">
-                    <view wx:if="{{e.checked}}"
-                        bindtap="bindJam"
-                        data-index="{{index}}">
-                        <image src="img/1/{{e.icon}}" />
-                        <text> {{e.text}} </text>
-                    </view>
-                    <view wx:else
-                        bindtap="bindJam"
-                        data-index="{{index}}">
-                        <image src="img/0/{{e.icon}}" />
-                        <text> {{e.text}} </text>
-                    </view>
-                </view>
-            </block>
-         </view>
-     </view>
-
-     <view class="report">
-         <button bindtap="bindSend">上报路况</button>
-     </view>
- <!-- </view> -->
+ <view class="report">
+     <button bindtap="bindSend">上报路况</button>
+ </view>

@@ -2,21 +2,6 @@
     height: 300rpx;
     width: 100%;
 }
-#share {
-    position: absolute;
-    top: 300rpx;
-    right: 0;
-    font-size: 0;
-    padding: 0;
-    border-radius: 0;
-    border-style: none;
-    overflow: auto;
-    padding: 40rpx;
-}
-#share image {
-    width: 36rpx;
-    height: 36rpx;
-}
 .feel, .jam {
     width: 100%;
     text-align: left;
@@ -95,9 +80,10 @@
     width: 368rpx;
     height: 88rpx;
     line-height: 88rpx;
-    color: white;
     font-size: 36rpx;
     border-radius: 8rpx;
     border-style: none;
-    background-color: rgb(120, 120, 255);
+    border-color: #d8d8d8;
+    color: #d8d8d8;
+    background-color: white;
 }

@@ -1,10 +1,10 @@
 {
     "pages": [
+        "page/report/e",
         "page/index/e",
         "page/addaddress/e",
         "page/editaddress/e",
         "page/line/e",
-        "page/report/e",
         "page/map/e"
     ],
     "window": {
