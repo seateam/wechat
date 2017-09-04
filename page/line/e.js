@@ -248,13 +248,13 @@ Page({
                 if ((uname + sname).length < 16) {
                     sname += '\n'
                 }
-                arr.push({
-                    user: uname,
-                    street: sname,
-                    mins: mins
-                })
+                e.user = uname
+                e.street = sname
+                e.mins = mins
+                arr.push(e)
             }
         }
+        app.around = points
         if (arr.length) {
             this.setData({
                 arounds: arr

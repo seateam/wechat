@@ -12,21 +12,24 @@ let User = {}
 let db = {
     myAmapFun: null, // 高德API实例
     mapCtx: null,    // 地图实例
-    markers: [{
-        iconPath: 'img/iconQi.png',
-        id: 0,
-        latitude:  null,
-        longitude: null,
-        width: device(30),
-        height: device(38)
-    }, {
-        iconPath: 'img/iconZhong.png',
-        id: 1,
-        latitude: null,
-        longitude: null,
-        width: device(30),
-        height: device(38)
-    }],
+    markers: [
+        {
+            iconPath: 'img/iconQi.png',
+            id: 0,
+            latitude:  null,
+            longitude: null,
+            width: device(30),
+            height: device(38)
+        },
+        {
+            iconPath: 'img/iconZhong.png',
+            id: 1,
+            latitude: null,
+            longitude: null,
+            width: device(30),
+            height: device(38)
+        },
+    ],
     controls: [
         {
             id: 1,
@@ -77,9 +80,11 @@ let db = {
 }
 // 地图按钮事件
 const mapButton = {
+    // 回到当前位置
     1: function() {
         db.mapCtx.moveToLocation()
     },
+    // 路线纵览
     2: function(that) {
         // wx.redirectTo({
         //   url: '../../pages/index/e'
@@ -88,7 +93,20 @@ const mapButton = {
             padding: [device(58), device(20), device(92), device(20)],
             points: that.data.markers
         })
-    }
+    },
+    // 上报
+    3: function() {
+        wx.navigateTo({
+            url: "../report/e"
+        })
+    },
+    // 待定
+    4: function() {
+        // <button id="share" plain open-type="share" >
+        //    <image src="img/iconShare.png" />
+        // </button>
+        db.mapCtx.moveToLocation()
+    },
 }
 // 曲线图标
 const lineIcon = [
@@ -169,6 +187,9 @@ Page({
             let res = app.res
             // around
             let dot = app.around
+            let callout = function(i) {
+                return i.nickName + ' 发现' + i.street + i.mins + '分钟前'
+            }
             if (res) {
                 var points = [];
                 // 路线
@@ -219,12 +240,14 @@ Page({
                         width: device(44),
                         height: device(50),
                         callout: {
+                            // ALWAYS
                             display: 'BYCLICK',
-                            borderRadius: 5,
-                            padding: 8,
-                            bgColor: '#333',
-                            content: '上报用户：大海\r\n地址：移动互联网创业大厦\r\n路况：拥堵\r\n时间：30分钟前',
-                            color: '#FFF',
+                            borderRadius: device(5),
+                            fontSize: device(18),
+                            padding: device(16),
+                            bgColor: '#FFFFFF',
+                            content: callout(i),
+                            color: '#343434',
                         },
                     })
                 }
