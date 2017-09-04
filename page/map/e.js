@@ -27,27 +27,53 @@ let db = {
         width: device(30),
         height: device(38)
     }],
-    controls: [{
+    controls: [
+        {
             id: 1,
             iconPath: 'img/iconRelocation.png',
             clickable: true,
             position: {
-                left: device(10),
-                top: device(603 - 40 - 31.5),
-                width: device(40),
-                height: device(40)
+                left: device(16),
+                top: device(603 - 36 - 92),
+                width: device(36),
+                height: device(36)
             }
-        }, {
+        },
+        {
             id: 2,
             iconPath: 'img/invalidName.png',
             clickable: true,
             position: {
-                left:device(375 / 2 - 25.5),
-                top: device(603 - 59 - 21),
-                width:  device(59),
-                height: device(59)
+                // left:device(375 / 2 - 25.5),
+                left:device(16),
+                top: device(603 - 36 - 30),
+                width:  device(36),
+                height: device(36)
             }
-        }]
+        },
+        {
+            id: 3,
+            iconPath: '../index/img/iconShangbao.png',
+            clickable: true,
+            position: {
+                left:device(375 / 2 - 25.5),
+                top: device(603 - 53 - 21),
+                width:  device(53),
+                height: device(53)
+            }
+        },
+        {
+            id: 4,
+            iconPath: 'img/iconShare.png',
+            clickable: true,
+            position: {
+                left: device(375 - 36 - 16),
+                top: device(603 - 36 - 30),
+                width:  device(36),
+                height: device(36),
+            }
+        },
+    ]
 }
 // 地图按钮事件
 const mapButton = {
@@ -120,11 +146,6 @@ Page({
         User.card = User.cards[option.id]
         this.init()
     },
-    onReady: function () {
-        // 使用 wx.createMapContext 获取 map 上下文
-        db.mapCtx = wx.createMapContext('navi_map')
-        this.bindMarks()
-    },
     init: function() {
         let that = this
         db.myAmapFun = new amapFile.AMapWX({
@@ -136,9 +157,10 @@ Page({
         if (User.card.start) {
             now = User.card.start
         }
-
+        // 起
         db.markers[0].longitude = Number(now.split(',')[0])
         db.markers[0].latitude = Number(now.split(',')[1])
+        // 终
         db.markers[1].longitude = Number(end.split(',')[0])
         db.markers[1].latitude = Number(end.split(',')[1])
         // 路径
@@ -211,6 +233,11 @@ Page({
                 })
             }
         }()
+    },
+    onReady: function () {
+        // 使用 wx.createMapContext 获取 map 上下文
+        db.mapCtx = wx.createMapContext('navi_map')
+        this.bindMarks()
     },
     bindMarks: function() {
         mapButton[2](this)

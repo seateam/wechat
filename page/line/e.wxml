@@ -19,7 +19,7 @@
     duration="300" >
     <view wx:if="{{arounds.length === 0}}">
         <swiper-item>
-            <view class="btn">
+            <view class="btn" bindtap="bindReport" >
                 用户分享路况 +
             </view>
         </swiper-item>
