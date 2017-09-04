@@ -18,14 +18,9 @@
     height: 56rpx;
 }
 .location text {
-    /* 禁止 换行 */
     white-space: nowrap;
-    /* 隐藏 超出部分 */
     overflow: hidden;
-    /* 省略号 替代 */
     text-overflow: ellipsis;
-
-    color: rgb(255, 99, 61);
 }
 
 .location-name {
@@ -60,12 +55,11 @@
     background-color: white;
 }
 .location-btn .btn:nth-child(1) {
-    border-color: #D9534F;
-    background-color: #FFF;
-    color: #D9534F;
+    border-color:rgb(233, 88, 92);
+    color: rgb(233, 88, 92);
 }
 .location-btn .btn:nth-child(2) {
     margin-left: 90rpx;
-    border-color: #648cff;
-    color: #648cff;
+    border-color: rgb(100, 140, 255);
+    color: rgb(100, 140, 255);
 }
