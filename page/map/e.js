@@ -65,17 +65,17 @@ let db = {
                 height: device(53)
             }
         },
-        {
-            id: 4,
-            iconPath: 'img/iconShare.png',
-            clickable: true,
-            position: {
-                left: device(375 - 36 - 16),
-                top: device(603 - 36 - 30),
-                width:  device(36),
-                height: device(36),
-            }
-        },
+        // {
+        //     id: 4,
+        //     iconPath: 'img/iconShare.png',
+        //     clickable: true,
+        //     position: {
+        //         left: device(375 - 36 - 16),
+        //         top: device(603 - 36 - 30),
+        //         width:  device(36),
+        //         height: device(36),
+        //     }
+        // },
     ]
 }
 // 地图按钮事件

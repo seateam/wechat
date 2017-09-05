@@ -90,7 +90,7 @@
     </view>
 </view>
 
-<!-- 上报 -->
-<view class="share">
+<!-- 分享 -->
+<!-- <view class="share">
     <image bindtap="bindShare" src="../index/img/iconShare.png" />
-</view>
+</view> -->
