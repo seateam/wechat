@@ -7,7 +7,7 @@ const deviceInfo = wx.getSystemInfoSync().windowWidth
 const device = function(number) {
     return number * 2 * deviceInfo / 750
 }
-const zeroReason = ["出现拥堵", "出现交通事故", "积水", "封路", "正在施工", "道路故障", "出现不文明驾驶"]
+const zeroReason = ["出现拥堵", "出现交通事故", "有积水", "封路", "正在施工", "道路故障", "出现不文明驾驶"]
 // 直线图标
 const lineIcon = [
     {
@@ -241,9 +241,9 @@ Page({
                 uname = uname.slice(0, 5) +  '...'
             }
             for (let i of reasons) {
-                let sname = e.street_number + '有' + zeroReason[Number(i) + 1]
+                let sname = e.street_number + zeroReason[Number(i) + 1]
                 if (sname.length > 19) {
-                    sname = uname.slice(0, 19) +  '...'
+                    sname = sname.slice(0, 19) +  '...'
                 }
                 if ((uname + sname).length < 16) {
                     sname += '\n'
