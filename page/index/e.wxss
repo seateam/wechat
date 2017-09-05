@@ -128,20 +128,19 @@ page {
 .card .name {
     margin-top: 40rpx;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     z-index: 1;
 }
 .name image {
-    padding: 0 32rpx 0 48rpx;
+    position: absolute;
+    top: 7rpx;
+    left: 8rpx;
+    padding: 40rpx;
 }
 .name text {
-    width: 400rpx;
-    /* 禁止 换行 */
     white-space: nowrap;
-    /* 隐藏 超出部分 */
     overflow: hidden;
-    /* 省略号 替代 */
     text-overflow: ellipsis;
 }
 .more {

@@ -186,7 +186,7 @@ Page({
             // res
             let res = app.res
             // around
-            let dot = app.around
+            let dot = res.data.points
             let callout = function(i) {
                 return i.nickName + ' 发现' + i.street + i.mins + '分钟前'
             }
