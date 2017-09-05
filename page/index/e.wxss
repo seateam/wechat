@@ -126,11 +126,12 @@ page {
     height: 40rpx;
 }
 .card .name {
-    margin-top: 40rpx;
+    margin: 40rpx auto 0;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1;
+    width: 412rpx;
 }
 .name image {
     position: absolute;
