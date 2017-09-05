@@ -272,11 +272,12 @@ Page({
             let points = res.data.around
             let arr = []
             for (let e of points) {
-                let name = e.street_number
+                let street = e.street_number
                 let reasons = e.reason.split(',')
                 for (let i of reasons) {
                     arr.push({
-                        street: name,
+                        name: e.nickName,
+                        street: "发现" + street,
                         status: zeroReason[Number(i) + 1]
                     })
                 }

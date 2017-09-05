@@ -94,18 +94,19 @@ page {
     padding-bottom: 28rpx;
     border-bottom: 2rpx solid #d8d8d8;
 }
-.smooth, .share {
-}
 .share-box text, .smooth-box text {
     vertical-align: middle;
 
-    display: inline-block;
-    width:calc(100% - 28rpx);
     font-size: 30rpx;
-    color: #343434;
 }
 .share + .share, .smooth + .smooth {
     margin-top: 18rpx;
+}
+.share_name {
+    color: #424BA4;
+}
+.share_msg {
+    color: #343434;
 }
 
 /* 卡片 */

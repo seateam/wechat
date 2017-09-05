@@ -35,7 +35,8 @@
                         <block wx:for="{{share}}" wx:for-item="e" wx:key="key">
                             <view class="share">
                                 <view class="circle"></view>
-                                <text> {{e.street}}{{e.status}} </text>
+                                <text class="share_name">{{e.name}} </text>
+                                <text class="share_msg">{{e.street}}{{e.status}}</text>
                             </view>
                         </block>
                     </view>
