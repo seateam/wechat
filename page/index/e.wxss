@@ -94,6 +94,9 @@ page {
     padding-bottom: 28rpx;
     border-bottom: 2rpx solid #d8d8d8;
 }
+.smooth-box {
+    color: #343434;
+}
 .share-box text, .smooth-box text {
     vertical-align: middle;
 
