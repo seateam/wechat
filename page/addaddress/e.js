@@ -86,7 +86,7 @@ Page({
                 method: "POST",
                 header: {
                     "Content-Type": "application/json",
-                    "ucloudtech_3rd_key": wx.getStorageSync('userInfo').session_key
+                    "ucloudtechkey": wx.getStorageSync('userInfo').session_key
                 },
                 success: function(res) {
                     if (res.data.code === 200) {

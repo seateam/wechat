@@ -208,7 +208,7 @@ Page({
                 method: "POST",
                 header: {
                     "Content-Type": "application/x-www-form-urlencoded",
-                    "ucloudtech_3rd_key": User.info.session_key
+                    "ucloudtechkey": User.info.session_key
                 },
                 success: callback,
                 fail: (err) => {

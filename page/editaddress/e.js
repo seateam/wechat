@@ -72,7 +72,7 @@ Page({
                 method: "POST",
                 header: {
                     "Content-Type": "application/json",
-                    "ucloudtech_3rd_key": wx.getStorageSync('userInfo').session_key
+                    "ucloudtechkey": wx.getStorageSync('userInfo').session_key
                 },
                 success: (res) => {
                     // 保存
@@ -108,7 +108,7 @@ Page({
                         method: "POST",
                         header: {
                             "Content-Type": "application/json",
-                            "ucloudtech_3rd_key": wx.getStorageSync('userInfo').session_key
+                            "ucloudtechkey": wx.getStorageSync('userInfo').session_key
                         },
                         success: (res) => {
                             if (res.data.code === 200) {

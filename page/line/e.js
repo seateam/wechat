@@ -204,7 +204,7 @@ Page({
             method: "POST",
             header: {
                 "Content-Type": "application/json",
-                "ucloudtech_3rd_key": User.info.session_key
+                "ucloudtechkey": User.info.session_key
             },
             success: function(res) {
                 if (Number(res.data.code) === 200) {

@@ -176,7 +176,7 @@ Page({
                 method: "POST",
                 header: {
                     "Content-Type": "application/json",
-                    "ucloudtech_3rd_key": User.info.session_key
+                    "ucloudtechkey":User.info.session_key,
                 },
                 success: callback,
                 fail: function(err) {
@@ -301,7 +301,7 @@ Page({
             method: "POST",
             header: {
                 "Content-Type": "application/json",
-                "ucloudtech_3rd_key": User.info.session_key
+                "ucloudtechkey": User.info.session_key
             },
             success: callback,
             fail: function(err) {
